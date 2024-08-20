@@ -1,0 +1,4 @@
+.wrapper {
+    background-color: $main_background_color;
+    @include flex(center, center, row);
+}
