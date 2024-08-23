@@ -1,5 +1,7 @@
 import type { ReactElement } from 'react';
 
+// import './globals.css';
+
 import styles from './style.module.scss';
 
 const Home = (): ReactElement => {
