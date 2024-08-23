@@ -15,6 +15,7 @@ const initData = `{
 
 const CodeMirrorComp = ({ setResponse }: { setResponse: Dispatch<SetStateAction<object>> }): ReactElement | null => {
   const [value, setValue] = useState(initData);
+
   const onChange = useCallback(
     (val: string) => {
       setValue(val);

@@ -1,13 +1,12 @@
-import type { ReactElement } from 'react';
+import { type ReactElement } from 'react';
 
-// import './globals.css';
-
-import styles from './style.module.scss';
+import Test from '@/components/Test/Test';
 
 const Home = (): ReactElement => {
   return (
-    <main className={styles.wrapper}>
-      <h1>Hell</h1>
+    <main>
+      <h1>Home</h1>
+      <Test />
     </main>
   );
 };

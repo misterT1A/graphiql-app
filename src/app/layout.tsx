@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 
 import Header from '@/components/Header/Header';
 
-import './globals.css';
+import '../styles/globals.css';
 
 import Providers from './providers';
 
