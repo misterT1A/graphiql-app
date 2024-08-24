@@ -1,7 +1,12 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import '../styles/_normalize.scss';
 import type { ReactElement } from 'react';
+
+import Header from '@/components/Header/Header';
+
+import '../styles/globals.css';
+
+import Providers from './providers';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,8 +21,15 @@ const RootLayout = ({
   children: React.ReactNode;
 }>): ReactElement => {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning={true}>
+      <body className={inter.className}>
+        <Providers>
+          <>
+            <Header />
+            {children}
+          </>
+        </Providers>
+      </body>
     </html>
   );
 };
