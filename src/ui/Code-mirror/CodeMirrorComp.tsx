@@ -13,10 +13,7 @@ const initData = `{
   }
 }`;
 
-const CodeMirrorComp = ({
-  setResponse,
-  size,
-}: {
+const CodeMirrorComp = (props: {
   setResponse: Dispatch<SetStateAction<object>>;
   size: { width: string; height: string };
 }): ReactElement | null => {
@@ -34,12 +31,12 @@ const CodeMirrorComp = ({
           .replace(/'/g, '"');
 
         const parsedValue = JSON.parse(validJsonString);
-        setResponse(parsedValue);
+        props.setResponse(parsedValue);
       } catch (e) {
         console.log('Error parsing JSON:', e);
       }
     },
-    [setResponse],
+    [props],
   );
 
   const { theme } = useTheme();
@@ -48,8 +45,8 @@ const CodeMirrorComp = ({
     <div className="border border-black rounded-[5px] inline-block overflow-hidden">
       <CodeMirror
         value={value}
-        width={size.width}
-        height={size.height}
+        width={props.size.width}
+        height={props.size.height}
         extensions={[javascript({ jsx: true })]}
         onChange={onChange}
         theme={theme === 'dark' ? githubDark : githubLight}

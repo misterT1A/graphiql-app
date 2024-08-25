@@ -1,26 +1,17 @@
-import type { RestAPI } from '@/types/types';
-import { numberToMatrix } from '@/utils/number-to-matrix';
+import type { FormRestType, RestAPI } from '@/types/types';
 
 export function API(): RestAPI {
   const getData = async (
-    inputData: { [key: string]: string },
-    headersCount: number,
+    inputData: FormRestType,
+    headers: { [key: string]: string },
     bodyData: object,
   ): Promise<Response | unknown> => {
     console.log(bodyData); //DEBUG
 
-    const keysArray: string[][] = numberToMatrix(headersCount);
-
-    for (const key in inputData) {
-      if (key.split('-')[0] === 'header') {
-        keysArray[+key.split('-')[2] - 1].push(inputData[key]);
-      }
-    }
-
     try {
       const resp = await fetch(inputData.endpoint, {
         method: inputData.method,
-        headers: Object.fromEntries(keysArray),
+        headers: headers,
       });
       return resp.json();
     } catch (error) {
