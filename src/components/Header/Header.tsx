@@ -10,16 +10,16 @@ import {
   Link,
   Button,
 } from '@nextui-org/react';
-import { usePathname } from 'next/navigation';
 import { useEffect, useState, type ReactElement } from 'react';
 
+import { usePathnameIntl } from '@/navigation';
 import LangDropDownt from '@/ui/lang-dropdown/LangDropDownt';
 import ThemTogler from '@/ui/switch/Switch';
 
 const Header = (): ReactElement => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const pathname = usePathname();
+  const pathname = usePathnameIntl();
 
   const menuItems = [
     { name: 'Home', href: '/' },
