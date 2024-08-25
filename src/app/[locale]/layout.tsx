@@ -1,7 +1,6 @@
 import '@/styles/globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import type { ReactElement } from 'react';
 
@@ -29,12 +28,10 @@ const RootLayout = async ({
   return (
     <html lang={locale} suppressHydrationWarning={true}>
       <body className={inter.className}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <Providers>
-            <Header />
-            {children}
-          </Providers>
-        </NextIntlClientProvider>
+        <Providers locale={locale} messages={messages}>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );
