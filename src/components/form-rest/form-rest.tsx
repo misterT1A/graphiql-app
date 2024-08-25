@@ -1,6 +1,6 @@
 'use client';
 
-// import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import type { SetStateAction } from 'react';
 import { useState, type ReactNode } from 'react';
@@ -11,7 +11,7 @@ import { API } from '@/services/API';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import ResponseView from '@/ui/Response-view/ResponseView';
-// import { schema } from '@/validation/schema';
+import { schema } from '@/validation/schema';
 
 const headerEmpty = { key: '', value: '' };
 
@@ -23,7 +23,7 @@ export default function FormRest(): ReactNode {
     formState: { errors },
   } = useForm<FormRestType>({
     mode: 'onChange',
-    // resolver: zodResolver(schema),
+    resolver: zodResolver(schema),
     defaultValues: {
       headers: [headerEmpty],
     },
@@ -42,6 +42,7 @@ export default function FormRest(): ReactNode {
     const headers: { [key: string]: string } = {};
     data.headers.forEach((value) => (headers[value.key] = value.value));
 
+    // output object for queryParams
     console.log({
       method: data.method,
       endpoint: data.endpoint,
@@ -53,6 +54,8 @@ export default function FormRest(): ReactNode {
     const resp = await API().getData(data, headers, bodyData);
     setResponse(resp as SetStateAction<object | null>);
   };
+
+  console.log(errors);
 
   return (
     <div className="flex flex-col items-center p-10 gap-10">
@@ -68,11 +71,11 @@ export default function FormRest(): ReactNode {
                 );
               })}
             </Select>
-            <p>{errors.method?.message}</p>
+            <p className="text-red-500 text-center">{errors.method?.message}</p>
           </div>
           <div className="w-full">
             <Input type="text" label="Endpoint URL" {...register('endpoint')} className="w-full" />
-            <p>{errors.endpoint?.message}</p>
+            <p className="text-red-500 text-center">{errors.endpoint?.message}</p>
           </div>
         </div>
         <div className="flex w-full justify-between items-center">
@@ -89,16 +92,22 @@ export default function FormRest(): ReactNode {
         <div className="flex flex-col gap-2 w-full">
           {fields.map((item, index) => (
             <div key={item.id} className="flex gap-5">
-              <Input type="text" label="Header value" {...register(`headers.${index}.key` as const)} />
-              <Input type="text" label="Header key" {...register(`headers.${index}.value` as const)} />
+              <div>
+                <Input type="text" label="Header value" {...register(`headers.${index}.key` as const)} />
+                <p className="text-red-500 text-center">{errors.headers && errors.headers[index]?.key?.message}</p>
+              </div>
+              <div>
+                <Input type="text" label="Header key" {...register(`headers.${index}.value` as const)} />
+                <p className="text-red-500 text-center">{errors.headers && errors.headers[index]?.value?.message}</p>
+              </div>
             </div>
           ))}
         </div>
         <div className="flex flex-col gap-5 w-full">
           <p>Body: </p>
           <CodeMirrorComp setResponse={setBodyData} size={{ width: '100%', height: '100px' }} />
-          <Input type="hidden" value={JSON.stringify(bodyData)} {...register('body')} />
-          <p>{errors.body?.message}</p>
+          {/* <Input type="text" value={JSON.stringify(bodyData)} onInput={setBodyData} {...register('body')} />
+          <p>{errors.body?.message}</p> */}
         </div>
 
         <Button size="lg" type="submit" disabled={Boolean(Object.keys(errors).length)}>
