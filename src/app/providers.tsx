@@ -17,11 +17,12 @@ type ProviderProps = {
 const Providers = ({ children, locale, messages }: ProviderProps): ReactNode => {
   const router = useRouterIntl();
   const [mounted, setMounted] = useState(false);
+  const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
 
   useEffect(() => setMounted(true), []);
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={messages} timeZone={timeZone}>
       <NextUIProvider navigate={router.push}>
         {mounted ? (
           <NextThemesProvider attribute="class" defaultTheme="light">
