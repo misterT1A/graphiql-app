@@ -13,7 +13,13 @@ const initData = `{
   }
 }`;
 
-const CodeMirrorComp = ({ setResponse }: { setResponse: Dispatch<SetStateAction<object>> }): ReactElement | null => {
+const CodeMirrorComp = ({
+  setResponse,
+  size,
+}: {
+  setResponse: Dispatch<SetStateAction<object>>;
+  size: { width: string; height: string };
+}): ReactElement | null => {
   const [value, setValue] = useState(initData);
 
   const onChange = useCallback(
@@ -42,8 +48,8 @@ const CodeMirrorComp = ({ setResponse }: { setResponse: Dispatch<SetStateAction<
     <div className="border border-black rounded-[5px] inline-block overflow-hidden">
       <CodeMirror
         value={value}
-        width="400px"
-        height="200px"
+        width={size.width}
+        height={size.height}
         extensions={[javascript({ jsx: true })]}
         onChange={onChange}
         theme={theme === 'dark' ? githubDark : githubLight}
