@@ -8,9 +8,7 @@ import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState, type ReactElement } from 'react';
 
 const initData = `{
-  query: {
-    
-  }
+
 }`;
 
 const CodeMirrorComp = (props: {
