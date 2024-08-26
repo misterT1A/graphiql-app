@@ -2,12 +2,10 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
-import type { SetStateAction } from 'react';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { TEXT_CONTENT } from '@/constants/constants';
-import { API } from '@/services/API';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import ResponseView from '@/ui/Response-view/ResponseView';
@@ -15,7 +13,7 @@ import { schema } from '@/validation/schema';
 
 const headerEmpty = { key: '', value: '' };
 
-export default function FormRest(): ReactNode {
+export default function FormRest(props: { response: object | null }): ReactNode {
   const {
     register,
     control,
@@ -37,7 +35,6 @@ export default function FormRest(): ReactNode {
   const [bodyData, setBodyData] = useState<object | null>({
     query: {},
   });
-  const [response, setResponse] = useState<object | null>(null);
 
   const submit = async (data: FormRestType): Promise<void> => {
     const headers: { [key: string]: string } = {};
@@ -51,9 +48,9 @@ export default function FormRest(): ReactNode {
       body: bodyData,
     });
 
-    // lines below could be deleted after server side will be implemented
-    const resp = await API().getData(data, headers, bodyData!);
-    setResponse(resp as SetStateAction<object | null>);
+    // example of API calling and response rendering
+    // const resp = await API().getData(data, headers, bodyData!);
+    // setResponse(resp as SetStateAction<object | null>);
   };
 
   useEffect(() => {
@@ -117,7 +114,7 @@ export default function FormRest(): ReactNode {
           Submit
         </Button>
       </form>
-      {response && <ResponseView response={response} styles="w-7/12 h-96" />}
+      {props.response && <ResponseView response={props.response} styles="w-7/12 h-96" />}
     </div>
   );
 }
