@@ -33,7 +33,7 @@ const CodeMirrorComp = (props: {
         const parsedValue = JSON.parse(validJsonString);
         props.setResponse(parsedValue);
       } catch (e) {
-        console.log('Error parsing JSON:', e);
+        props.setResponse(null as unknown as SetStateAction<object>);
       }
     },
     [props],

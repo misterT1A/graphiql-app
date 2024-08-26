@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import type { SetStateAction } from 'react';
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { TEXT_CONTENT } from '@/constants/constants';
@@ -21,6 +21,7 @@ export default function FormRest(): ReactNode {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<FormRestType>({
     mode: 'onChange',
     resolver: zodResolver(schema),
@@ -33,7 +34,7 @@ export default function FormRest(): ReactNode {
     control,
   });
 
-  const [bodyData, setBodyData] = useState<object>({
+  const [bodyData, setBodyData] = useState<object | null>({
     query: {},
   });
   const [response, setResponse] = useState<object | null>(null);
@@ -51,11 +52,13 @@ export default function FormRest(): ReactNode {
     });
 
     // lines below could be deleted after server side will be implemented
-    const resp = await API().getData(data, headers, bodyData);
+    const resp = await API().getData(data, headers, bodyData!);
     setResponse(resp as SetStateAction<object | null>);
   };
 
-  console.log(errors);
+  useEffect(() => {
+    setValue('body', JSON.stringify(bodyData));
+  }, [bodyData, setValue]);
 
   return (
     <div className="flex flex-col items-center p-10 gap-10">
@@ -106,11 +109,11 @@ export default function FormRest(): ReactNode {
         <div className="flex flex-col gap-5 w-full">
           <p>Body: </p>
           <CodeMirrorComp setResponse={setBodyData} size={{ width: '100%', height: '100px' }} />
-          {/* <Input type="text" value={JSON.stringify(bodyData)} onInput={setBodyData} {...register('body')} />
-          <p>{errors.body?.message}</p> */}
+          <Input type="hidden" {...register('body')} />
+          <p className="text-red-500 text-center">{errors.body?.message}</p>
         </div>
 
-        <Button size="lg" type="submit" disabled={Boolean(Object.keys(errors).length)}>
+        <Button size="lg" type="submit">
           Submit
         </Button>
       </form>
@@ -118,4 +121,3 @@ export default function FormRest(): ReactNode {
     </div>
   );
 }
-
