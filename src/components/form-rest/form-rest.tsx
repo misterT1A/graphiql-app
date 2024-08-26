@@ -60,12 +60,12 @@ export default function FormRest(props: { response: object | null }): ReactNode 
   return (
     <div className="flex flex-col items-center p-10 gap-10">
       <form onSubmit={handleSubmit(submit)} className="flex flex-col items-center gap-5 w-7/12">
-        <div className="flex justify-between w-full gap-5">
-          <div className="w-40">
+        <div className="flex justify-between w-full gap-2">
+          <div>
             <Select
               label="Method"
               {...register('method')}
-              className="w-full text-center"
+              className="w-[105px] text-center"
               isInvalid={Boolean(errors.method)}
               errorMessage={errors.method?.message}
             >
@@ -88,21 +88,24 @@ export default function FormRest(props: { response: object | null }): ReactNode 
               errorMessage={errors.endpoint?.message}
             />
           </div>
+          <Button size="lg" type="submit" isDisabled={Boolean(Object.keys(errors).length)} className="h-14">
+            Send
+          </Button>
         </div>
         <div className="flex w-full justify-between items-center">
           <p>Headers: </p>
-          <div className="flex gap-3">
-            <Button size="sm" onClick={() => append(headerEmpty)}>
+          <div className="flex gap-2">
+            <Button size="sm" color="success" onClick={() => append(headerEmpty)}>
               Add Header
             </Button>
-            <Button size="sm" onClick={() => remove(fields.length - 1)} isDisabled={!fields.length}>
+            <Button size="sm" color="danger" onClick={() => remove(fields.length - 1)} isDisabled={!fields.length}>
               Remove Header
             </Button>
           </div>
         </div>
         <div className="flex flex-col gap-2 w-full">
           {fields.map((item, index) => (
-            <div key={item.id} className="flex gap-5 justify-between">
+            <div key={item.id} className="flex gap-2 justify-between">
               <div className="w-1/2">
                 <Input
                   type="text"
@@ -134,10 +137,6 @@ export default function FormRest(props: { response: object | null }): ReactNode 
             <p className="text-[#F31260] text-center text-xs">{errors.body?.message}</p>
           </div>
         </div>
-
-        <Button size="lg" type="submit" isDisabled={Boolean(Object.keys(errors).length)}>
-          Submit
-        </Button>
       </form>
       {props.response && <ResponseView response={props.response} styles="w-7/12 h-96" />}
     </div>
