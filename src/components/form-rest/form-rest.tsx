@@ -54,8 +54,7 @@ export default function FormRest(props: { response: object | null }): ReactNode 
   };
 
   useEffect(() => {
-    setValue('body', JSON.stringify(bodyData));
-    // { shouldValidate: true }
+    setValue('body', JSON.stringify(bodyData), { shouldValidate: true });
   }, [bodyData, setValue]);
 
   return (
