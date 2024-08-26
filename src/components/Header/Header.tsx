@@ -10,19 +10,21 @@ import {
   Link,
   Button,
 } from '@nextui-org/react';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState, type ReactElement } from 'react';
 
-import LangDropDownt from '@/ui/lang-dropdown/LangDropDownt';
+import { usePathnameIntl } from '@/navigation';
+import LangDropdown from '@/ui/LangDropdown/LangDropdown';
 import ThemTogler from '@/ui/switch/Switch';
 
 const Header = (): ReactElement => {
+  const t = useTranslations('Header');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const pathname = usePathname();
+  const pathname = usePathnameIntl();
 
   const menuItems = [
-    { name: 'Home', href: '/' },
+    { name: t('menuItems.home'), href: '/' },
     // { name: 'RestFull client', href: '/restfull-client' },
     // { name: 'GraphiQL client', href: '/graphiql-client' },
   ];
@@ -64,7 +66,7 @@ const Header = (): ReactElement => {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <LangDropDownt />
+          <LangDropdown />
         </NavbarItem>
         <NavbarItem>
           <ThemTogler />

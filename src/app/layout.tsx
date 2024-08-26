@@ -1,37 +1,9 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import type { ReactElement } from 'react';
 
-import Header from '@/components/Header/Header';
-
-import '../styles/globals.css';
-
-import Providers from './providers';
-
-const inter = Inter({ subsets: ['latin'] });
-
-export const metadata: Metadata = {
-  title: 'App',
-  description: 'next app',
+type RootLayoutProps = {
+  children: ReactElement;
 };
 
-const RootLayout = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>): ReactElement => {
-  return (
-    <html lang="en" suppressHydrationWarning={true}>
-      <body className={inter.className}>
-        <Providers>
-          <>
-            <Header />
-            {children}
-          </>
-        </Providers>
-      </body>
-    </html>
-  );
-};
-
-export default RootLayout;
+export default function RootLayout({ children }: RootLayoutProps): ReactElement {
+  return children;
+}

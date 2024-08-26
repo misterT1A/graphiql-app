@@ -1,14 +1,7 @@
-import { type ReactElement } from 'react';
+import { redirect } from 'next/navigation';
 
-import Test from '@/components/Test/Test';
+import { defaultLocale } from '@/i18n';
 
-const Home = (): ReactElement => {
-  return (
-    <main>
-      <h1>Home</h1>
-      <Test />
-    </main>
-  );
-};
-
-export default Home;
+export default function RootPage(): void {
+  redirect(defaultLocale);
+}
