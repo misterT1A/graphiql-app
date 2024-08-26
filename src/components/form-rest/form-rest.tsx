@@ -135,7 +135,7 @@ export default function FormRest(props: { response: object | null }): ReactNode 
           </div>
         </div>
 
-        <Button size="lg" type="submit">
+        <Button size="lg" type="submit" disabled={Boolean(Object.keys(errors).length)}>
           Submit
         </Button>
       </form>
