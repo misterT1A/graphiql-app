@@ -8,12 +8,13 @@ import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState, type ReactElement } from 'react';
 
 const initData = `{
-  query: {
-    
-  }
+
 }`;
 
-const CodeMirrorComp = ({ setResponse }: { setResponse: Dispatch<SetStateAction<object>> }): ReactElement | null => {
+const CodeMirrorComp = (props: {
+  setResponse: Dispatch<SetStateAction<object>>;
+  size: { width: string; height: string };
+}): ReactElement | null => {
   const [value, setValue] = useState(initData);
 
   const onChange = useCallback(
@@ -28,12 +29,12 @@ const CodeMirrorComp = ({ setResponse }: { setResponse: Dispatch<SetStateAction<
           .replace(/'/g, '"');
 
         const parsedValue = JSON.parse(validJsonString);
-        setResponse(parsedValue);
+        props.setResponse(parsedValue);
       } catch (e) {
-        console.log('Error parsing JSON:', e);
+        props.setResponse(null as unknown as SetStateAction<object>);
       }
     },
-    [setResponse],
+    [props],
   );
 
   const { theme } = useTheme();
@@ -42,8 +43,8 @@ const CodeMirrorComp = ({ setResponse }: { setResponse: Dispatch<SetStateAction<
     <div className="border border-black rounded-[5px] inline-block overflow-hidden">
       <CodeMirror
         value={value}
-        width="400px"
-        height="200px"
+        width={props.size.width}
+        height={props.size.height}
         extensions={[javascript({ jsx: true })]}
         onChange={onChange}
         theme={theme === 'dark' ? githubDark : githubLight}
