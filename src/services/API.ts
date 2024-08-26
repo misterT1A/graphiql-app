@@ -6,13 +6,11 @@ export function API(): RestAPI {
     headers: { [key: string]: string },
     bodyData: object,
   ): Promise<Response | unknown> => {
-    console.log(bodyData); //DEBUG
+    const payloadObj = { method: inputData.method, headers: headers };
+    if (inputData.method !== 'GET') Object.assign(payloadObj, { body: JSON.stringify(bodyData) });
 
     try {
-      const resp = await fetch(inputData.endpoint, {
-        method: inputData.method,
-        headers: headers,
-      });
+      const resp = await fetch(inputData.endpoint, payloadObj);
       return resp.json();
     } catch (error) {
       return error;
