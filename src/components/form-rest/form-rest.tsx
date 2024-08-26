@@ -95,7 +95,7 @@ export default function FormRest(props: { response: object | null }): ReactNode 
             <Button size="sm" onClick={() => append(headerEmpty)}>
               Add Header
             </Button>
-            <Button size="sm" onClick={() => remove(fields.length - 1)} disabled={!fields.length}>
+            <Button size="sm" onClick={() => remove(fields.length - 1)} isDisabled={!fields.length}>
               Remove Header
             </Button>
           </div>
@@ -135,7 +135,7 @@ export default function FormRest(props: { response: object | null }): ReactNode 
           </div>
         </div>
 
-        <Button size="lg" type="submit" disabled={Boolean(Object.keys(errors).length)}>
+        <Button size="lg" type="submit" isDisabled={Boolean(Object.keys(errors).length)}>
           Submit
         </Button>
       </form>
