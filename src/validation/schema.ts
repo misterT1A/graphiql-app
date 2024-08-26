@@ -6,4 +6,3 @@ export const schema = z.object({
   headers: z.array(z.object({ key: z.string().min(1, 'Fill the field'), value: z.string().min(1, 'Fill the field') })),
   body: z.string().refine((value) => value !== 'null', { message: 'Enter valide JSON object' }),
 });
-

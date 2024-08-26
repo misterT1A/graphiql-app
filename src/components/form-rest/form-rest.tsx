@@ -1,13 +1,14 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Input, Select, SelectItem } from '@nextui-org/react';
+import { Button, Input, Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { TEXT_CONTENT } from '@/constants/constants';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
+import { RemoveIcon } from '@/ui/Icons/remove-icon';
 import ResponseView from '@/ui/Response-view/ResponseView';
 import { schema } from '@/validation/schema';
 
@@ -88,57 +89,73 @@ export default function FormRest(props: { response: object | null }): ReactNode 
               errorMessage={errors.endpoint?.message}
             />
           </div>
-          <Button size="lg" type="submit" isDisabled={Boolean(Object.keys(errors).length)} className="h-14">
+          <Button
+            size="lg"
+            type="submit"
+            color={(Object.keys(errors).length && 'danger') || 'success'}
+            isDisabled={Boolean(Object.keys(errors).length)}
+            className="h-14"
+          >
             Send
           </Button>
         </div>
-        <div className="flex w-full justify-between items-center">
-          <p>Headers: </p>
-          <div className="flex gap-2">
-            <Button size="sm" color="success" onClick={() => append(headerEmpty)}>
-              Add Header
-            </Button>
-            <Button size="sm" color="danger" onClick={() => remove(fields.length - 1)} isDisabled={!fields.length}>
-              Remove Header
-            </Button>
-          </div>
-        </div>
-        <div className="flex flex-col gap-2 w-full">
-          {fields.map((item, index) => (
-            <div key={item.id} className="flex gap-2 justify-between">
-              <div className="w-1/2">
-                <Input
-                  type="text"
-                  label="Header value"
-                  {...register(`headers.${index}.key` as const)}
-                  className="text-center"
-                  isInvalid={Boolean(errors.headers && errors.headers[index]?.key?.message)}
-                  errorMessage={errors.headers && errors.headers[index]?.key?.message}
-                />
-              </div>
-              <div className="w-1/2">
-                <Input
-                  type="text"
-                  label="Header key"
-                  {...register(`headers.${index}.value` as const)}
-                  className="text-center"
-                  isInvalid={Boolean(errors.headers && errors.headers[index]?.value?.message)}
-                  errorMessage={errors.headers && errors.headers[index]?.value?.message}
-                />
-              </div>
+        <Tabs aria-label="Options">
+          <Tab key="headersTab" title="Headers" className="flex flex-col items-center gap-5 w-full">
+            <div className="flex flex-col gap-5 w-full">
+              {Boolean(fields.length) && (
+                <div className="flex flex-col gap-2 w-full">
+                  {fields.map((item, index) => (
+                    <div key={item.id} className="flex gap-2 justify-between">
+                      <div className="w-1/2">
+                        <Input
+                          type="text"
+                          label="Header value"
+                          {...register(`headers.${index}.key` as const)}
+                          className="text-center"
+                          isInvalid={Boolean(errors.headers && errors.headers[index]?.key?.message)}
+                          errorMessage={errors.headers && errors.headers[index]?.key?.message}
+                        />
+                      </div>
+                      <div className="w-1/2">
+                        <Input
+                          type="text"
+                          label="Header key"
+                          {...register(`headers.${index}.value` as const)}
+                          className="text-center"
+                          isInvalid={Boolean(errors.headers && errors.headers[index]?.value?.message)}
+                          errorMessage={errors.headers && errors.headers[index]?.value?.message}
+                        />
+                      </div>
+                      <div className="flex items-center h-14">
+                        <Button isIconOnly color="danger" aria-label="Like" size="sm" onClick={() => remove(index)}>
+                          <RemoveIcon />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <Button size="sm" onClick={() => append(headerEmpty)}>
+                Add Header
+              </Button>
             </div>
-          ))}
-        </div>
-        <div className="flex flex-col gap-5 w-full">
-          <p>Body: </p>
-          <div className="flex flex-col gap-2 w-full">
+          </Tab>
+          <Tab key="bodyTab" title="Body" className="flex flex-col gap-2 w-full">
             <CodeMirrorComp setResponse={setBodyData} size={{ width: '100%', height: '100px' }} />
             <Input type="hidden" {...register('body')} />
             <p className="text-[#F31260] text-center text-xs">{errors.body?.message}</p>
-          </div>
-        </div>
+          </Tab>
+        </Tabs>
       </form>
-      {props.response && <ResponseView response={props.response} styles="w-7/12 h-96" />}
+      {props.response && (
+        <div className="flex flex-col gap-5 w-7/12">
+          <div className="flex flex-col gap-2 w-full">
+            <hr />
+            <p>Response</p>
+          </div>
+          <ResponseView response={props.response} styles="w-full h-96" />
+        </div>
+      )}
     </div>
   );
 }
