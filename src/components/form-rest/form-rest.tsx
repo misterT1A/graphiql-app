@@ -55,6 +55,7 @@ export default function FormRest(props: { response: object | null }): ReactNode 
 
   useEffect(() => {
     setValue('body', JSON.stringify(bodyData));
+    // { shouldValidate: true }
   }, [bodyData, setValue]);
 
   return (
@@ -62,7 +63,13 @@ export default function FormRest(props: { response: object | null }): ReactNode 
       <form onSubmit={handleSubmit(submit)} className="flex flex-col items-center gap-5 w-7/12">
         <div className="flex justify-between w-full gap-5">
           <div className="w-40">
-            <Select label="Method" {...register('method')} className="w-full">
+            <Select
+              label="Method"
+              {...register('method')}
+              className="w-full text-center"
+              isInvalid={Boolean(errors.method)}
+              errorMessage={errors.method?.message}
+            >
               {TEXT_CONTENT.methodValues.map((value, index) => {
                 return (
                   <SelectItem value={value} key={value} hidden={!index}>
@@ -71,11 +78,16 @@ export default function FormRest(props: { response: object | null }): ReactNode 
                 );
               })}
             </Select>
-            <p className="text-red-500 text-center">{errors.method?.message}</p>
           </div>
           <div className="w-full">
-            <Input type="text" label="Endpoint URL" {...register('endpoint')} className="w-full" />
-            <p className="text-red-500 text-center">{errors.endpoint?.message}</p>
+            <Input
+              type="text"
+              label="Endpoint URL"
+              {...register('endpoint')}
+              className="w-full text-center"
+              isInvalid={Boolean(errors.endpoint)}
+              errorMessage={errors.endpoint?.message}
+            />
           </div>
         </div>
         <div className="flex w-full justify-between items-center">
@@ -91,23 +103,37 @@ export default function FormRest(props: { response: object | null }): ReactNode 
         </div>
         <div className="flex flex-col gap-2 w-full">
           {fields.map((item, index) => (
-            <div key={item.id} className="flex gap-5">
-              <div>
-                <Input type="text" label="Header value" {...register(`headers.${index}.key` as const)} />
-                <p className="text-red-500 text-center">{errors.headers && errors.headers[index]?.key?.message}</p>
+            <div key={item.id} className="flex gap-5 justify-between">
+              <div className="w-1/2">
+                <Input
+                  type="text"
+                  label="Header value"
+                  {...register(`headers.${index}.key` as const)}
+                  className="text-center"
+                  isInvalid={Boolean(errors.headers && errors.headers[index]?.key?.message)}
+                  errorMessage={errors.headers && errors.headers[index]?.key?.message}
+                />
               </div>
-              <div>
-                <Input type="text" label="Header key" {...register(`headers.${index}.value` as const)} />
-                <p className="text-red-500 text-center">{errors.headers && errors.headers[index]?.value?.message}</p>
+              <div className="w-1/2">
+                <Input
+                  type="text"
+                  label="Header key"
+                  {...register(`headers.${index}.value` as const)}
+                  className="text-center"
+                  isInvalid={Boolean(errors.headers && errors.headers[index]?.value?.message)}
+                  errorMessage={errors.headers && errors.headers[index]?.value?.message}
+                />
               </div>
             </div>
           ))}
         </div>
         <div className="flex flex-col gap-5 w-full">
           <p>Body: </p>
-          <CodeMirrorComp setResponse={setBodyData} size={{ width: '100%', height: '100px' }} />
-          <Input type="hidden" {...register('body')} />
-          <p className="text-red-500 text-center">{errors.body?.message}</p>
+          <div className="flex flex-col gap-2 w-full">
+            <CodeMirrorComp setResponse={setBodyData} size={{ width: '100%', height: '100px' }} />
+            <Input type="hidden" {...register('body')} />
+            <p className="text-[#F31260] text-center text-xs">{errors.body?.message}</p>
+          </div>
         </div>
 
         <Button size="lg" type="submit">
