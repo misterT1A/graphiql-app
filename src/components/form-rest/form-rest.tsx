@@ -6,6 +6,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { TEXT_CONTENT } from '@/constants/constants';
+import useRestFullRedirect from '@/hooks/restFullRedirect';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import ResponseView from '@/ui/Response-view/ResponseView';
@@ -14,6 +15,7 @@ import { schema } from '@/validation/schema';
 const headerEmpty = { key: '', value: '' };
 
 export default function FormRest(props: { response: object | null }): ReactNode {
+  const restRedirect = useRestFullRedirect();
   const {
     register,
     control,
@@ -32,9 +34,7 @@ export default function FormRest(props: { response: object | null }): ReactNode 
     control,
   });
 
-  const [bodyData, setBodyData] = useState<object | null>({
-    query: {},
-  });
+  const [bodyData, setBodyData] = useState<string>('');
 
   const submit = async (data: FormRestType): Promise<void> => {
     const headers: { [key: string]: string } = {};
@@ -47,7 +47,12 @@ export default function FormRest(props: { response: object | null }): ReactNode 
       headers: headers,
       body: bodyData,
     });
-
+    restRedirect({
+      method: data.method,
+      endpoint: data.endpoint,
+      headers: headers,
+      body: bodyData,
+    });
     // example of API calling and response rendering
     // const resp = await API().getData(data, headers, bodyData!);
     // setResponse(resp as SetStateAction<object | null>);

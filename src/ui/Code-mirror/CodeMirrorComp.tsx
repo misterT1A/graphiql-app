@@ -12,7 +12,7 @@ const initData = `{
 }`;
 
 const CodeMirrorComp = (props: {
-  setResponse: Dispatch<SetStateAction<object>>;
+  setResponse: Dispatch<SetStateAction<string>>;
   size: { width: string; height: string };
 }): ReactElement | null => {
   const [value, setValue] = useState(initData);
@@ -20,6 +20,7 @@ const CodeMirrorComp = (props: {
   const onChange = useCallback(
     (val: string) => {
       setValue(val);
+
       try {
         const validJsonString = val
           .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2":')
@@ -28,10 +29,10 @@ const CodeMirrorComp = (props: {
           .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?\s*\{/g, '"$2":{')
           .replace(/'/g, '"');
 
-        const parsedValue = JSON.parse(validJsonString);
+        const parsedValue = JSON.stringify(JSON.parse(validJsonString));
         props.setResponse(parsedValue);
       } catch (e) {
-        props.setResponse(null as unknown as SetStateAction<object>);
+        props.setResponse(null as unknown as SetStateAction<string>);
       }
     },
     [props],

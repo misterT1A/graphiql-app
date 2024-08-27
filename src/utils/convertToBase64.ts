@@ -1,7 +1,7 @@
-import type { IFormParams } from '@/types/types';
+import type { IFormParams } from '@/types/restFullTypes';
 
 const convertToBase64 = (formsParams: IFormParams): string => {
-  const endpoint = btoa(formsParams.endpoint);
+  const endpoint = btoa(formsParams.endpoint).replace(/=+$/, '');
 
   const queryParams = new URLSearchParams();
   if (formsParams.headers) {
@@ -9,8 +9,14 @@ const convertToBase64 = (formsParams: IFormParams): string => {
       queryParams.append(key, btoa(value).replace(/=+$/, ''));
     });
   }
-  console.log('query', queryParams.get('Content-type'));
-  const resultUrl = `/${formsParams.method}/${endpoint}?${queryParams.toString()}`;
+
+  let body = '';
+
+  if (formsParams.body) {
+    body = '/' + btoa(formsParams.body).replace(/=+$/, '');
+  }
+
+  const resultUrl = `/${formsParams.method}/${endpoint}${body}?${queryParams.toString()}`;
   return resultUrl;
 };
 

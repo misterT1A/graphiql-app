@@ -1,26 +1,39 @@
-import type { FC, ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import FormRest from '@/components/form-rest/form-rest';
+import type { IPageProps, IRequestParams } from '@/types/restFullTypes';
+import ResponseView from '@/ui/Response-view/ResponseView';
+import decodingFromBase64 from '@/utils/decodingFromBase64';
 
-interface ISlugProps {
-  slug: string;
-}
+const sendRequest = async (requestParams: IRequestParams): Promise<Response | string> => {
+  const payloadObj = { method: requestParams.method, headers: requestParams.headers };
+  if (requestParams.method !== 'GET') Object.assign(payloadObj, { body: requestParams.body });
 
-// interface IRequestProps {
-//   urlCode: string;
-// }
+  try {
+    const response = await fetch(requestParams.endpoint, payloadObj);
+    if (!response.ok) {
+      const errorText = await response.text();
+      return errorText;
+    }
+    return response.json();
+  } catch (e: unknown) {
+    return e instanceof Error ? e.message : 'An unknown error occurred';
+  }
+};
 
-// const sendRequest: FC<IRequestProps> = async ({urlCode}): Promise<Response> => {
+const Page = async ({ params, searchParams }: IPageProps): Promise<ReactNode> => {
+  let response = {};
+  if (params.slug) {
+    const requestParams: IRequestParams = decodingFromBase64(params.slug as unknown as string[], searchParams);
 
-// };
-
-const Page: FC<ISlugProps> = ({ slug }): ReactNode => {
-  console.log(slug);
+    response = await sendRequest(requestParams);
+  }
 
   return (
     <>
       <h1>rest</h1>
       <FormRest response={null} />
+      <ResponseView response={response} />
     </>
   );
 };
