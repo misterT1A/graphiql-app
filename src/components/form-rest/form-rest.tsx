@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Input, Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
+import { Button, Chip, Input, Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
@@ -10,6 +10,7 @@ import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import { RemoveIcon } from '@/ui/Icons/remove-icon';
 import ResponseView from '@/ui/Response-view/ResponseView';
+import { fieldsCounter } from '@/utils/object-in-array-fields-counter';
 import { schema } from '@/validation/schema';
 
 const headerEmpty = { key: '', value: '' };
@@ -98,7 +99,20 @@ export default function FormRest(props: { response: object | null }): ReactNode 
           </Button>
         </div>
         <Tabs aria-label="Options">
-          <Tab key="headersTab" title="Headers" className="flex flex-col items-center gap-5 w-full">
+          <Tab
+            key="headersTab"
+            title={
+              <div className="flex items-center space-x-2">
+                <span>Headers</span>
+                {errors.headers && (
+                  <Chip size="sm" variant="faded" color="danger">
+                    {`+${fieldsCounter(errors.headers as object[])}`}
+                  </Chip>
+                )}
+              </div>
+            }
+            className="flex flex-col items-center gap-5 w-full"
+          >
             <div className="flex flex-col gap-5 w-full">
               {Boolean(fields.length) && (
                 <div className="flex flex-col gap-2 w-full">
@@ -138,7 +152,20 @@ export default function FormRest(props: { response: object | null }): ReactNode 
               </Button>
             </div>
           </Tab>
-          <Tab key="bodyTab" title="Body" className="flex flex-col gap-2 w-full">
+          <Tab
+            key="bodyTab"
+            title={
+              <div className="flex items-center space-x-2">
+                <span>Body</span>
+                {errors.body && (
+                  <Chip size="sm" variant="faded" color="danger">
+                    +1
+                  </Chip>
+                )}
+              </div>
+            }
+            className="flex flex-col gap-2 w-full"
+          >
             <CodeMirrorComp
               setResponse={setBodyData}
               size={{ width: '100%', height: '100px' }}
