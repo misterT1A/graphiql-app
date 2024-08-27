@@ -6,5 +6,11 @@
   },
   "NotFound": {
     "message": "The requested page was not found."
+  },
+  "SignUp": {
+    "heading": "Sign Up",
+    "password": "Password",
+    "confirm": "Confirm Password",
+    "submit": "Sign up"
   }
 }
