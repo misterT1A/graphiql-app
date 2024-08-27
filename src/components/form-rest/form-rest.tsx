@@ -10,6 +10,7 @@ import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import { RemoveIcon } from '@/ui/Icons/remove-icon';
 import ResponseView from '@/ui/Response-view/ResponseView';
+import { codeMirrorParser } from '@/utils/code-mirror-parser';
 import { fieldsCounter } from '@/utils/object-in-array-fields-counter';
 import { schema } from '@/validation/schema';
 
@@ -34,7 +35,7 @@ export default function FormRest(props: { response: object | null }): ReactNode 
     control,
   });
 
-  const [bodyData, setBodyData] = useState<object | null>({});
+  const [bodyData, setBodyData] = useState<object | string>('{\n  \n}');
 
   const submit = async (data: FormRestType): Promise<void> => {
     const headers: { [key: string]: string } = {};
@@ -45,7 +46,7 @@ export default function FormRest(props: { response: object | null }): ReactNode 
       method: data.method,
       endpoint: data.endpoint,
       headers: headers,
-      body: bodyData,
+      body: codeMirrorParser(bodyData as string),
     });
 
     // example of API calling and response rendering
@@ -169,7 +170,7 @@ export default function FormRest(props: { response: object | null }): ReactNode 
             <CodeMirrorComp
               setResponse={setBodyData}
               size={{ width: '100%', height: '100px' }}
-              initValue={JSON.stringify(bodyData, null, '\t')}
+              initValue={typeof bodyData === 'string' ? bodyData : JSON.stringify(bodyData, null, '\t')}
             />
             <Input type="hidden" {...register('body')} />
             <p className="text-[#F31260] text-center text-xs">{errors.body?.message}</p>

@@ -13,23 +13,12 @@ const CodeMirrorComp = (props: {
   initValue: string;
 }): ReactElement | null => {
   const [value, setValue] = useState(props.initValue);
+  // console.log(value, props.initValue);
 
   const onChange = useCallback(
     (val: string) => {
       setValue(val);
-      try {
-        const validJsonString = val
-          .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2":')
-          .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?,/g, '"$2",')
-          .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?\s*\}/g, '"$2"}')
-          .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?\s*\{/g, '"$2":{')
-          .replace(/'/g, '"');
-
-        const parsedValue = JSON.parse(validJsonString);
-        props.setResponse(parsedValue);
-      } catch (e) {
-        props.setResponse(null as unknown as SetStateAction<object>);
-      }
+      props.setResponse(val as unknown as SetStateAction<object>);
     },
     [props],
   );
