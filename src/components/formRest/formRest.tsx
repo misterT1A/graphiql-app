@@ -8,15 +8,15 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { TEXT_CONTENT } from '@/constants/constants';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
-import { RemoveIcon } from '@/ui/Icons/remove-icon';
+import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
 import ResponseView from '@/ui/Response-view/ResponseView';
-import { codeMirrorParser } from '@/utils/code-mirror-parser';
-import { fieldsCounter } from '@/utils/object-in-array-fields-counter';
+import { codeMirrorParser } from '@/utils/codeMirrorParser';
+import { fieldsCounter } from '@/utils/fieldsCounter';
 import { schema } from '@/validation/schema';
 
 const headerEmpty = { key: '', value: '' };
 
-export default function FormRest(props: { response: object | null }): ReactNode {
+function FormRest(props: { response: object | null }): ReactNode {
   const {
     register,
     control,
@@ -189,3 +189,5 @@ export default function FormRest(props: { response: object | null }): ReactNode 
     </div>
   );
 }
+
+export default FormRest;

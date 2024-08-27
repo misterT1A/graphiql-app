@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { codeMirrorParser } from '@/utils/code-mirror-parser';
+import { codeMirrorParser } from '@/utils/codeMirrorParser';
 
 export const schema = z.object({
   method: z.string().min(1, 'Select method'),
