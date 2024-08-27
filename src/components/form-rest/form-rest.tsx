@@ -33,9 +33,7 @@ export default function FormRest(props: { response: object | null }): ReactNode 
     control,
   });
 
-  const [bodyData, setBodyData] = useState<object | null>({
-    query: {},
-  });
+  const [bodyData, setBodyData] = useState<object | null>({});
 
   const submit = async (data: FormRestType): Promise<void> => {
     const headers: { [key: string]: string } = {};
@@ -141,7 +139,11 @@ export default function FormRest(props: { response: object | null }): ReactNode 
             </div>
           </Tab>
           <Tab key="bodyTab" title="Body" className="flex flex-col gap-2 w-full">
-            <CodeMirrorComp setResponse={setBodyData} size={{ width: '100%', height: '100px' }} />
+            <CodeMirrorComp
+              setResponse={setBodyData}
+              size={{ width: '100%', height: '100px' }}
+              initValue={JSON.stringify(bodyData, null, '\t')}
+            />
             <Input type="hidden" {...register('body')} />
             <p className="text-[#F31260] text-center text-xs">{errors.body?.message}</p>
           </Tab>

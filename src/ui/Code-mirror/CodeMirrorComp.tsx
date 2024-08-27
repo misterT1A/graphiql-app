@@ -7,15 +7,12 @@ import { useTheme } from 'next-themes';
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState, type ReactElement } from 'react';
 
-const initData = `{
-
-}`;
-
 const CodeMirrorComp = (props: {
   setResponse: Dispatch<SetStateAction<object>>;
   size: { width: string; height: string };
+  initValue: string;
 }): ReactElement | null => {
-  const [value, setValue] = useState(initData);
+  const [value, setValue] = useState(props.initValue);
 
   const onChange = useCallback(
     (val: string) => {
