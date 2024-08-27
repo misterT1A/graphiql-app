@@ -9,3 +9,9 @@ export type RestAPI = Readonly<{
   getData: (inputData: FormRestType, headers: { [key: string]: string }, bodyData: object) => Promise<unknown>;
 }>;
 
+export interface IFormParams {
+  method: string;
+  endpoint: string;
+  body: string;
+  headers: { [key: string]: string };
+}
