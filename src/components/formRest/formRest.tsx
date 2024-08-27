@@ -9,14 +9,24 @@ import { TEXT_CONTENT } from '@/constants/constants';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
-import ResponseView from '@/ui/Response-view/ResponseView';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
 import { schema } from '@/validation/schema';
 
 const headerEmpty = { key: '', value: '' };
 
-function FormRest(props: { response: object | null }): ReactNode {
+function FormRest(props: {
+  inputData?: { body: object; endpoint: string; headers: { [key: string]: string }; method: string };
+}): ReactNode {
+  const initHeaders = [];
+  if (props.inputData) {
+    for (const keys in props.inputData.headers) {
+      initHeaders.push({ key: keys, value: props.inputData.headers[keys] });
+    }
+  } else {
+    initHeaders.push(headerEmpty);
+  }
+
   const {
     register,
     control,
@@ -27,15 +37,20 @@ function FormRest(props: { response: object | null }): ReactNode {
     mode: 'onChange',
     resolver: zodResolver(schema),
     defaultValues: {
-      headers: [headerEmpty],
+      method: props.inputData?.method,
+      endpoint: props.inputData?.endpoint,
+      headers: initHeaders,
     },
   });
+
   const { fields, append, remove } = useFieldArray({
     name: 'headers',
     control,
   });
 
-  const [bodyData, setBodyData] = useState<object | string>('{\n  \n}');
+  const [bodyData, setBodyData] = useState<object | string>(
+    JSON.stringify(props.inputData?.body, null, '  ') || '{\n  \n}',
+  );
 
   const submit = async (data: FormRestType): Promise<void> => {
     const headers: { [key: string]: string } = {};
@@ -173,15 +188,6 @@ function FormRest(props: { response: object | null }): ReactNode {
           </Tab>
         </Tabs>
       </form>
-      {props.response && (
-        <div className="flex flex-col gap-5 w-7/12">
-          <div className="flex flex-col gap-2 w-full">
-            <hr />
-            <p>Response</p>
-          </div>
-          <ResponseView response={props.response} styles="w-full h-96" />
-        </div>
-      )}
     </div>
   );
 }
