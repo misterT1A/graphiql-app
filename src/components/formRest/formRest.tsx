@@ -48,10 +48,6 @@ function FormRest(props: { response: object | null }): ReactNode {
       headers: headers,
       body: codeMirrorParser(bodyData as string),
     });
-
-    // example of API calling and response rendering
-    // const resp = await API().getData(data, headers, bodyData!);
-    // setResponse(resp as SetStateAction<object | null>);
   };
 
   useEffect(() => {
