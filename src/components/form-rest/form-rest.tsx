@@ -55,7 +55,7 @@ export default function FormRest(props: { response: object | null }): ReactNode 
   };
 
   useEffect(() => {
-    setValue('body', JSON.stringify(bodyData), { shouldValidate: true });
+    setValue('body', bodyData as string, { shouldValidate: true });
   }, [bodyData, setValue]);
 
   return (
@@ -170,7 +170,7 @@ export default function FormRest(props: { response: object | null }): ReactNode 
             <CodeMirrorComp
               setResponse={setBodyData}
               size={{ width: '100%', height: '100px' }}
-              initValue={typeof bodyData === 'string' ? bodyData : JSON.stringify(bodyData, null, '\t')}
+              initValue={bodyData as string}
             />
             <Input type="hidden" {...register('body')} />
             <p className="text-[#F31260] text-center text-xs">{errors.body?.message}</p>
