@@ -34,6 +34,7 @@ function FormRest(props: {
     handleSubmit,
     formState: { errors },
     setValue,
+    watch,
   } = useForm<FormRestType>({
     mode: 'onChange',
     resolver: zodResolver(Schema()),
@@ -54,6 +55,8 @@ function FormRest(props: {
   );
 
   const t = useTranslations('RestForm');
+
+  console.log();
 
   const submit = async (data: FormRestType): Promise<void> => {
     const headers: { [key: string]: string } = {};
@@ -113,7 +116,7 @@ function FormRest(props: {
             {t('buttons.send')}
           </Button>
         </div>
-        <Tabs aria-label="Options">
+        <Tabs aria-label="Options" disabledKeys={[`${watch('method') === 'GET' ? 'bodyTab' : ''}`]}>
           <Tab
             key="headersTab"
             title={
