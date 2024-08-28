@@ -13,7 +13,6 @@ const CodeMirrorComp = (props: {
   initValue: string;
 }): ReactElement | null => {
   const [value, setValue] = useState(props.initValue);
-  // console.log(value, props.initValue);
 
   const onChange = useCallback(
     (val: string) => {
