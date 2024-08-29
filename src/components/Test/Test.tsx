@@ -15,7 +15,7 @@ const Test = (): ReactElement => {
   const [response, setResponse] = useState<object>(initData);
   return (
     <div>
-      <CodeMirrorComp setResponse={setResponse} size={{ width: '100%', height: '100px' }} />
+      <CodeMirrorComp setResponse={setResponse} size={{ width: '100%', height: '100px' }} initValue="{}" />
       <ResponseView response={response} />
       <Form />
     </div>
