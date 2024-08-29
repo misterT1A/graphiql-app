@@ -53,10 +53,8 @@ function FormRest(props: {
   const [bodyData, setBodyData] = useState<object | string>(
     JSON.stringify(props.inputData?.body, null, '  ') || '{\n  \n}',
   );
-
+      
   const t = useTranslations('RestForm');
-
-  console.log();
 
   const submit = async (data: FormRestType): Promise<void> => {
     const headers: { [key: string]: string } = {};
@@ -121,7 +119,7 @@ function FormRest(props: {
             key="headersTab"
             title={
               <div className="flex items-center space-x-2">
-                <span>{t('buttons.headersTab')}</span>
+                <span>{t('buttons.headersTab')}</span>   
                 {errors.headers && (
                   <Chip size="sm" variant="faded" color="danger">
                     {`+${fieldsCounter(errors.headers as object[])}`}
@@ -139,7 +137,7 @@ function FormRest(props: {
                       <div className="w-1/2">
                         <Input
                           type="text"
-                          label={t('labels.headerKey')}
+                          label={t('labels.headerKey')}                        
                           {...register(`headers.${index}.key` as const)}
                           className="text-center"
                           isInvalid={Boolean(errors.headers && errors.headers[index]?.key?.message)}
@@ -149,7 +147,7 @@ function FormRest(props: {
                       <div className="w-1/2">
                         <Input
                           type="text"
-                          label={t('labels.headerValue')}
+                          label={t('labels.headerValue')}             
                           {...register(`headers.${index}.value` as const)}
                           className="text-center"
                           isInvalid={Boolean(errors.headers && errors.headers[index]?.value?.message)}
