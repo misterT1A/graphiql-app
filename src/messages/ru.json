@@ -12,7 +12,9 @@
       "method": "Метод",
       "endpoint": "URL адрес",
       "headerKey": "Ключ заголовка",
-      "headerValue": "Значение заголовка"
+      "headerValue": "Значение заголовка",
+      "variableKey": "Ключ переменной",
+      "variableValue": "Значение переменной"
     },
     "errors": {
       "required": "Заполните поле",
@@ -24,8 +26,10 @@
     "buttons": {
       "send": "Отправить",
       "headersTab": "Заголовки",
+      "variablesTab": "Переменные",
       "bodyTab": "Тело",
-      "addHeader": "Добавить заголовок"
+      "addHeader": "Добавить заголовок",
+      "addVariable": "Добавить переменную"
     }
   }
 }

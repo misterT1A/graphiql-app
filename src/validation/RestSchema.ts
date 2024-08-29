@@ -21,6 +21,9 @@ const RestSchema = (): ZodSchema => {
     headers: z.array(
       z.object({ key: z.string().min(1, t('errors.required')), value: z.string().min(1, t('errors.required')) }),
     ),
+    variables: z.array(
+      z.object({ key: z.string().min(1, t('errors.required')), value: z.string().min(1, t('errors.required')) }),
+    ),
     body: z.string().refine(
       (value) => codeMirrorParser(value),
       (value) => ({ message: `"${errorCatcher(value)}"` }),
