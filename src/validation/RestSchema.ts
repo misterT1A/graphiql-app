@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 
-const Schema = (): ZodSchema => {
+const RestSchema = (): ZodSchema => {
   const errorCatcher = (value: string): string => {
     try {
       return JSON.parse(value);
@@ -30,4 +30,4 @@ const Schema = (): ZodSchema => {
   return schema;
 };
 
-export default Schema;
+export default RestSchema;

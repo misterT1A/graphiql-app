@@ -12,7 +12,7 @@ import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
-import Schema from '@/validation/schema';
+import RestSchema from '@/validation/restSchema';
 
 const headerEmpty = { key: '', value: '' };
 
@@ -36,7 +36,7 @@ function FormRest(props: {
     setValue,
   } = useForm<FormRestType>({
     mode: 'onChange',
-    resolver: zodResolver(Schema()),
+    resolver: zodResolver(RestSchema()),
     defaultValues: {
       method: props.inputData?.method,
       endpoint: props.inputData?.endpoint,
