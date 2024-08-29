@@ -8,9 +8,21 @@
     "message": "The requested page was not found."
   },
   "SignUp": {
-    "heading": "Sign Up",
-    "password": "Password",
-    "confirm": "Confirm Password",
-    "submit": "Sign up"
+    "form": {
+      "heading": "Sign Up",
+      "username": "Username",
+      "password": "Password",
+      "confirm": "Confirm Password",
+      "submit": "Sign up"
+    },
+    "validation": {
+      "usernameRequired": "Username is required.",
+      "invalidEmail": "Invalid email address.",
+      "invalidPasswordLength": "Password must be at least {length} characters long.",
+      "mustContainLetter": "Password must contain at least 1 letter.",
+      "mustContainDigit": "Password must contain at least 1 digit.",
+      "mustContainSpecialCharacter": "Password must contain at least 1 special character.",
+      "mismatchPasswords": "Passwords don't match."
+    }
   }
 }

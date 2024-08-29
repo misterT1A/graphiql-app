@@ -28,6 +28,7 @@
     "@uiw/codemirror-theme-github": "^4.23.0",
     "@uiw/react-codemirror": "^4.23.0",
     "classnames": "^2.5.1",
+    "firebase": "^10.13.0",
     "framer-motion": "^11.3.29",
     "next": "14.2.5",
     "next-intl": "^3.17.6",
