@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import FormRest from '@/components/formRest/formRest';
+import FormRest from '@/components/FormRest/formRest';
 
 export default function Page(): ReactNode {
   return (
