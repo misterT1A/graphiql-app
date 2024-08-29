@@ -12,7 +12,7 @@ import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
-import RestSchema from '@/validation/restSchema';
+import RestSchema from '@/validation/RestSchema';
 
 const headerEmpty = { key: '', value: '' };
 
