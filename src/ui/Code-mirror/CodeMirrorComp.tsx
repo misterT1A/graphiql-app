@@ -1,6 +1,6 @@
 'use client';
 
-import { javascript } from '@codemirror/lang-javascript';
+import { json } from '@codemirror/lang-json';
 import { githubLight, githubDark } from '@uiw/codemirror-theme-github';
 import CodeMirror from '@uiw/react-codemirror';
 import { useTheme } from 'next-themes';
@@ -30,7 +30,7 @@ const CodeMirrorComp = (props: {
         value={value}
         width={props.size.width}
         height={props.size.height}
-        extensions={[javascript({ jsx: true })]}
+        extensions={[json()]}
         onChange={onChange}
         theme={theme === 'dark' ? githubDark : githubLight}
       />
