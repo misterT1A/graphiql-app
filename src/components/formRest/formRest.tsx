@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Chip, Input, Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
+import { useTranslations } from 'next-intl';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
@@ -11,7 +12,7 @@ import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
-import { schema } from '@/validation/schema';
+import Schema from '@/validation/schema';
 
 const headerEmpty = { key: '', value: '' };
 
@@ -33,9 +34,10 @@ function FormRest(props: {
     handleSubmit,
     formState: { errors },
     setValue,
+    watch,
   } = useForm<FormRestType>({
     mode: 'onChange',
-    resolver: zodResolver(schema),
+    resolver: zodResolver(Schema()),
     defaultValues: {
       method: props.inputData?.method,
       endpoint: props.inputData?.endpoint,
@@ -51,6 +53,8 @@ function FormRest(props: {
   const [bodyData, setBodyData] = useState<object | string>(
     JSON.stringify(props.inputData?.body, null, '  ') || '{\n  \n}',
   );
+      
+  const t = useTranslations('RestForm');
 
   const submit = async (data: FormRestType): Promise<void> => {
     const headers: { [key: string]: string } = {};
@@ -75,7 +79,7 @@ function FormRest(props: {
         <div className="flex justify-between w-full gap-2">
           <div>
             <Select
-              label="Method"
+              label={t('labels.method')}
               {...register('method')}
               className="w-[105px] text-center"
               isInvalid={Boolean(errors.method)}
@@ -93,7 +97,7 @@ function FormRest(props: {
           <div className="w-full">
             <Input
               type="text"
-              label="Endpoint URL"
+              label={t('labels.endpoint')}
               {...register('endpoint')}
               className="w-full text-center"
               isInvalid={Boolean(errors.endpoint)}
@@ -107,15 +111,15 @@ function FormRest(props: {
             isDisabled={Boolean(Object.keys(errors).length)}
             className="h-14"
           >
-            Send
+            {t('buttons.send')}
           </Button>
         </div>
-        <Tabs aria-label="Options">
+        <Tabs aria-label="Options" disabledKeys={[`${watch('method') === 'GET' ? 'bodyTab' : ''}`]}>
           <Tab
             key="headersTab"
             title={
               <div className="flex items-center space-x-2">
-                <span>Headers</span>
+                <span>{t('buttons.headersTab')}</span>   
                 {errors.headers && (
                   <Chip size="sm" variant="faded" color="danger">
                     {`+${fieldsCounter(errors.headers as object[])}`}
@@ -133,7 +137,7 @@ function FormRest(props: {
                       <div className="w-1/2">
                         <Input
                           type="text"
-                          label="Header value"
+                          label={t('labels.headerKey')}                        
                           {...register(`headers.${index}.key` as const)}
                           className="text-center"
                           isInvalid={Boolean(errors.headers && errors.headers[index]?.key?.message)}
@@ -143,7 +147,7 @@ function FormRest(props: {
                       <div className="w-1/2">
                         <Input
                           type="text"
-                          label="Header key"
+                          label={t('labels.headerValue')}             
                           {...register(`headers.${index}.value` as const)}
                           className="text-center"
                           isInvalid={Boolean(errors.headers && errors.headers[index]?.value?.message)}
@@ -160,7 +164,7 @@ function FormRest(props: {
                 </div>
               )}
               <Button size="sm" onClick={() => append(headerEmpty)}>
-                Add Header
+                {t('buttons.addHeader')}
               </Button>
             </div>
           </Tab>
@@ -168,7 +172,7 @@ function FormRest(props: {
             key="bodyTab"
             title={
               <div className="flex items-center space-x-2">
-                <span>Body</span>
+                <span>{t('buttons.bodyTab')}</span>
                 {errors.body && (
                   <Chip size="sm" variant="faded" color="danger">
                     +1
@@ -184,6 +188,7 @@ function FormRest(props: {
               initValue={bodyData as string}
             />
             <Input type="hidden" {...register('body')} />
+            <p className="text-[#F31260] text-center text-xs">{errors.body && t('errors.body')}</p>
             <p className="text-[#F31260] text-center text-xs">{errors.body?.message}</p>
           </Tab>
         </Tabs>
