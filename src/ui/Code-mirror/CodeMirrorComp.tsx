@@ -7,33 +7,17 @@ import { useTheme } from 'next-themes';
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState, type ReactElement } from 'react';
 
-const initData = `{
-
-}`;
-
 const CodeMirrorComp = (props: {
   setResponse: Dispatch<SetStateAction<string>>;
   size: { width: string; height: string };
+  initValue: string;
 }): ReactElement | null => {
-  const [value, setValue] = useState(initData);
+  const [value, setValue] = useState(props.initValue);
 
   const onChange = useCallback(
     (val: string) => {
       setValue(val);
-
-      try {
-        const validJsonString = val
-          .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2":')
-          .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?,/g, '"$2",')
-          .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?\s*\}/g, '"$2"}')
-          .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?\s*\{/g, '"$2":{')
-          .replace(/'/g, '"');
-
-        const parsedValue = JSON.stringify(JSON.parse(validJsonString));
-        props.setResponse(parsedValue);
-      } catch (e) {
-        props.setResponse(null as unknown as SetStateAction<string>);
-      }
+      props.setResponse(val as unknown as SetStateAction<string>);
     },
     [props],
   );

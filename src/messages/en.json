@@ -6,5 +6,26 @@
   },
   "NotFound": {
     "message": "The requested page was not found."
+  },
+  "RestForm": {
+    "labels": {
+      "method": "Method",
+      "endpoint": "Endpoint URL",
+      "headerKey": "Header key",
+      "headerValue": "Header value"
+    },
+    "errors": {
+      "required": "Fill the field",
+      "method": "Select method",
+      "endpointMin": "Enter endpoint URL",
+      "endpointURL": "Write valid URL",
+      "body": "Fix the following errors:"
+    },
+    "buttons": {
+      "send": "Send",
+      "headersTab": "Headers",
+      "bodyTab": "Body",
+      "addHeader": "Add Header"
+    }
   }
 }
