@@ -3,6 +3,7 @@ import '@testing-library/jest-dom';
 // import * as nextIntl from 'next-intl';
 
 // import FormRest from '@/components/FormRest/formRest';
+import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
 
 // describe('FormRest', () => {
@@ -68,8 +69,12 @@ import { fieldsCounter } from '@/utils/fieldsCounter';
 describe('FormRest utils', () => {
   it('should return correct numbers of object errors with fieldsCounter', async () => {
     const counterResult = fieldsCounter([{ message: 'firstError' }, { message: 'secondError' }]);
+    expect(counterResult).toEqual(2);
+  });
 
-    expect(counterResult).toEqual(2)
+  it('should return "null" after wrong string submiting with codeMirrorParser', async () => {
+    const parsedString = codeMirrorParser('{"test":"value"');
+    expect(parsedString).toEqual(null);
   });
 });
 
