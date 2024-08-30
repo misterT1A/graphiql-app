@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import FormRest from '@/components/formRest/formRest';
+import FormRest from '@/components/FormRest/formRest';
 
 export default function Page(): ReactNode {
   return (
@@ -12,6 +12,9 @@ export default function Page(): ReactNode {
         headers: {
           'X-API-KEY': 'fe77bc0c-1287-4d70-adb2-d5f3b64ee3e7',
           'Content-Type': 'application/json',
+        },
+        variables: {
+          '{{test}}': 'empty',
         },
       }}
     />
