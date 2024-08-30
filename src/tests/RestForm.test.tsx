@@ -1,8 +1,9 @@
 import '@testing-library/jest-dom';
-// import { act, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 // import * as nextIntl from 'next-intl';
 
 // import FormRest from '@/components/FormRest/formRest';
+import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
 
@@ -75,6 +76,13 @@ describe('FormRest utils', () => {
   it('should return "null" after wrong string submiting with codeMirrorParser', async () => {
     const parsedString = codeMirrorParser('{"test":"value"');
     expect(parsedString).toEqual(null);
+  });
+});
+
+describe('FormRest icons', () => {
+  it('should make default color for Remove icon while no colors are specified', async () => {
+    const removeIcon = render(<RemoveIcon filled />);
+    expect(removeIcon).toMatchSnapshot();
   });
 });
 
