@@ -1,0 +1,75 @@
+import '@testing-library/jest-dom';
+// import { act, render } from '@testing-library/react';
+// import * as nextIntl from 'next-intl';
+
+// import FormRest from '@/components/FormRest/formRest';
+import { fieldsCounter } from '@/utils/fieldsCounter';
+
+// describe('FormRest', () => {
+//   beforeEach(async () => {
+//     const messages = await require('../messages/en.json');
+
+//     jest.spyOn(nextIntl, 'useTranslations').mockImplementation((initValue: string) => {
+//       return function Parsing(value: string, object = messages[initValue]): string | undefined {
+//         if (value.split('.')[1]) {
+//           Parsing(value.split('.')[1], object[value.split('.')[0]] as unknown as { [key: string]: string });
+//         } else {
+//           return object[value] as string;
+//         }
+//       };
+//     });
+//   });
+
+//   it('should render FormRest corectly', async () => {
+//     await act(async () => {
+//       const component = render(
+//         <FormRest
+//           inputData={{
+//             endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
+//             method: 'GET',
+//             body: { shrek: 'top' },
+//             headers: {
+//               'X-API-KEY': 'fe77bc0c-1287-4d70-adb2-d5f3b64ee3e7',
+//             },
+//             variables: {
+//               '{{test}}': 'empty',
+//             },
+//           }}
+//         />,
+//       );
+
+//       expect(component).toMatchSnapshot();
+//     });
+//   });
+
+//   it('should render FormRest corectly', async () => {
+//     await act(async () => {
+//       const component = render(
+//         <FormRest
+//           inputData={{
+//             endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
+//             method: 'GET',
+//             body: { shrek: 'top' },
+//             headers: {
+//               'X-API-KEY': 'fe77bc0c-1287-4d70-adb2-d5f3b64ee3e7',
+//             },
+//             variables: {
+//               '{{test}}': 'empty',
+//             },
+//           }}
+//         />,
+//       );
+
+//       expect(component).toMatchSnapshot();
+//     });
+//   });
+// });
+
+describe('FormRest utils', () => {
+  it('should return correct numbers of object errors with fieldsCounter', async () => {
+    const counterResult = fieldsCounter([{ message: 'firstError' }, { message: 'secondError' }]);
+
+    expect(counterResult).toEqual(2)
+  });
+});
+
