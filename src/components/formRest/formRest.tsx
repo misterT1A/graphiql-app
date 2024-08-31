@@ -7,6 +7,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { TEXT_CONTENT } from '@/constants/constants';
+import useRestFullRedirect from '@/hooks/restFullRedirect';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
@@ -18,13 +19,15 @@ const emptyArrayInput = { key: '', value: '' };
 
 function FormRest(props: {
   inputData?: {
-    body: object;
+    body: string;
     endpoint: string;
     headers: { [key: string]: string };
     variables: { [key: string]: string };
     method: string;
   };
 }): ReactNode {
+  const sendRequest = useRestFullRedirect();
+
   const initHeaders = [];
   if (props.inputData) {
     for (const keys in props.inputData.headers) {
@@ -78,9 +81,7 @@ function FormRest(props: {
     control,
   });
 
-  const [bodyData, setBodyData] = useState<object | string>(
-    JSON.stringify(props.inputData?.body, null, '  ') || '{\n  \n}',
-  );
+  const [bodyData, setBodyData] = useState<string>(props.inputData?.body || '{\n  \n}');
 
   const t = useTranslations('RestForm');
 
@@ -90,9 +91,8 @@ function FormRest(props: {
 
     const variables: { [key: string]: string } = {};
     data.variables.forEach((value) => (variables[value.key] = value.value));
-
     // output object for queryParams
-    console.log({
+    sendRequest({
       method: data.method,
       endpoint: data.endpoint,
       headers: headers,

@@ -1,12 +1,14 @@
 import { type ReactNode } from 'react';
 
 import FormRest from '@/components/formRest/formRest';
-import type { IPageProps, IRequestParams } from '@/types/restFullTypes';
+import type { IFormParams, IPageProps, IRequestParams } from '@/types/restFullTypes';
 import ResponseView from '@/ui/ResponseView/ResponseView';
 import decodingFromBase64 from '@/utils/decodingFromBase64';
+import prettyBodyJson from '@/utils/prettyBodyJson';
+import replaceVariables from '@/utils/replaceVariables';
 
 const sendRequest = async (requestParams: IRequestParams): Promise<Response | string> => {
-  const payloadObj = { method: requestParams.method, headers: requestParams.headers };
+  const payloadObj = { method: requestParams.method, headers: requestParams.headers, next: { revalidate: 5 } };
   if (requestParams.method !== 'GET') Object.assign(payloadObj, { body: requestParams.body });
 
   try {
@@ -23,29 +25,20 @@ const sendRequest = async (requestParams: IRequestParams): Promise<Response | st
 
 const Page = async ({ params, searchParams }: IPageProps): Promise<ReactNode> => {
   let response = {};
-  if (params.slug) {
-    const requestParams: IRequestParams = decodingFromBase64(params.slug as unknown as string[], searchParams);
+  let requestParams = {} as IFormParams;
+  let initFormData: IFormParams | undefined = undefined;
 
-    response = await sendRequest(requestParams);
+  if (params.slug) {
+    requestParams = decodingFromBase64(params.slug as unknown as string[], searchParams);
+    initFormData = { ...requestParams, body: prettyBodyJson(requestParams.body) };
+    const replacedParams = replaceVariables(requestParams, requestParams.variables);
+    response = await sendRequest(replacedParams);
   }
 
   return (
     <>
       <h1>rest</h1>
-      <FormRest
-        inputData={{
-          endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
-          method: 'GET',
-          body: { shrek: 'top' },
-          headers: {
-            'X-API-KEY': 'fe77bc0c-1287-4d70-adb2-d5f3b64ee3e7',
-            'Content-Type': 'application/json',
-          },
-          variables: {
-            '{{test}}': 'empty',
-          },
-        }}
-      />
+      <FormRest inputData={initFormData} />
       <ResponseView response={response} />
     </>
   );

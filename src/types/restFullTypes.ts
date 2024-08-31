@@ -9,7 +9,7 @@ export interface IRequestParams {
   method: string;
   endpoint: string;
   body: string;
-  headers: { key: string; value: string };
+  headers: { [key: string]: string };
 }
 
 export interface IFormParams {
@@ -17,4 +17,5 @@ export interface IFormParams {
   endpoint: string;
   body: string;
   headers: { [key: string]: string };
+  variables: { [key: string]: string };
 }

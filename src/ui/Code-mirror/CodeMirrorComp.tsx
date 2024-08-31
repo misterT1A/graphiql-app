@@ -17,7 +17,7 @@ const CodeMirrorComp = (props: {
   const onChange = useCallback(
     (val: string) => {
       setValue(val);
-      props.setResponse(val as unknown as SetStateAction<object>);
+      props.setResponse(val as unknown as SetStateAction<string>);
     },
     [props],
   );
