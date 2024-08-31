@@ -3,6 +3,7 @@ export type FormRestType = {
   endpoint: string;
   body: string;
   headers: { key: string; value: string }[];
+  variables: { key: string; value: string }[];
 };
 
 export type RestAPI = Readonly<{

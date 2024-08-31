@@ -12,7 +12,9 @@
       "method": "Method",
       "endpoint": "Endpoint URL",
       "headerKey": "Header key",
-      "headerValue": "Header value"
+      "headerValue": "Header value",
+      "variableKey": "Variable key",
+      "variableValue": "Variable value"
     },
     "errors": {
       "required": "Fill the field",
@@ -24,8 +26,10 @@
     "buttons": {
       "send": "Send",
       "headersTab": "Headers",
+      "variablesTab": "Variables",
       "bodyTab": "Body",
-      "addHeader": "Add Header"
+      "addHeader": "Add Header",
+      "addVariable": "Add Variable"
     }
   }
 }

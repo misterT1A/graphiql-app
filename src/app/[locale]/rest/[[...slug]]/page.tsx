@@ -41,6 +41,9 @@ const Page = async ({ params, searchParams }: IPageProps): Promise<ReactNode> =>
             'X-API-KEY': 'fe77bc0c-1287-4d70-adb2-d5f3b64ee3e7',
             'Content-Type': 'application/json',
           },
+          variables: {
+            '{{test}}': 'empty',
+          },
         }}
       />
       <ResponseView response={response} />
