@@ -25,6 +25,8 @@ function FormRest(props: {
     method: string;
   };
 }): ReactNode {
+  const t = useTranslations('RestForm');
+
   const initHeaders = [];
   if (props.inputData) {
     for (const keys in props.inputData.headers) {
@@ -51,7 +53,7 @@ function FormRest(props: {
     setValue,
   } = useForm<FormRestType>({
     mode: 'onChange',
-    resolver: zodResolver(RestSchema()),
+    resolver: zodResolver(RestSchema(t)),
     defaultValues: {
       method: props.inputData?.method,
       endpoint: props.inputData?.endpoint,
@@ -81,8 +83,6 @@ function FormRest(props: {
   const [bodyData, setBodyData] = useState<object | string>(
     JSON.stringify(props.inputData?.body, null, '  ') || '{\n  \n}',
   );
-
-  const t = useTranslations('RestForm');
 
   const submit = async (data: FormRestType): Promise<void> => {
     const headers: { [key: string]: string } = {};
