@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Chip, Input, Tab, Tabs } from '@nextui-org/react';
+import { Chip, Input, Tab, Tabs } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
@@ -11,6 +11,7 @@ import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import InputsArray from '@/ui/InputsArray/InputsArray';
 import SelectInput from '@/ui/SelectInput/SelectInput';
+import SubmitButton from '@/ui/SubmitButton/SubmitButton';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
 import RestSchema from '@/validation/RestSchema';
@@ -103,15 +104,7 @@ function FormRest(props: {
               errorMessage={errors.endpoint?.message}
             />
           </div>
-          <Button
-            size="lg"
-            type="submit"
-            color={(Object.keys(errors).length && 'danger') || 'success'}
-            isDisabled={Boolean(Object.keys(errors).length)}
-            className="h-14"
-          >
-            {t('buttons.send')}
-          </Button>
+          <SubmitButton t={t} register={register} errors={errors} />
         </div>
         <Tabs aria-label="Options">
           <Tab
