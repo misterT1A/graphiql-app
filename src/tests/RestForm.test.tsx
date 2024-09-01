@@ -45,7 +45,10 @@ describe('FormRest', () => {
       );
     });
 
-    fireEvent.click(screen.getByText('Send'));
+    await act(async () => {
+      fireEvent.click(screen.getByText('Send'));
+    });
+
     expect(component).toMatchSnapshot();
   });
 
@@ -54,8 +57,10 @@ describe('FormRest', () => {
       return render(<FormRest />);
     });
 
-    fireEvent.click(screen.getByText('Variables'));
-    fireEvent.click(screen.getByText('Body'));
+    await act(async () => {
+      fireEvent.click(screen.getByText('Variables'));
+      fireEvent.click(screen.getByText('Body'));
+    });
 
     expect(component).toMatchSnapshot();
   });
