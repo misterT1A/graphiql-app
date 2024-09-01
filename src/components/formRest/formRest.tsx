@@ -1,15 +1,15 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button, Chip, Input, Select, SelectItem, Tab, Tabs } from '@nextui-org/react';
+import { Button, Chip, Input, Tab, Tabs } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
-import { TEXT_CONTENT } from '@/constants/constants';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
+import SelectInput from '@/ui/SelectInput/SelectInput';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
 import RestSchema from '@/validation/RestSchema';
@@ -110,21 +110,7 @@ function FormRest(props: {
       <form onSubmit={handleSubmit(submit)} className="flex flex-col items-center gap-5 w-7/12">
         <div className="flex justify-between w-full gap-2">
           <div>
-            <Select
-              label={t('labels.method')}
-              {...register('method')}
-              className="w-[105px] text-center"
-              isInvalid={Boolean(errors.method)}
-              errorMessage={errors.method?.message}
-            >
-              {TEXT_CONTENT.methodValues.map((value, index) => {
-                return (
-                  <SelectItem value={value} key={value} hidden={!index}>
-                    {value}
-                  </SelectItem>
-                );
-              })}
-            </Select>
+            <SelectInput t={t} register={register} errors={errors} />
           </div>
           <div className="w-full">
             <Input
