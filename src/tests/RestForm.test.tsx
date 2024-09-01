@@ -81,19 +81,7 @@ describe('FormRest', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('should show headers errors', async () => {
-    await act(async () => {
-      render(<FormRest />);
-    });
-
-    await act(async () => {
-      fireEvent.click(screen.getByText('Send'));
-    });
-
-    expect(screen.getByText('Enter endpoint URL')).toBeInTheDocument();
-  });
-
-  it('should show variables errors', async () => {
+  it('should show headers and variables errors', async () => {
     await act(async () => {
       render(<FormRest />);
     });
