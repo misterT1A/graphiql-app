@@ -36,6 +36,22 @@ describe('FormRest', () => {
           return outputString;
         };
       });
+
+    document.createRange = (): Range => {
+      const range = new Range();
+
+      range.getBoundingClientRect = jest.fn();
+
+      range.getClientRects = (): DOMRectList => {
+        return {
+          item: (): null => null,
+          length: 0,
+          [Symbol.iterator]: jest.fn(),
+        };
+      };
+
+      return range;
+    };
   });
 
   it('should render FormRest', async () => {
@@ -62,6 +78,82 @@ describe('FormRest', () => {
 
     expect(component).toMatchSnapshot();
   });
+
+  it('should show headers errors', async () => {
+    await act(async () => {
+      render(<FormRest />);
+    });
+
+    await act(async () => {
+      fireEvent.click(screen.getByText('Send'));
+    });
+
+    expect(screen.getByText('Enter endpoint URL')).toBeInTheDocument();
+  });
+
+  it('should show variables errors', async () => {
+    await act(async () => {
+      render(<FormRest />);
+    });
+
+    await act(async () => {
+      fireEvent.click(screen.getByText('Send'));
+    });
+
+    expect(screen.getByText('Enter endpoint URL')).toBeInTheDocument();
+  });
+
+  it('should show body errors', async () => {
+    await act(async () => {
+      render(
+        <FormRest
+          inputData={{
+            endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
+            method: 'GET',
+            body: '' as unknown as object,
+            headers: {
+              'X-API-KEY': 'fe77bc0c-1287-4d70-adb2-d5f3b64ee3e7',
+            },
+            variables: {
+              '{{test}}': 'empty',
+            },
+          }}
+        />,
+      );
+    });
+
+    await act(async () => {
+      fireEvent.click(screen.getByText('Body'));
+    });
+
+    expect(screen.getByText('Fix the following errors:')).toBeInTheDocument();
+  });
+
+  it('should add and remove headers and variables inputs', async () => {
+    const component = await act(async () => {
+      return render(<FormRest />);
+    });
+
+    await act(async () => {
+      fireEvent.click(screen.getByTestId('remove-btn'));
+      fireEvent.click(screen.getByText('Add Header'));
+    });
+
+    expect(component).toMatchSnapshot();
+  });
+
+  // it('should add and remove headers and variables inputs', async () => {
+  //   const component = await act(async () => {
+  //     return render(<FormRest />);
+  //   });
+
+  //   await act(async () => {
+  //     fireEvent.click(screen.getByTestId('remove-btn'));
+  //     fireEvent.click(screen.getByText('Add Header'));
+  //   });
+
+  //   expect(component).toMatchSnapshot();
+  // });
 });
 
 describe('FormRest utils', () => {

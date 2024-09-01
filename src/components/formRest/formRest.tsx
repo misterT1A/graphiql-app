@@ -193,6 +193,7 @@ function FormRest(props: {
                           aria-label="Like"
                           size="sm"
                           onClick={() => headersRemove(index)}
+                          data-testid="remove-btn"
                         >
                           <RemoveIcon />
                         </Button>
