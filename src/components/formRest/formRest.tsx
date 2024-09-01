@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { EMPTY_ARRAY_INPUT } from '@/constants/constants';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import InputsArray from '@/ui/InputsArray/InputsArray';
@@ -14,6 +13,8 @@ import SelectInput from '@/ui/SelectInput/SelectInput';
 import SubmitButton from '@/ui/SubmitButton/SubmitButton';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
+import { InputsArrayToObject } from '@/utils/InputsArrayToObject';
+import { InputsObjectToArray } from '@/utils/InputsObjectToArray';
 import RestSchema from '@/validation/RestSchema';
 
 function FormRest(props: {
@@ -27,24 +28,6 @@ function FormRest(props: {
 }): ReactNode {
   const t = useTranslations('RestForm');
 
-  const initHeaders = [];
-  if (props.inputData) {
-    for (const keys in props.inputData.headers) {
-      initHeaders.push({ key: keys, value: props.inputData.headers[keys] });
-    }
-  } else {
-    initHeaders.push(EMPTY_ARRAY_INPUT);
-  }
-
-  const initVariables = [];
-  if (props.inputData) {
-    for (const keys in props.inputData.variables) {
-      initVariables.push({ key: keys, value: props.inputData.variables[keys] });
-    }
-  } else {
-    initVariables.push(EMPTY_ARRAY_INPUT);
-  }
-
   const {
     register,
     control,
@@ -57,8 +40,8 @@ function FormRest(props: {
     defaultValues: {
       method: props.inputData?.method,
       endpoint: props.inputData?.endpoint,
-      headers: initHeaders,
-      variables: initVariables,
+      headers: InputsObjectToArray(props.inputData, 'headers'),
+      variables: InputsObjectToArray(props.inputData, 'variables'),
     },
   });
 
@@ -67,18 +50,11 @@ function FormRest(props: {
   );
 
   const submit = async (data: FormRestType): Promise<void> => {
-    const headers: { [key: string]: string } = {};
-    data.headers.forEach((value) => (headers[value.key] = value.value));
-
-    const variables: { [key: string]: string } = {};
-    data.variables.forEach((value) => (variables[value.key] = value.value));
-
-    // output object for queryParams
     console.log({
       method: data.method,
       endpoint: data.endpoint,
-      headers: headers,
-      variables: variables,
+      headers: InputsArrayToObject(data.headers),
+      variables: InputsArrayToObject(data.variables),
       body: codeMirrorParser(bodyData as string),
     });
   };
