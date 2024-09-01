@@ -28,8 +28,8 @@
       "headersTab": "Headers",
       "variablesTab": "Variables",
       "bodyTab": "Body",
-      "addHeader": "Add Header",
-      "addVariable": "Add Variable"
+      "headerAdd": "Add Header",
+      "variableAdd": "Add Variable"
     }
   }
 }

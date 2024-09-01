@@ -4,17 +4,16 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Chip, Input, Tab, Tabs } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState, type ReactNode } from 'react';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
+import { EMPTY_ARRAY_INPUT } from '@/constants/constants';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
-import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
+import InputsArray from '@/ui/InputsArray/InputsArray';
 import SelectInput from '@/ui/SelectInput/SelectInput';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
 import RestSchema from '@/validation/RestSchema';
-
-const emptyArrayInput = { key: '', value: '' };
 
 function FormRest(props: {
   inputData?: {
@@ -33,7 +32,7 @@ function FormRest(props: {
       initHeaders.push({ key: keys, value: props.inputData.headers[keys] });
     }
   } else {
-    initHeaders.push(emptyArrayInput);
+    initHeaders.push(EMPTY_ARRAY_INPUT);
   }
 
   const initVariables = [];
@@ -42,7 +41,7 @@ function FormRest(props: {
       initVariables.push({ key: keys, value: props.inputData.variables[keys] });
     }
   } else {
-    initVariables.push(emptyArrayInput);
+    initVariables.push(EMPTY_ARRAY_INPUT);
   }
 
   const {
@@ -60,24 +59,6 @@ function FormRest(props: {
       headers: initHeaders,
       variables: initVariables,
     },
-  });
-
-  const {
-    fields: headersFields,
-    append: headersAppend,
-    remove: headersRemove,
-  } = useFieldArray({
-    name: 'headers',
-    control,
-  });
-
-  const {
-    fields: variablesFields,
-    append: variablesAppend,
-    remove: variablesRemove,
-  } = useFieldArray({
-    name: 'variables',
-    control,
   });
 
   const [bodyData, setBodyData] = useState<object | string>(
@@ -147,51 +128,7 @@ function FormRest(props: {
             }
             className="flex flex-col items-center gap-5 w-full"
           >
-            <div className="flex flex-col gap-5 w-full">
-              {Boolean(headersFields.length) && (
-                <div className="flex flex-col gap-2 w-full">
-                  {headersFields.map((item, index) => (
-                    <div key={item.id} className="flex gap-2 justify-between">
-                      <div className="w-1/2">
-                        <Input
-                          type="text"
-                          label={t('labels.headerKey')}
-                          {...register(`headers.${index}.key` as const)}
-                          className="text-center"
-                          isInvalid={Boolean(errors.headers && errors.headers[index]?.key?.message)}
-                          errorMessage={errors.headers && errors.headers[index]?.key?.message}
-                        />
-                      </div>
-                      <div className="w-1/2">
-                        <Input
-                          type="text"
-                          label={t('labels.headerValue')}
-                          {...register(`headers.${index}.value` as const)}
-                          className="text-center"
-                          isInvalid={Boolean(errors.headers && errors.headers[index]?.value?.message)}
-                          errorMessage={errors.headers && errors.headers[index]?.value?.message}
-                        />
-                      </div>
-                      <div className="flex items-center h-14">
-                        <Button
-                          isIconOnly
-                          color="danger"
-                          aria-label="Like"
-                          size="sm"
-                          onClick={() => headersRemove(index)}
-                          data-testid="remove-btn"
-                        >
-                          <RemoveIcon />
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-              <Button size="sm" onClick={() => headersAppend(emptyArrayInput)}>
-                {t('buttons.addHeader')}
-              </Button>
-            </div>
+            <InputsArray t={t} register={register} errors={errors} control={control} name="headers" />
           </Tab>
           <Tab
             key="variablesTab"
@@ -207,50 +144,7 @@ function FormRest(props: {
             }
             className="flex flex-col items-center gap-5 w-full"
           >
-            <div className="flex flex-col gap-5 w-full">
-              {Boolean(variablesFields.length) && (
-                <div className="flex flex-col gap-2 w-full">
-                  {variablesFields.map((item, index) => (
-                    <div key={item.id} className="flex gap-2 justify-between">
-                      <div className="w-1/2">
-                        <Input
-                          type="text"
-                          label={t('labels.variableKey')}
-                          {...register(`variables.${index}.key` as const)}
-                          className="text-center"
-                          isInvalid={Boolean(errors.variables && errors.variables[index]?.key?.message)}
-                          errorMessage={errors.variables && errors.variables[index]?.key?.message}
-                        />
-                      </div>
-                      <div className="w-1/2">
-                        <Input
-                          type="text"
-                          label={t('labels.variableValue')}
-                          {...register(`variables.${index}.value` as const)}
-                          className="text-center"
-                          isInvalid={Boolean(errors.variables && errors.variables[index]?.value?.message)}
-                          errorMessage={errors.variables && errors.variables[index]?.value?.message}
-                        />
-                      </div>
-                      <div className="flex items-center h-14">
-                        <Button
-                          isIconOnly
-                          color="danger"
-                          aria-label="Like"
-                          size="sm"
-                          onClick={() => variablesRemove(index)}
-                        >
-                          <RemoveIcon />
-                        </Button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-              <Button size="sm" onClick={() => variablesAppend(emptyArrayInput)}>
-                {t('buttons.addVariable')}
-              </Button>
-            </div>
+            <InputsArray t={t} register={register} errors={errors} control={control} name="variables" />
           </Tab>
           <Tab
             key="bodyTab"
