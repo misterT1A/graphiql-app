@@ -141,19 +141,6 @@ describe('FormRest', () => {
 
     expect(component).toMatchSnapshot();
   });
-
-  // it('should add and remove headers and variables inputs', async () => {
-  //   const component = await act(async () => {
-  //     return render(<FormRest />);
-  //   });
-
-  //   await act(async () => {
-  //     fireEvent.click(screen.getByTestId('remove-btn'));
-  //     fireEvent.click(screen.getByText('Add Header'));
-  //   });
-
-  //   expect(component).toMatchSnapshot();
-  // });
 });
 
 describe('FormRest utils', () => {
@@ -174,4 +161,3 @@ describe('FormRest icons', () => {
     expect(removeIcon).toMatchSnapshot();
   });
 });
-
