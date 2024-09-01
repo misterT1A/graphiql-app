@@ -7,6 +7,18 @@ import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
 
+const initData = {
+  endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
+  method: 'GET',
+  body: { shrek: 'top' },
+  headers: {
+    'X-API-KEY': 'fe77bc0c-1287-4d70-adb2-d5f3b64ee3e7',
+  },
+  variables: {
+    '{{test}}': 'empty',
+  },
+};
+
 describe('FormRest', () => {
   beforeAll(async () => {
     const messages = await require('../messages/en.json');
@@ -28,21 +40,7 @@ describe('FormRest', () => {
 
   it('should render FormRest', async () => {
     const component = await act(async () => {
-      return render(
-        <FormRest
-          inputData={{
-            endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
-            method: 'GET',
-            body: { shrek: 'top' },
-            headers: {
-              'X-API-KEY': 'fe77bc0c-1287-4d70-adb2-d5f3b64ee3e7',
-            },
-            variables: {
-              '{{test}}': 'empty',
-            },
-          }}
-        />,
-      );
+      return render(<FormRest inputData={initData} />);
     });
 
     await act(async () => {
