@@ -127,16 +127,17 @@ function FormRest(props: {
                 )}
               </div>
             }
-            className="flex flex-col gap-2 w-full"
+            className="w-full"
           >
             <CodeMirrorComp
               setResponse={setBodyData}
               size={{ width: '100%', height: '100px' }}
               initValue={bodyData as string}
+              t={t}
+              register={register}
+              errors={errors}
+              name="body"
             />
-            <Input type="hidden" {...register('body')} />
-            <p className="text-[#F31260] text-center text-xs">{errors.body && t('errors.body')}</p>
-            <p className="text-[#F31260] text-center text-xs">{errors.body?.message}</p>
           </Tab>
         </Tabs>
       </form>
