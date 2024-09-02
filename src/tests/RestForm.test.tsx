@@ -93,14 +93,14 @@ describe('FormRest', () => {
     expect(screen.getByText('Enter endpoint URL')).toBeInTheDocument();
   });
 
-  it('should show body errors', async () => {
+  it('should switch body mode and show correct body value after submiting', async () => {
     await act(async () => {
       render(
         <FormRest
           inputData={{
             endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
             method: 'GET',
-            body: '' as unknown as object,
+            body: 'RSS' as unknown as string,
             headers: {
               'X-API-KEY': 'fe77bc0c-1287-4d70-adb2-d5f3b64ee3e7',
             },
@@ -116,7 +116,13 @@ describe('FormRest', () => {
       fireEvent.click(screen.getByText('Body'));
     });
 
-    expect(screen.getByText('Fix the following errors:')).toBeInTheDocument();
+    await act(async () => {
+      fireEvent.click(screen.getByText('JSON'));
+      fireEvent.click(screen.getByText('Plain Text'));
+      fireEvent.click(screen.getByText('Send'));
+    });
+
+    expect(screen.getByText('Request Body')).toBeInTheDocument();
   });
 
   it('should add and remove headers and variables inputs', async () => {

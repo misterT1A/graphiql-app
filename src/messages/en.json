@@ -15,7 +15,7 @@
       "headerValue": "Header value",
       "variableKey": "Variable key",
       "variableValue": "Variable value",
-      "bodyText": "Body"
+      "bodyText": "Request Body"
     },
     "errors": {
       "required": "Fill the field",
