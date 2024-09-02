@@ -65,7 +65,7 @@ function FormRest(props: {
 
   return (
     <div className="flex flex-col items-center py-10 px-2 gap-2 md:p-10">
-      <form onSubmit={handleSubmit(submit)} className="flex flex-col items-center gap-5">
+      <form onSubmit={handleSubmit(submit)} className="flex flex-col items-center gap-5 w-full sm:w-7/12">
         <div className="flex justify-between w-full gap-2">
           <div>
             <SelectInput t={t} register={register} errors={errors} />
