@@ -155,14 +155,14 @@ function FormRest(props: {
               </Tab>
               <Tab
                 key="bodyText"
-                title="Plain Text"
+                title={t('buttons.bodyTextTab')}
                 className="flex flex-col gap-2 w-full"
                 isDisabled={Boolean(errors.bodyJSON)}
               >
                 <Textarea
                   {...register('bodyText')}
-                  label="Body"
-                  placeholder="Plain text supports only"
+                  label={t('labels.bodyText')}
+                  placeholder={t('placeholders.bodyText')}
                   className="w-full h-[100px]"
                 />
               </Tab>
