@@ -1,8 +1,9 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Chip, Input, Tab, Tabs } from '@nextui-org/react';
+import { Chip, Input, Tab, Tabs, Textarea } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
+import type { SetStateAction } from 'react';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -42,12 +43,15 @@ function FormRest(props: {
       endpoint: props.inputData?.endpoint,
       headers: InputsObjectToArray(props.inputData, 'headers'),
       variables: InputsObjectToArray(props.inputData, 'variables'),
+      bodyText: 'JOPA', //debug
     },
   });
 
-  const [bodyData, setBodyData] = useState<object | string>(
+  const [bodyJSONData, setBodyData] = useState<object | string>(
     JSON.stringify(props.inputData?.body, null, '  ') || '{\n  \n}',
   );
+
+  const [selectedBody, setSelectedBody] = useState('bodyJSON');
 
   const submit = async (data: FormRestType): Promise<void> => {
     console.log({
@@ -55,13 +59,13 @@ function FormRest(props: {
       endpoint: data.endpoint,
       headers: InputsArrayToObject(data.headers),
       variables: InputsArrayToObject(data.variables),
-      body: codeMirrorParser(bodyData as string),
+      body: selectedBody === 'bodyJSON' ? codeMirrorParser(bodyJSONData as string) : data.bodyText,
     });
   };
 
   useEffect(() => {
-    setValue('body', bodyData as string, { shouldValidate: true });
-  }, [bodyData, setValue]);
+    setValue('bodyJSON', bodyJSONData as string, { shouldValidate: true });
+  }, [bodyJSONData, setValue]);
 
   return (
     <div className="flex flex-col items-center py-10 px-2 gap-2 md:p-10">
@@ -120,7 +124,7 @@ function FormRest(props: {
             title={
               <div className="flex items-center space-x-2">
                 <span>{t('buttons.bodyTab')}</span>
-                {errors.body && (
+                {errors.bodyJSON && (
                   <Chip size="sm" variant="faded" color="danger">
                     +1
                   </Chip>
@@ -129,15 +133,34 @@ function FormRest(props: {
             }
             className="w-full"
           >
-            <CodeMirrorComp
-              setResponse={setBodyData}
-              size={{ width: '100%', height: '100px' }}
-              initValue={bodyData as string}
-              t={t}
-              register={register}
-              errors={errors}
-              name="body"
-            />
+            <Tabs
+              aria-label="Mode"
+              placement="start"
+              className="flex flex-col h-[100px] justify-center"
+              onSelectionChange={(key: React.Key) => {
+                setSelectedBody(key as SetStateAction<string>);
+              }}
+            >
+              <Tab key="bodyJSON" title="JSON" className="flex flex-col gap-2 w-full">
+                <CodeMirrorComp
+                  setResponse={setBodyData}
+                  size={{ width: '100%', height: '98.4px' }}
+                  initValue={bodyJSONData as string}
+                  t={t}
+                  register={register}
+                  errors={errors}
+                  name="bodyJSON"
+                />
+              </Tab>
+              <Tab key="bodyText" title="Plain Text" className="flex flex-col gap-2 w-full">
+                <Textarea
+                  {...register('bodyText')}
+                  label="Body"
+                  placeholder="Plain text supports only"
+                  className="w-full h-[100px]"
+                />
+              </Tab>
+            </Tabs>
           </Tab>
         </Tabs>
       </form>

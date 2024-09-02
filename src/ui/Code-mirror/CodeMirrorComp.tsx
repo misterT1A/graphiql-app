@@ -19,7 +19,7 @@ const CodeMirrorComp = (props: {
   t: ReturnType<typeof useTranslations<'RestForm'>>;
   register: UseFormRegister<FormRestType>;
   errors: FieldErrors<FormRestType>;
-  name: 'body';
+  name: 'bodyJSON';
 }): ReactElement | null => {
   const [value, setValue] = useState(props.initValue);
 
@@ -34,8 +34,8 @@ const CodeMirrorComp = (props: {
   const { theme } = useTheme();
 
   return (
-    <div className="flex flex-col gap-2 w-full">
-      <div className="border border-black rounded-[5px] inline-block overflow-hidden">
+    <>
+      <div className={'border border-black rounded-[12px] inline-block overflow-hidden'}>
         <CodeMirror
           value={value}
           width={props.size.width}
@@ -52,7 +52,7 @@ const CodeMirrorComp = (props: {
           <p className="text-[#F31260] text-center text-xs">{props.errors[props.name]?.message}</p>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

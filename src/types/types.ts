@@ -1,7 +1,8 @@
 export type FormRestType = {
   method: string;
   endpoint: string;
-  body: string;
+  bodyJSON: string;
+  bodyText: string;
   headers: { key: string; value: string }[];
   variables: { key: string; value: string }[];
 };
