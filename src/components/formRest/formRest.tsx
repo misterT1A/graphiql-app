@@ -141,6 +141,7 @@ function FormRest(props: {
                 setSelectedBody(key as SetStateAction<string>);
               }}
               defaultSelectedKey={typeof props.inputData?.body === 'string' ? 'bodyText' : 'bodyJSON'}
+              color="success"
             >
               <Tab key="bodyJSON" title="JSON" className="flex flex-col gap-2 w-full">
                 <CodeMirrorComp
