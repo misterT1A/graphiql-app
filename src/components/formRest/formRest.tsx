@@ -7,7 +7,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { TEXT_CONTENT } from '@/constants/constants';
-import useRestFullRedirect from '@/hooks/restFullRedirect';
+import type { IFormParams } from '@/types/restFullTypes';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
@@ -18,6 +18,7 @@ import RestSchema from '@/validation/RestSchema';
 const emptyArrayInput = { key: '', value: '' };
 
 function FormRest(props: {
+  getDataHandler: (form: IFormParams) => Promise<void>;
   inputData?: {
     body: string;
     endpoint: string;
@@ -26,8 +27,6 @@ function FormRest(props: {
     method: string;
   };
 }): ReactNode {
-  const sendRequest = useRestFullRedirect();
-
   const initHeaders = [];
   if (props.inputData) {
     for (const keys in props.inputData.headers) {
@@ -91,8 +90,8 @@ function FormRest(props: {
 
     const variables: { [key: string]: string } = {};
     data.variables.forEach((value) => (variables[value.key] = value.value));
-    // output object for queryParams
-    sendRequest({
+
+    props.getDataHandler({
       method: data.method,
       endpoint: data.endpoint,
       headers: headers,

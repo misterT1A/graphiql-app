@@ -18,9 +18,11 @@ const convertToBase64 = (formsParams: IFormParams): string => {
   }
 
   let body = '';
-  const validatedBody = validateJson(formsParams.body);
-  if (validatedBody) {
-    body = '/' + btoa(validatedBody || '').replace(/=+$/, '');
+  if (formsParams.method !== 'GET') {
+    const validatedBody = validateJson(formsParams.body);
+    if (validatedBody) {
+      body = '/' + btoa(validatedBody || '').replace(/=+$/, '');
+    }
   }
 
   return `/${formsParams.method}/${endpoint}${body}?${queryParams.toString()}`;
