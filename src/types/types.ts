@@ -10,7 +10,7 @@ export type FormRestType = {
 export type FormRestDataType = {
   method: string;
   endpoint: string;
-  body: object;
+  body: object | string;
   headers: { [key: string]: string };
   variables: { [key: string]: string };
 };

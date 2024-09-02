@@ -20,7 +20,7 @@ import RestSchema from '@/validation/RestSchema';
 
 function FormRest(props: {
   inputData?: {
-    body: object;
+    body: object | string;
     endpoint: string;
     headers: { [key: string]: string };
     variables: { [key: string]: string };
@@ -43,12 +43,12 @@ function FormRest(props: {
       endpoint: props.inputData?.endpoint,
       headers: InputsObjectToArray(props.inputData, 'headers'),
       variables: InputsObjectToArray(props.inputData, 'variables'),
-      bodyText: 'JOPA', //debug
+      bodyText: typeof props.inputData?.body === 'string' ? props.inputData?.body : '',
     },
   });
 
   const [bodyJSONData, setBodyData] = useState<object | string>(
-    JSON.stringify(props.inputData?.body, null, '  ') || '{\n  \n}',
+    (typeof props.inputData?.body !== 'string' && JSON.stringify(props.inputData?.body, null, '  ')) || '{\n  \n}',
   );
 
   const [selectedBody, setSelectedBody] = useState('bodyJSON');
@@ -140,6 +140,7 @@ function FormRest(props: {
               onSelectionChange={(key: React.Key) => {
                 setSelectedBody(key as SetStateAction<string>);
               }}
+              defaultSelectedKey={typeof props.inputData?.body === 'string' ? 'bodyText' : 'bodyJSON'}
             >
               <Tab key="bodyJSON" title="JSON" className="flex flex-col gap-2 w-full">
                 <CodeMirrorComp
@@ -152,7 +153,11 @@ function FormRest(props: {
                   name="bodyJSON"
                 />
               </Tab>
-              <Tab key="bodyText" title="Plain Text" className="flex flex-col gap-2 w-full">
+              <Tab
+                key="bodyText"
+                title="Plain Text"
+                className="flex flex-col gap-2 w-full"
+              >
                 <Textarea
                   {...register('bodyText')}
                   label="Body"
