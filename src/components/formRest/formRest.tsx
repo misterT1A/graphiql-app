@@ -51,7 +51,7 @@ function FormRest(props: {
     (typeof props.inputData?.body !== 'string' && JSON.stringify(props.inputData?.body, null, '  ')) || '{\n  \n}',
   );
 
-  const [selectedBody, setSelectedBody] = useState('bodyJSON');
+  const [selectedBody, setSelectedBody] = useState(typeof props.inputData?.body === 'string' ? 'bodyText' : 'bodyJSON');
 
   const submit = async (data: FormRestType): Promise<void> => {
     console.log({
@@ -140,7 +140,7 @@ function FormRest(props: {
               onSelectionChange={(key: React.Key) => {
                 setSelectedBody(key as SetStateAction<string>);
               }}
-              defaultSelectedKey={typeof props.inputData?.body === 'string' ? 'bodyText' : 'bodyJSON'}
+              defaultSelectedKey={selectedBody}
               color="success"
             >
               <Tab key="bodyJSON" title="JSON" className="flex flex-col gap-2 w-full">
