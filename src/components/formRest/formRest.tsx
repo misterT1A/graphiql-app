@@ -157,6 +157,7 @@ function FormRest(props: {
                 key="bodyText"
                 title="Plain Text"
                 className="flex flex-col gap-2 w-full"
+                isDisabled={Boolean(errors.bodyJSON)}
               >
                 <Textarea
                   {...register('bodyText')}
