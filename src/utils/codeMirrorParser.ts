@@ -1,9 +1,9 @@
-export function codeMirrorParser(input: string): string {
+export function codeMirrorParser(input: string): object | null {
   try {
     const validJsonString = input.replace(/\\n/g, '').replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2":');
 
-    return validJsonString;
+    return JSON.parse(validJsonString);
   } catch {
-    return '';
+    return null;
   }
 }

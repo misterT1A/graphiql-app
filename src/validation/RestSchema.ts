@@ -1,10 +1,10 @@
-import { useTranslations } from 'next-intl';
+import type { useTranslations } from 'next-intl';
 import type { ZodSchema } from 'zod';
 import { z } from 'zod';
 
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 
-const RestSchema = (): ZodSchema => {
+const RestSchema = (t: ReturnType<typeof useTranslations<'RestForm'>>): ZodSchema => {
   const errorCatcher = (value: string): string => {
     try {
       return JSON.parse(value);
@@ -12,8 +12,6 @@ const RestSchema = (): ZodSchema => {
       return (error as Error).message;
     }
   };
-
-  const t = useTranslations('RestForm');
 
   const schema = z.object({
     method: z.string().min(1, t('errors.method')),
@@ -24,10 +22,11 @@ const RestSchema = (): ZodSchema => {
     variables: z.array(
       z.object({ key: z.string().min(1, t('errors.required')), value: z.string().min(1, t('errors.required')) }),
     ),
-    body: z.string().refine(
+    bodyJSON: z.string().refine(
       (value) => codeMirrorParser(value),
       (value) => ({ message: `"${errorCatcher(value)}"` }),
     ),
+    bodyText: z.string(),
   });
 
   return schema;

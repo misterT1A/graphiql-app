@@ -14,7 +14,8 @@
       "headerKey": "Header key",
       "headerValue": "Header value",
       "variableKey": "Variable key",
-      "variableValue": "Variable value"
+      "variableValue": "Variable value",
+      "bodyText": "Request Body"
     },
     "errors": {
       "required": "Fill the field",
@@ -28,8 +29,12 @@
       "headersTab": "Headers",
       "variablesTab": "Variables",
       "bodyTab": "Body",
-      "addHeader": "Add Header",
-      "addVariable": "Add Variable"
+      "headerAdd": "Add Header",
+      "variableAdd": "Add Variable",
+      "bodyTextTab": "Plain Text"
+    },
+    "placeholders": {
+      "bodyText": "Plain text supports only"
     }
   }
 }

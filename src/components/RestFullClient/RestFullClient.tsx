@@ -38,10 +38,11 @@ const RestFullClient = ({
     setLoading(false);
     setState(resp);
   };
-
+  console.log(sumbiteHandler);
   return (
     <>
-      <FormRest inputData={initParams?.initFormData} getDataHandler={sumbiteHandler} />
+      {/* <FormRest inputData={initParams?.initFormData} getDataHandler={sumbiteHandler} /> */}
+      <FormRest inputData={initParams?.initFormData} />
       {isLoading && <ResponseLoader />}
       {!isLoading && state && <ResponseView response={state as object} />}
     </>
