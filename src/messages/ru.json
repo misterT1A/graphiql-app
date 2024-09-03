@@ -14,7 +14,8 @@
       "headerKey": "Ключ заголовка",
       "headerValue": "Значение заголовка",
       "variableKey": "Ключ переменной",
-      "variableValue": "Значение переменной"
+      "variableValue": "Значение переменной",
+      "bodyText": "Тело запроса"
     },
     "errors": {
       "required": "Заполните поле",
@@ -29,7 +30,11 @@
       "variablesTab": "Переменные",
       "bodyTab": "Тело",
       "headerAdd": "Добавить заголовок",
-      "variableAdd": "Добавить переменную"
+      "variableAdd": "Добавить переменную",
+      "bodyTextTab": "Текст"
+    },
+    "placeholders": {
+      "bodyText": "Поддерживается только обычный текст"
     }
   }
 }

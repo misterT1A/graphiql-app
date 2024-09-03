@@ -22,10 +22,11 @@ const RestSchema = (t: ReturnType<typeof useTranslations<'RestForm'>>): ZodSchem
     variables: z.array(
       z.object({ key: z.string().min(1, t('errors.required')), value: z.string().min(1, t('errors.required')) }),
     ),
-    body: z.string().refine(
+    bodyJSON: z.string().refine(
       (value) => codeMirrorParser(value),
       (value) => ({ message: `"${errorCatcher(value)}"` }),
     ),
+    bodyText: z.string(),
   });
 
   return schema;

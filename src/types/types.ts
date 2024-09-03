@@ -1,7 +1,8 @@
 export type FormRestType = {
   method: string;
   endpoint: string;
-  body: string;
+  bodyJSON: string;
+  bodyText: string;
   headers: { key: string; value: string }[];
   variables: { key: string; value: string }[];
 };
@@ -9,7 +10,7 @@ export type FormRestType = {
 export type FormRestDataType = {
   method: string;
   endpoint: string;
-  body: object;
+  body: object | string;
   headers: { [key: string]: string };
   variables: { [key: string]: string };
 };
