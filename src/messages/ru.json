@@ -28,8 +28,8 @@
       "headersTab": "Заголовки",
       "variablesTab": "Переменные",
       "bodyTab": "Тело",
-      "addHeader": "Добавить заголовок",
-      "addVariable": "Добавить переменную"
+      "headerAdd": "Добавить заголовок",
+      "variableAdd": "Добавить переменную"
     }
   }
 }
