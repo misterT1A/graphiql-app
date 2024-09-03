@@ -26,7 +26,15 @@ const getRestfullData = async (requestParams: IRequestParams): Promise<Response 
       };
       return errorObj;
     }
-    return response.json();
+
+    const responseObj = {
+      status: response.status,
+      statusText: response.statusText,
+      body: await response.json(),
+      url: response.url,
+    };
+
+    return responseObj;
   } catch (e: unknown) {
     return e instanceof Error
       ? { errorName: e.name, errorMessage: e.message }

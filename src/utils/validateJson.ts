@@ -5,6 +5,7 @@ const validateJson = (val: string): string | null => {
     }
 
     const validJsonString = val
+      .replace(/:\s*([0-9]+)/g, ': "$1"')
       .replace(/'/g, '"')
       .replace(/(\{\{.*?\}\})\s*:/g, '"$1":')
       .replace(/([a-zA-Z0-9_]+)\s*:/g, '"$1":')

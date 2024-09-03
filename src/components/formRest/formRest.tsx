@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,6 +8,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 
 import { TEXT_CONTENT } from '@/constants/constants';
+import useEncryption from '@/hooks/useEncryption';
 import type { IFormParams } from '@/types/restFullTypes';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
@@ -27,6 +29,7 @@ function FormRest(props: {
     method: string;
   };
 }): ReactNode {
+  const { encriptMethod, encriptEndpoint, encriptBody } = useEncryption();
   const initHeaders = [];
   if (props.inputData) {
     for (const keys in props.inputData.headers) {
@@ -50,6 +53,7 @@ function FormRest(props: {
     control,
     handleSubmit,
     formState: { errors },
+    getValues,
     setValue,
   } = useForm<FormRestType>({
     mode: 'onChange',
@@ -112,6 +116,7 @@ function FormRest(props: {
             <Select
               label={t('labels.method')}
               {...register('method')}
+              onBlur={() => encriptMethod(getValues('method'))}
               className="w-[105px] text-center"
               isInvalid={Boolean(errors.method)}
               errorMessage={errors.method?.message}
@@ -130,6 +135,7 @@ function FormRest(props: {
               type="text"
               label={t('labels.endpoint')}
               {...register('endpoint')}
+              onBlur={() => encriptEndpoint(getValues('endpoint'))}
               className="w-full text-center"
               isInvalid={Boolean(errors.endpoint)}
               errorMessage={errors.endpoint?.message}
@@ -278,14 +284,16 @@ function FormRest(props: {
             }
             className="flex flex-col gap-2 w-full"
           >
-            <CodeMirrorComp
-              setResponse={setBodyData}
-              size={{ width: '100%', height: '100px' }}
-              initValue={bodyData as string}
-            />
-            <Input type="hidden" {...register('body')} />
-            <p className="text-[#F31260] text-center text-xs">{errors.body && t('errors.body')}</p>
-            <p className="text-[#F31260] text-center text-xs">{errors.body?.message}</p>
+            <div onBlur={() => encriptBody(bodyData)}>
+              <CodeMirrorComp
+                setResponse={setBodyData}
+                size={{ width: '100%', height: '100px' }}
+                initValue={bodyData as string}
+              />
+              <Input type="hidden" {...register('body')} />
+              <p className="text-[#F31260] text-center text-xs">{errors.body && t('errors.body')}</p>
+              <p className="text-[#F31260] text-center text-xs">{errors.body?.message}</p>
+            </div>
           </Tab>
         </Tabs>
       </form>
