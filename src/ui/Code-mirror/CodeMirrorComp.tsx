@@ -35,7 +35,7 @@ const CodeMirrorComp = (props: {
 
   return (
     <>
-      <div className={'border border-black rounded-[12px] inline-block overflow-hidden'}>
+      <div className={'border border-black rounded-[12px] inline-block overflow-hidden w-full'}>
         <CodeMirror
           value={value}
           width={props.size.width}

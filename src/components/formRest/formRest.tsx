@@ -7,6 +7,8 @@ import type { SetStateAction } from 'react';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
+import useEncryption from '@/hooks/useEncryption';
+import type { IFormParams } from '@/types/restFullTypes';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import InputsArray from '@/ui/InputsArray/InputsArray';
@@ -19,6 +21,7 @@ import { InputsObjectToArray } from '@/utils/InputsObjectToArray';
 import RestSchema from '@/validation/RestSchema';
 
 function FormRest(props: {
+  getData: (form: IFormParams) => void;
   inputData?: {
     body: object | string;
     endpoint: string;
@@ -27,12 +30,14 @@ function FormRest(props: {
     method: string;
   };
 }): ReactNode {
+  const { encriptEndpoint, encriptBody } = useEncryption();
   const t = useTranslations('RestForm');
 
   const {
     register,
     control,
     handleSubmit,
+    getValues,
     formState: { errors },
     setValue,
   } = useForm<FormRestType>({
@@ -59,7 +64,15 @@ function FormRest(props: {
       endpoint: data.endpoint,
       headers: InputsArrayToObject(data.headers),
       variables: InputsArrayToObject(data.variables),
-      body: selectedBody === 'bodyJSON' ? codeMirrorParser(bodyJSONData as string) : data.bodyText,
+      body: selectedBody === 'bodyJSON' ? JSON.stringify(codeMirrorParser(bodyJSONData as string)) : data.bodyText,
+    });
+
+    props.getData({
+      method: data.method,
+      endpoint: data.endpoint,
+      headers: InputsArrayToObject(data.headers),
+      variables: InputsArrayToObject(data.variables),
+      body: selectedBody === 'bodyJSON' ? JSON.stringify(codeMirrorParser(bodyJSONData as string)) : data.bodyText,
     });
   };
 
@@ -72,13 +85,14 @@ function FormRest(props: {
       <form onSubmit={handleSubmit(submit)} className="flex flex-col items-center gap-5 w-full sm:w-7/12">
         <div className="flex justify-between w-full gap-2">
           <div>
-            <SelectInput t={t} register={register} errors={errors} />
+            <SelectInput t={t} register={register} getValues={getValues} errors={errors} />
           </div>
           <div className="w-full">
             <Input
               type="text"
               label={t('labels.endpoint')}
               {...register('endpoint')}
+              onBlur={() => encriptEndpoint(getValues('endpoint'))}
               className="w-full text-center"
               isInvalid={Boolean(errors.endpoint)}
               errorMessage={errors.endpoint?.message}
@@ -144,15 +158,17 @@ function FormRest(props: {
               color="success"
             >
               <Tab key="bodyJSON" title="JSON" className="flex flex-col gap-2 w-full">
-                <CodeMirrorComp
-                  setResponse={setBodyData}
-                  size={{ width: '100%', height: '98.4px' }}
-                  initValue={bodyJSONData as string}
-                  t={t}
-                  register={register}
-                  errors={errors}
-                  name="bodyJSON"
-                />
+                <div onBlur={() => encriptBody(JSON.stringify(codeMirrorParser(bodyJSONData as string)))}>
+                  <CodeMirrorComp
+                    setResponse={setBodyData}
+                    size={{ width: '100%', height: '98.4px' }}
+                    initValue={bodyJSONData as string}
+                    t={t}
+                    register={register}
+                    errors={errors}
+                    name="bodyJSON"
+                  />
+                </div>
               </Tab>
               <Tab
                 key="bodyText"
