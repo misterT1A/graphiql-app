@@ -12,6 +12,15 @@ export interface IRequestParams {
   headers: { [key: string]: string };
 }
 
+export interface IErrorObj {
+  status?: number;
+  statusText?: string;
+  url?: string;
+  headers?: Headers;
+  errorName?: string;
+  errorMessage?: string;
+}
+
 export interface IInitParams {
   method: string;
   endpoint: string;

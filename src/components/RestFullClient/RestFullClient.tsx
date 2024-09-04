@@ -17,15 +17,13 @@ const RestFullClient = ({
   initParams?: { initFormData: IInitParams; response: Response | IErrorObj };
 }): ReactElement => {
   const [state, setState] = useState<Response | undefined | IErrorObj>(initParams?.response || undefined);
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const sumbiteHandler = async (form: IFormParams): Promise<void> => {
     const replacedParams = replaceVariablesSybmit(form);
-    setLoading(true);
-
+    setIsLoading(true);
     const resp = await getRestfullData(replacedParams);
-
-    setLoading(false);
+    setIsLoading(false);
     setState(resp);
   };
 

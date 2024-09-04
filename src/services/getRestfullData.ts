@@ -1,14 +1,6 @@
 'use server';
 
-import type { IRequestParams } from '@/types/restFullTypes';
-export interface IErrorObj {
-  status?: number;
-  statusText?: string;
-  url?: string;
-  headers?: Headers;
-  errorName?: string;
-  errorMessage?: string;
-}
+import type { IErrorObj, IRequestParams } from '@/types/restFullTypes';
 
 const getRestfullData = async (requestParams: IRequestParams): Promise<Response | IErrorObj> => {
   const payloadObj = { method: requestParams.method, headers: requestParams.headers };
