@@ -2,20 +2,18 @@ import { type ReactElement } from 'react';
 
 import RestFullClient from '@/components/RestFullClient/RestFullClient';
 import getRestfullData from '@/services/getRestfullData';
-import type { IPageProps } from '@/types/restFullTypes';
+import type { IInitParams, IPageProps } from '@/types/restFullTypes';
 import decodingFromBase64 from '@/utils/decodingFromBase64';
 import parseBody from '@/utils/parseBody';
-import replaceVariables from '@/utils/replaceVariables';
 
 const Page = async ({ params, searchParams }: IPageProps): Promise<ReactElement> => {
   let initData = undefined;
 
   if (params.slug) {
     const requestParams = decodingFromBase64(params.slug as unknown as string[], searchParams);
-    const initFormData = { ...requestParams, body: parseBody(requestParams.body) };
-    const replacedParams = replaceVariables(requestParams, requestParams.variables);
+    const initFormData: IInitParams = { ...requestParams, body: parseBody(requestParams.body) };
 
-    const response = await getRestfullData(replacedParams);
+    const response = await getRestfullData(requestParams);
 
     initData = {
       initFormData,

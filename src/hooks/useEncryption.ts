@@ -1,96 +1,48 @@
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
-import validateJson from '@/utils/validateJson';
-
-enum HttpMethod {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  DELETE = 'DELETE',
-}
+import type { FormRestType } from '@/types/types';
+import { codeMirrorParser } from '@/utils/codeMirrorParser';
+import { replaceVariables } from '@/utils/replaceVariables';
 
 interface IReturnType {
-  encriptMethod: (value: string) => void;
-  encriptEndpoint: (value: string) => void;
-  encriptBody: (value: string) => void;
-  encriptHeaders: (headers: { [key: string]: string }) => void;
+  encrypt: (form: FormRestType, isBodyText?: boolean) => void;
 }
 
 const useEncryption = (): IReturnType => {
   const path = usePathname();
-  const searchPaams = useSearchParams();
   const startUrl = path.split('/').slice(0, 3).join('/');
-  const parsePath = path.split('/').slice(3);
-  // const parseSearchPrams = searchPaams.split('&');
 
-  // window.history.pushState(null, '', `${newPath}${url}`);
-
-  const changeUrl = (): void => {
-    const newParsePath = parsePath.length >= 1 ? '/' + parsePath.join('/') : parsePath.toString();
-    window.history.pushState(null, '', `${startUrl}${newParsePath}`);
+  const convertToBase64 = (value: string): string => {
+    return btoa(value).replace(/=+$/, '');
   };
 
-  const encriptMethod = (value: string): void => {
-    if (Object.values(HttpMethod).includes(parsePath[0] as HttpMethod)) {
-      if (!value) {
-        parsePath.splice(0, 1);
-      } else {
-        parsePath[0] = value;
-      }
-    } else if (value) {
-      parsePath.unshift(value);
-    }
-
-    changeUrl();
-  };
-
-  const encriptEndpoint = (value: string): void => {
-    const endpoint = btoa(value).replace(/=+$/, '');
-    const endpointIndex = parsePath.findIndex((item) => atob(item).startsWith('http'));
-    if (!value && endpointIndex === -1) return;
-    if (!value && endpointIndex >= 0) {
-      parsePath.splice(endpointIndex, 1);
-    } else {
-      if (endpointIndex !== -1) {
-        parsePath[endpointIndex] = endpoint;
-      } else if (Object.values(HttpMethod).includes(parsePath[0] as HttpMethod)) {
-        parsePath.splice(1, 0, endpoint);
-      } else {
-        parsePath.unshift(endpoint);
-      }
-    }
-
-    changeUrl();
-  };
-
-  const encriptBody = (value: string): void => {
-    const validatedBody = validateJson(value);
-    const bodyIndex = parsePath.findIndex((item) => atob(item).startsWith('{'));
-
-    if (!validatedBody && bodyIndex === -1) return;
-    if (validatedBody && bodyIndex === -1) {
-      const body = btoa(validatedBody || '').replace(/=+$/, '');
-      parsePath.push(body);
-    } else if (bodyIndex >= 0 && validatedBody) {
-      parsePath[bodyIndex] = btoa(validatedBody || '').replace(/=+$/, '');
-    } else if (bodyIndex >= 0) {
-      parsePath.splice(bodyIndex, 1);
-    }
-
-    changeUrl();
-  };
-
-  const encriptHeaders = (headers: { [key: string]: string }): void => {
-    console.log(searchPaams);
+  const encryptHeadersToBase64 = (headers: { key: string; value: string }[]): string => {
     const queryParams = new URLSearchParams();
-    if (headers) {
-      Object.entries(headers).forEach(([key, value]) => {
-        queryParams.append(`${key}`, btoa(value).replace(/=+$/, ''));
-      });
-    }
+
+    headers.forEach(({ key, value }) => {
+      if (key || value) {
+        queryParams.append(key, convertToBase64(value));
+      }
+    });
+    return queryParams.size ? `?${queryParams.toString()}` : '';
   };
 
-  return { encriptMethod, encriptEndpoint, encriptBody, encriptHeaders };
+  const encrypt = (form: FormRestType, isBodyText = false): void => {
+    console.log(form);
+    const replecedForm = replaceVariables(form);
+    const method = form.method && `/${form.method}`;
+    const endopints = replecedForm.endpoint && `/${convertToBase64(replecedForm.endpoint)}`;
+    const bodyJSON = Object.keys(codeMirrorParser(replecedForm.bodyJSON) || {}).length
+      ? `/${convertToBase64('json_' + JSON.stringify(codeMirrorParser(replecedForm.bodyJSON as string)))}`
+      : '';
+    console.log(codeMirrorParser(replecedForm.bodyJSON), replecedForm);
+    const bodyText = replecedForm.bodyText && `/${convertToBase64('text_' + replecedForm.bodyText)}`;
+    const headers = form.headers && encryptHeadersToBase64(form.headers);
+
+    window.history.pushState(null, '', `${startUrl}${method}${endopints}${isBodyText ? bodyText : bodyJSON}${headers}`);
+  };
+
+  return { encrypt };
 };
 
 export default useEncryption;

@@ -1,4 +1,4 @@
-import type { IFormParams } from '@/types/restFullTypes';
+import type { IBody, IDecodingParams } from '@/types/restFullTypes';
 
 const decodeBase64 = (str: string): string => {
   try {
@@ -10,24 +10,29 @@ const decodeBase64 = (str: string): string => {
   }
 };
 
-const decodingFromBase64 = (slug: string[], query: { [key: string]: string }): IFormParams => {
+const decodingFromBase64 = (slug: string[], query: { [key: string]: string }): IDecodingParams => {
   const headers: [string, string][] = [];
-  const variables: [string, string][] = [];
 
   Object.entries(query).forEach(([key, value]) => {
-    if (key.startsWith('h_')) {
-      headers.push([key.slice(2), decodeBase64(value) || '']);
-    } else if (key.startsWith('v_')) {
-      variables.push([key.slice(2), decodeBase64(value) || '']);
-    }
+    headers.push([key, decodeBase64(value) || '']);
   });
 
-  const requestParams: IFormParams = {
-    method: slug[0],
-    endpoint: decodeBase64(slug[1]) || '',
-    body: slug[2] ? decodeBase64(slug[2]) : '',
+  const endpoint = slug.find((elem) => decodeBase64(elem).startsWith('http')) || '';
+  const bodyJson = slug.find((elem) => decodeBase64(elem).startsWith('json_')) || '';
+  const bodyText = slug.find((elem) => decodeBase64(elem).startsWith('text_')) || '';
+
+  const body: IBody = bodyJson
+    ? { type: 'json', value: decodeBase64(bodyJson).slice(5) }
+    : bodyText
+      ? { type: 'string', value: decodeBase64(bodyText).slice(5) }
+      : { type: 'string', value: '' };
+
+  const requestParams: IDecodingParams = {
+    method: slug.find((elem) => ['GET', 'POST', 'PUT', 'DELETE'].includes(elem)) || '',
+    endpoint: decodeBase64(endpoint),
+    body: body,
     headers: Object.fromEntries(headers),
-    variables: Object.fromEntries(variables),
+    variables: {},
   };
 
   return requestParams;

@@ -1,21 +1,27 @@
+'use client';
+
 import { Button, Input } from '@nextui-org/react';
 import type { useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
-import type { Control } from 'react-hook-form';
+import type { Control, UseFormGetValues } from 'react-hook-form';
 import { useFieldArray, type FieldErrors, type UseFormRegister } from 'react-hook-form';
 
 import { EMPTY_ARRAY_INPUT } from '@/constants/constants';
+import useEncryption from '@/hooks/useEncryption';
 import type { FormRestType } from '@/types/types';
 
 import { RemoveIcon } from '../Icons/RemoveIcon';
 
 function InputsArray(props: {
+  getValues: UseFormGetValues<FormRestType>;
   t: ReturnType<typeof useTranslations<'RestForm'>>;
   register: UseFormRegister<FormRestType>;
   errors: FieldErrors<FormRestType>;
   control: Control<FormRestType>;
   name: 'headers' | 'variables';
 }): ReactNode {
+  const { encrypt } = useEncryption();
+
   const {
     fields: fields,
     append: append,
@@ -28,7 +34,7 @@ function InputsArray(props: {
   const shortName = props.name.slice(0, props.name.length - 1) as 'header' | 'variable';
 
   return (
-    <div className="flex flex-col gap-5 w-full">
+    <div className="flex flex-col gap-5 w-full" onBlur={() => encrypt(props.getValues())}>
       {Boolean(fields.length) && (
         <div className="flex flex-col gap-2 w-full">
           {fields.map((item, index) => (
@@ -59,7 +65,10 @@ function InputsArray(props: {
                   color="danger"
                   aria-label="Like"
                   size="sm"
-                  onClick={() => remove(index)}
+                  onClick={() => {
+                    remove(index);
+                    encrypt(props.getValues());
+                  }}
                   data-testid="remove-btn"
                 >
                   <RemoveIcon />
@@ -77,4 +86,3 @@ function InputsArray(props: {
 }
 
 export default InputsArray;
-

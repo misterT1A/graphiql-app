@@ -15,12 +15,14 @@ function SelectInput(props: {
   register: UseFormRegister<FormRestType>;
   errors: FieldErrors<FormRestType>;
 }): ReactNode {
-  const { encriptMethod } = useEncryption();
+  const { encrypt } = useEncryption();
   return (
     <Select
       label={props.t('labels.method')}
       {...props.register('method')}
-      onBlur={() => encriptMethod(props.getValues('method'))}
+      onClose={() => {
+        encrypt(props.getValues());
+      }}
       className="w-[105px] text-center"
       isInvalid={Boolean(props.errors.method)}
       errorMessage={props.errors.method?.message}
