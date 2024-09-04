@@ -18,7 +18,7 @@ const replaceString = (
 const replaceVariables = (params: FormRestType): IRestFormParams => {
   const variables: { [key: string]: string } = {};
   params.variables.forEach((value) => (variables[value.key] = value.value));
-  console.log('dfdfd', replaceString(params.bodyJSON, variables));
+
   return {
     endpoint: replaceString(params.endpoint, variables),
     bodyJSON: replaceString(params.bodyJSON, variables),

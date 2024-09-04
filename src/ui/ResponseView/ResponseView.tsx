@@ -10,7 +10,7 @@ const ResponseView = (props: { response: object; styles?: string }): ReactElemen
 
   return (
     <div
-      className={`p-5 overflow-scroll border border-black rounded-[5px] ${theme === 'light' ? 'bg-white' : 'bg-black'} ${props.styles || ''}`}
+      className={`max-h-[800px] p-5 overflow-scroll border border-black rounded-[5px] ${theme === 'light' ? 'bg-white' : 'bg-black'} ${props.styles || ''}`}
     >
       <JsonView src={props.response} />
     </div>

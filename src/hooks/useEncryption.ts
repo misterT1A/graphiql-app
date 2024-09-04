@@ -28,14 +28,13 @@ const useEncryption = (): IReturnType => {
   };
 
   const encrypt = (form: FormRestType, isBodyText = false): void => {
-    console.log(form);
     const replecedForm = replaceVariables(form);
     const method = form.method && `/${form.method}`;
     const endopints = replecedForm.endpoint && `/${convertToBase64(replecedForm.endpoint)}`;
     const bodyJSON = Object.keys(codeMirrorParser(replecedForm.bodyJSON) || {}).length
       ? `/${convertToBase64('json_' + JSON.stringify(codeMirrorParser(replecedForm.bodyJSON as string)))}`
       : '';
-    console.log(codeMirrorParser(replecedForm.bodyJSON), replecedForm);
+
     const bodyText = replecedForm.bodyText && `/${convertToBase64('text_' + replecedForm.bodyText)}`;
     const headers = form.headers && encryptHeadersToBase64(form.headers);
 
