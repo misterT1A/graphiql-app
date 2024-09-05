@@ -1,11 +1,14 @@
 import '@testing-library/jest-dom';
 import { act, fireEvent, render, screen } from '@testing-library/react';
+import * as nextNav from 'next/navigation';
 import * as nextIntl from 'next-intl';
 
 import FormRest from '@/components/FormRest/formRest';
 import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
+
+jest.mock('next/navigation');
 
 describe('FormRest', () => {
   beforeAll(async () => {
@@ -24,6 +27,8 @@ describe('FormRest', () => {
           return outputString;
         };
       });
+
+    jest.spyOn(nextNav, 'usePathname').mockReturnValue('test/en/restfull-client');
 
     document.createRange = (): Range => {
       const range = new Range();
@@ -46,6 +51,7 @@ describe('FormRest', () => {
     const component = await act(async () => {
       return render(
         <FormRest
+          getData={() => {}}
           inputData={{
             endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
             method: 'GET',
@@ -70,7 +76,7 @@ describe('FormRest', () => {
 
   it('should render all tabs', async () => {
     const component = await act(async () => {
-      return render(<FormRest />);
+      return render(<FormRest getData={() => {}} />);
     });
 
     await act(async () => {
@@ -83,7 +89,7 @@ describe('FormRest', () => {
 
   it('should show headers and variables errors', async () => {
     await act(async () => {
-      render(<FormRest />);
+      render(<FormRest getData={() => {}} />);
     });
 
     await act(async () => {
@@ -97,6 +103,7 @@ describe('FormRest', () => {
     await act(async () => {
       render(
         <FormRest
+          getData={() => {}}
           inputData={{
             endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
             method: 'GET',
@@ -127,7 +134,7 @@ describe('FormRest', () => {
 
   it('should add and remove headers and variables inputs', async () => {
     const component = await act(async () => {
-      return render(<FormRest />);
+      return render(<FormRest getData={() => {}} />);
     });
 
     await act(async () => {
