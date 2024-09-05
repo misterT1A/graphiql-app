@@ -2,10 +2,6 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { authMiddleware } from 'next-firebase-auth-edge';
 import createMiddleware from 'next-intl/middleware';
 
-import cookieConfig from '@/firebase/cookieConfig.json';
-import firebaseConfig from '@/firebase/firebaseConfig.json';
-import serviceAccountKey from '@/firebase/serviceAccountKey.json';
-
 import { defaultLocale, locales } from './i18n';
 
 const publicPages = ['/', '/sign-up', '/sign-in'];
@@ -28,8 +24,8 @@ export default async function middleware(request: NextRequest): Promise<NextResp
   return authMiddleware(request, {
     loginPath: '/api/login',
     logoutPath: '/api/logout',
-    apiKey: firebaseConfig.apiKey,
-    cookieSignatureKeys: cookieConfig.cookieSignatureKeys,
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || '',
+    cookieSignatureKeys: [process.env.COOKIE_SIGNATURE_KEYS || ''],
     cookieSerializeOptions: {
       path: '/',
       httpOnly: true,
@@ -38,12 +34,12 @@ export default async function middleware(request: NextRequest): Promise<NextResp
       maxAge: 60 * 60,
     },
     serviceAccount: {
-      projectId: serviceAccountKey.project_id,
-      clientEmail: serviceAccountKey.client_email,
-      privateKey: serviceAccountKey.private_key,
+      projectId: process.env.SERVICE_ACCOUNT_PROJECT_ID || '',
+      clientEmail: process.env.SERVICE_ACCOUNT_CLIENT_EMAIL || '',
+      privateKey: (process.env.SERVICE_ACCOUNT_PRIVATE_KEY || '').replace(/\\n/g, '\n'),
     },
     checkRevoked: true,
-    cookieName: cookieConfig.cookieName,
+    cookieName: process.env.COOKIE_NAME || 'AuthToken',
     debug: true,
     handleValidToken: async () => {
       if (!isPagesMatch(request.nextUrl.pathname, privatePages)) {

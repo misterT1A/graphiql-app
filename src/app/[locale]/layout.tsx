@@ -9,9 +9,6 @@ import type { ReactElement } from 'react';
 import Header from '@/components/Header/Header';
 import { AuthProvider } from '@/context/AuthProvider';
 import { toUser } from '@/context/toUser';
-import cookieConfig from '@/firebase/cookieConfig.json';
-import firebaseConfig from '@/firebase/firebaseConfig.json';
-import serviceAccountKey from '@/firebase/serviceAccountKey.json';
 import { type Locale } from '@/i18n';
 
 import Providers from '../providers';
@@ -33,13 +30,13 @@ const RootLayout = async ({
   const messages = await getMessages({ locale });
 
   const tokens = await getTokens(cookies(), {
-    apiKey: firebaseConfig.apiKey,
-    cookieName: cookieConfig.cookieName,
-    cookieSignatureKeys: cookieConfig.cookieSignatureKeys,
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || '',
+    cookieName: process.env.COOKIE_NAME || 'AuthToken',
+    cookieSignatureKeys: [process.env.COOKIE_SIGNATURE_KEYS || ''],
     serviceAccount: {
-      projectId: serviceAccountKey.project_id,
-      clientEmail: serviceAccountKey.client_email,
-      privateKey: serviceAccountKey.private_key,
+      projectId: process.env.SERVICE_ACCOUNT_PROJECT_ID || '',
+      clientEmail: process.env.SERVICE_ACCOUNT_CLIENT_EMAIL || '',
+      privateKey: (process.env.SERVICE_ACCOUNT_PRIVATE_KEY || '').replace(/\\n/g, '\n'),
     },
   });
 
