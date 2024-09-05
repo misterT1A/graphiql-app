@@ -10,7 +10,7 @@ const initializeData = async ({
   params,
   searchParams,
 }: IPageProps): Promise<{ initFormData: IInitParams; response: Response | IErrorObj } | undefined> => {
-  if (!params.slug) {
+  if (!params.slug && !searchParams) {
     return undefined;
   }
 

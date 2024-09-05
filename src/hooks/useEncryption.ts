@@ -25,7 +25,7 @@ const useEncryption = (): IReturnType => {
 
     headers.forEach(({ key, value }) => {
       if (convertToBase64(key) || value) {
-        queryParams.append(key, convertToBase64(value));
+        queryParams.append(key, encodeURIComponent(value));
       }
     });
     return queryParams.size ? `?${queryParams.toString()}` : '';

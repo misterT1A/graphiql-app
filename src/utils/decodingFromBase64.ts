@@ -14,12 +14,12 @@ const decodingFromBase64 = (slug: string[], query: { [key: string]: string }): I
   const headers: [string, string][] = [];
 
   Object.entries(query).forEach(([key, value]) => {
-    headers.push([key, decodeBase64(value) || '']);
+    headers.push([key, decodeURIComponent(value) || '']);
   });
 
-  const endpoint = slug.find((elem) => decodeBase64(elem).startsWith('http')) || '';
-  const bodyJson = slug.find((elem) => decodeBase64(elem).startsWith('json_')) || '';
-  const bodyText = slug.find((elem) => decodeBase64(elem).startsWith('text_')) || '';
+  const endpoint = (slug && slug.find((elem) => decodeBase64(elem).startsWith('http'))) || '';
+  const bodyJson = (slug && slug.find((elem) => decodeBase64(elem).startsWith('json_'))) || '';
+  const bodyText = (slug && slug.find((elem) => decodeBase64(elem).startsWith('text_'))) || '';
 
   const body: IBody = bodyJson
     ? { type: 'json', value: decodeBase64(bodyJson).slice(5) }
@@ -28,7 +28,7 @@ const decodingFromBase64 = (slug: string[], query: { [key: string]: string }): I
       : { type: 'string', value: '' };
 
   const requestParams: IDecodingParams = {
-    method: slug.find((elem) => ['GET', 'POST', 'PUT', 'DELETE'].includes(elem)) || '',
+    method: (slug && slug.find((elem) => ['GET', 'POST', 'PUT', 'DELETE'].includes(elem))) || '',
     endpoint: decodeBase64(endpoint),
     body: body,
     headers: Object.fromEntries(headers),
