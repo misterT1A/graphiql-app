@@ -1127,7 +1127,7 @@ exports[`FormRest should render FormRest 1`] = `
               Send
               <span
                 class="nextui-ripple"
-                style="position: absolute; background-color: currentColor; border-radius: 100%; transform-origin: center; pointer-events: none; overflow: hidden; inset: 0; z-index: 0; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(0.70161); opacity: 0.2272182142784004; will-change: transform, opacity;"
+                style="position: absolute; background-color: currentColor; border-radius: 100%; transform-origin: center; pointer-events: none; overflow: hidden; inset: 0; z-index: 0; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(0.79692); opacity: 0.21053927477769319; will-change: transform, opacity;"
               />
             </button>
           </div>
@@ -1540,7 +1540,7 @@ exports[`FormRest should render FormRest 1`] = `
             Send
             <span
               class="nextui-ripple"
-              style="position: absolute; background-color: currentColor; border-radius: 100%; transform-origin: center; pointer-events: none; overflow: hidden; inset: 0; z-index: 0; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(0.70161); opacity: 0.2272182142784004; will-change: transform, opacity;"
+              style="position: absolute; background-color: currentColor; border-radius: 100%; transform-origin: center; pointer-events: none; overflow: hidden; inset: 0; z-index: 0; top: 0px; left: 0px; width: 0px; height: 0px; transform: scale(0.79692); opacity: 0.21053927477769319; will-change: transform, opacity;"
             />
           </button>
         </div>

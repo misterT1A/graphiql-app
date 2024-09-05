@@ -4,6 +4,7 @@ import * as nextNav from 'next/navigation';
 import * as nextIntl from 'next-intl';
 
 import FormRest from '@/components/FormRest/formRest';
+import useEncryption from '@/hooks/useEncryption';
 import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
@@ -155,6 +156,33 @@ describe('FormRest utils', () => {
   it('should return "null" after wrong string submiting with codeMirrorParser', async () => {
     const parsedString = codeMirrorParser('{"test":"value"');
     expect(parsedString).toEqual(null);
+  });
+});
+
+describe('FormRest hooks', () => {
+  it('should handle objectJSON field with useEncryption', async () => {
+    const { encrypt } = useEncryption();
+
+    const encryptTest = encrypt({
+      endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
+      method: 'GET',
+      bodyText: 'Text',
+      bodyJSON: '{"test" : 0}',
+      headers: [
+        {
+          key: 'test key',
+          value: 'test value',
+        },
+      ],
+      variables: [
+        {
+          key: 'test key',
+          value: 'test value',
+        },
+      ],
+    });
+
+    expect(encryptTest).toEqual(undefined);
   });
 });
 
