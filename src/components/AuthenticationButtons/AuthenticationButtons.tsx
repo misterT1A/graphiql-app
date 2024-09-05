@@ -14,6 +14,7 @@ export const AuthenticationButtons = (): ReactElement => {
 
   const signOut = async (): Promise<void> => {
     await fetch('/api/logout');
+    router.replace('/');
     router.refresh();
   };
 

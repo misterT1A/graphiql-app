@@ -48,7 +48,7 @@ const RootLayout = async ({
         <Providers locale={locale} messages={messages}>
           <AuthProvider user={user}>
             <Header />
-            {children}
+            <main className="max-w-[1000px] w-full mx-auto p-[10px]">{children}</main>
           </AuthProvider>
         </Providers>
       </body>

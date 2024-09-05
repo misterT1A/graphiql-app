@@ -9,6 +9,7 @@
     "lint": "next lint",
     "format:fix": "prettier .  --write",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -21,7 +22,6 @@
     ]
   },
   "dependencies": {
-    "@codemirror/lang-javascript": "^6.2.2",
     "@hookform/resolvers": "^3.9.0",
     "@nextui-org/react": "^2.4.6",
     "@reduxjs/toolkit": "^2.2.7",
@@ -40,6 +40,7 @@
     "react18-json-view": "^0.2.8"
   },
   "devDependencies": {
+    "@codemirror/lang-json": "^6.0.1",
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@testing-library/jest-dom": "^6.4.8",

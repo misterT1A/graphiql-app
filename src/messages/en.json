@@ -34,5 +34,35 @@
       "mustContainSpecialCharacter": "Password must contain at least 1 special character.",
       "mismatchPasswords": "Passwords don't match."
     }
+  },
+  "RestForm": {
+    "labels": {
+      "method": "Method",
+      "endpoint": "Endpoint URL",
+      "headerKey": "Header key",
+      "headerValue": "Header value",
+      "variableKey": "Variable key",
+      "variableValue": "Variable value",
+      "bodyText": "Request Body"
+    },
+    "errors": {
+      "required": "Fill the field",
+      "method": "Select method",
+      "endpointMin": "Enter endpoint URL",
+      "endpointURL": "Write valid URL",
+      "body": "Fix the following errors:"
+    },
+    "buttons": {
+      "send": "Send",
+      "headersTab": "Headers",
+      "variablesTab": "Variables",
+      "bodyTab": "Body",
+      "headerAdd": "Add Header",
+      "variableAdd": "Add Variable",
+      "bodyTextTab": "Plain Text"
+    },
+    "placeholders": {
+      "bodyText": "Plain text supports only"
+    }
   }
 }

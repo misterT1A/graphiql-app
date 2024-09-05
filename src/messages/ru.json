@@ -34,5 +34,35 @@
       "mustContainSpecialCharacter": "Пароль должен содержат как минимум 1 специальный символ.",
       "mismatchPasswords": "Пароли не совпадают."
     }
+  },
+  "RestForm": {
+    "labels": {
+      "method": "Метод",
+      "endpoint": "URL адрес",
+      "headerKey": "Ключ заголовка",
+      "headerValue": "Значение заголовка",
+      "variableKey": "Ключ переменной",
+      "variableValue": "Значение переменной",
+      "bodyText": "Тело запроса"
+    },
+    "errors": {
+      "required": "Заполните поле",
+      "method": "Выберите метод",
+      "endpointMin": "Введите URL адрес",
+      "endpointURL": "Введите валидный URL адрес",
+      "body": "Исправьте следующие ошибки:"
+    },
+    "buttons": {
+      "send": "Отправить",
+      "headersTab": "Заголовки",
+      "variablesTab": "Переменные",
+      "bodyTab": "Тело",
+      "headerAdd": "Добавить заголовок",
+      "variableAdd": "Добавить переменную",
+      "bodyTextTab": "Текст"
+    },
+    "placeholders": {
+      "bodyText": "Поддерживается только обычный текст"
+    }
   }
 }
