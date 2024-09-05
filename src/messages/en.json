@@ -7,13 +7,23 @@
   "NotFound": {
     "message": "The requested page was not found."
   },
-  "SignUp": {
-    "form": {
+  "Auth": {
+    "signUpForm": {
       "heading": "Sign Up",
       "username": "Username",
       "password": "Password",
       "confirm": "Confirm Password",
       "submit": "Sign up"
+    },
+    "signInForm": {
+      "heading": "Sign In",
+      "password": "Password",
+      "submit": "Sign in"
+    },
+    "buttons": {
+      "signUp": "Sign Up",
+      "signIn": "Sign In",
+      "signOut": "Sign Out"
     },
     "validation": {
       "usernameRequired": "Username is required.",

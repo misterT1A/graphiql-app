@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@nextui-org/react';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useTranslations } from 'next-intl';
 import { type ReactElement } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
@@ -10,22 +10,21 @@ import { type SubmitHandler, useForm } from 'react-hook-form';
 import { auth } from '@/firebase/config';
 import { useRouterIntl } from '@/navigation';
 import InputPassword from '@/ui/InputPassword/InputPassword';
-import { signUpSchema, type SignUpDto } from '@/validation/signUpSchema';
+import { signInSchema, type SignInDto } from '@/validation/signInSchema';
 
-const SignUp = (): ReactElement => {
+const SignIn = (): ReactElement => {
   const t = useTranslations('Auth');
   const router = useRouterIntl();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SignUpDto>({
-    resolver: zodResolver(signUpSchema(t)),
+  } = useForm<SignInDto>({
+    resolver: zodResolver(signInSchema(t)),
   });
 
-  const onSubmit: SubmitHandler<SignUpDto> = async (dto): Promise<void> => {
-    const response = await createUserWithEmailAndPassword(auth, dto.email, dto.password);
-    await updateProfile(response.user, { displayName: dto.username });
+  const onSubmit: SubmitHandler<SignInDto> = async (dto): Promise<void> => {
+    const response = await signInWithEmailAndPassword(auth, dto.email, dto.password);
     const idToken = await response.user.getIdToken();
 
     await fetch('/api/login', {
@@ -41,15 +40,7 @@ const SignUp = (): ReactElement => {
   return (
     <main className="flex justify-center">
       <form onSubmit={handleSubmit(onSubmit)} className="p-4 flex flex-col gap-2" noValidate>
-        <h1 className="text-lg">{t('signUpForm.heading')}</h1>
-        <Input
-          label={t('signUpForm.username')}
-          isRequired={true}
-          errorMessage={errors.username?.message}
-          isInvalid={!!errors.username}
-          disabled={isSubmitting}
-          {...register('username')}
-        />
+        <h1 className="text-lg">{t('signInForm.heading')}</h1>
         <Input
           type="email"
           label="Email"
@@ -60,27 +51,19 @@ const SignUp = (): ReactElement => {
           {...register('email')}
         />
         <InputPassword
-          label={t('signUpForm.password')}
+          label={t('signInForm.password')}
           isRequired={true}
           errorMessage={errors.password?.message}
           isInvalid={!!errors.password}
           disabled={isSubmitting}
           {...register('password')}
         />
-        <InputPassword
-          label={t('signUpForm.confirm')}
-          isRequired={true}
-          errorMessage={errors.confirm?.message}
-          isInvalid={!!errors.confirm}
-          disabled={isSubmitting}
-          {...register('confirm')}
-        />
         <Button isLoading={isSubmitting} type="submit" color="primary" variant="flat" size="lg">
-          {t('signUpForm.submit')}
+          {t('signInForm.submit')}
         </Button>
       </form>
     </main>
   );
 };
 
-export default SignUp;
+export default SignIn;

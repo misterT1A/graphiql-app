@@ -7,13 +7,23 @@
   "NotFound": {
     "message": "Запрошенная страница не найдена."
   },
-  "SignUp": {
-    "form": {
+  "Auth": {
+    "signUpForm": {
       "heading": "Регистрация",
       "username": "Имя пользователя",
       "password": "Пароль",
       "confirm": "Подтвердите пароль",
       "submit": "Зарегистрироваться"
+    },
+    "signInForm": {
+      "heading": "Вход",
+      "password": "Пароль",
+      "submit": "Войти"
+    },
+    "buttons": {
+      "signUp": "Регистрация",
+      "signIn": "Войти",
+      "signOut": "Выйти"
     },
     "validation": {
       "usernameRequired": "Введите имя пользователя.",
