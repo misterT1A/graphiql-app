@@ -1,20 +1,15 @@
 'use client';
 
 import { json } from '@codemirror/lang-json';
-import { json } from '@codemirror/lang-json';
-import { Input } from '@nextui-org/react';
 import { Input } from '@nextui-org/react';
 import { githubLight, githubDark } from '@uiw/codemirror-theme-github';
 import CodeMirror from '@uiw/react-codemirror';
-import type { useTranslations } from 'next-intl';
 import type { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState, type ReactElement } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
-import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import type { FormRestType } from '@/types/types';
 import type { FormRestType } from '@/types/types';
 
 const CodeMirrorComp = (props: {
@@ -25,13 +20,7 @@ const CodeMirrorComp = (props: {
   register: UseFormRegister<FormRestType>;
   errors: FieldErrors<FormRestType>;
   name: 'bodyJSON';
-  initValue: string;
-  t: ReturnType<typeof useTranslations<'RestForm'>>;
-  register: UseFormRegister<FormRestType>;
-  errors: FieldErrors<FormRestType>;
-  name: 'bodyJSON';
 }): ReactElement | null => {
-  const [value, setValue] = useState(props.initValue);
   const [value, setValue] = useState(props.initValue);
 
   const onChange = useCallback(
