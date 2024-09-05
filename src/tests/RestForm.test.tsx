@@ -3,11 +3,12 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import * as nextNav from 'next/navigation';
 import * as nextIntl from 'next-intl';
 
-import FormRest from '@/components/FormRest/formRest';
+import FormRest from '@/components/formRest/formRest';
 import useEncryption from '@/hooks/useEncryption';
 import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
+import { replaceVariables, replaceVariablesSybmit } from '@/utils/replaceVariables';
 
 jest.mock('next/navigation');
 
@@ -156,6 +157,54 @@ describe('FormRest utils', () => {
   it('should return "null" after wrong string submiting with codeMirrorParser', async () => {
     const parsedString = codeMirrorParser('{"test":"value"');
     expect(parsedString).toEqual(null);
+  });
+
+  it('should return changed object with replaceVariables', async () => {
+    const fixedObject = replaceVariables({
+      endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/{{testVar}}',
+      method: 'GET',
+      bodyText: '{{testVar}}',
+      bodyJSON: '{"test" : {{testVar}}}',
+      headers: [
+        {
+          key: 'test key',
+          value: 'test value',
+        },
+      ],
+      variables: [
+        {
+          key: 'testVar',
+          value: 'testValue',
+        },
+      ],
+    });
+
+    expect(fixedObject).toEqual({
+      endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/testValue',
+      bodyJSON: '{"test" : testValue}',
+      bodyText: 'testValue',
+    });
+  });
+
+  it('should return changed object with replaceVariables', async () => {
+    const fixedObject = replaceVariablesSybmit({
+      endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/{{testVar}}',
+      method: 'GET',
+      body: '{{testVar}}',
+      headers: {
+        'test key': 'test value',
+      },
+      variables: {
+        testVar: 'testValue',
+      },
+    });
+
+    expect(fixedObject).toEqual({
+      method: 'GET',
+      endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/testValue',
+      body: 'testValue',
+      headers: { 'test key': 'test value' },
+    });
   });
 });
 
