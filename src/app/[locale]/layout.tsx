@@ -30,7 +30,7 @@ const RootLayout = async ({
       <body className={inter.className}>
         <Providers locale={locale} messages={messages}>
           <Header />
-          {children}
+          <main className="max-w-[1000px] w-full mx-auto p-[10px]">{children}</main>
         </Providers>
       </body>
     </html>

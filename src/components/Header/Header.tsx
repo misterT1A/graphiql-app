@@ -15,7 +15,7 @@ import { useEffect, useState, type ReactElement } from 'react';
 
 import { usePathnameIntl } from '@/navigation';
 import LangDropdown from '@/ui/LangDropdown/LangDropdown';
-import ThemTogler from '@/ui/switch/Switch';
+import ThemTogler from '@/ui/ThemTogler/ThemTogler';
 
 const Header = (): ReactElement => {
   const t = useTranslations('Header');
@@ -25,7 +25,7 @@ const Header = (): ReactElement => {
 
   const menuItems = [
     { name: t('menuItems.home'), href: '/' },
-    // { name: 'RestFull client', href: '/restfull-client' },
+    { name: 'RestFull client', href: '/restfull-client' },
     // { name: 'GraphiQL client', href: '/graphiql-client' },
   ];
 

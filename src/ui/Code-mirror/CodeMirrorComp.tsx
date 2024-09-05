@@ -1,20 +1,30 @@
 'use client';
 
 import { json } from '@codemirror/lang-json';
+import { json } from '@codemirror/lang-json';
+import { Input } from '@nextui-org/react';
 import { Input } from '@nextui-org/react';
 import { githubLight, githubDark } from '@uiw/codemirror-theme-github';
 import CodeMirror from '@uiw/react-codemirror';
+import type { useTranslations } from 'next-intl';
 import type { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState, type ReactElement } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 
+import type { FormRestType } from '@/types/types';
 import type { FormRestType } from '@/types/types';
 
 const CodeMirrorComp = (props: {
-  setResponse: Dispatch<SetStateAction<object>>;
+  setResponse: Dispatch<SetStateAction<string>>;
   size: { width: string; height: string };
+  initValue: string;
+  t: ReturnType<typeof useTranslations<'RestForm'>>;
+  register: UseFormRegister<FormRestType>;
+  errors: FieldErrors<FormRestType>;
+  name: 'bodyJSON';
   initValue: string;
   t: ReturnType<typeof useTranslations<'RestForm'>>;
   register: UseFormRegister<FormRestType>;
@@ -22,11 +32,12 @@ const CodeMirrorComp = (props: {
   name: 'bodyJSON';
 }): ReactElement | null => {
   const [value, setValue] = useState(props.initValue);
+  const [value, setValue] = useState(props.initValue);
 
   const onChange = useCallback(
     (val: string) => {
       setValue(val);
-      props.setResponse(val as unknown as SetStateAction<object>);
+      props.setResponse(val as unknown as SetStateAction<string>);
     },
     [props],
   );
@@ -35,7 +46,7 @@ const CodeMirrorComp = (props: {
 
   return (
     <>
-      <div className={'border border-black rounded-[12px] inline-block overflow-hidden'}>
+      <div className={'border border-black rounded-[12px] inline-block overflow-hidden w-full'}>
         <CodeMirror
           value={value}
           width={props.size.width}
