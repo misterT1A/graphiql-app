@@ -1,6 +1,6 @@
 'use client';
 
-// import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Chip, Input, Tab, Tabs } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState, type ReactNode } from 'react';
@@ -15,6 +15,7 @@ import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
 import { InputsArrayToObject } from '@/utils/InputsArrayToObject';
 import { InputsObjectToArray } from '@/utils/InputsObjectToArray';
+import GraphSchema from '@/validation/GraphSchema';
 
 function FormGraph(props: {
   // getData: (form: IFormParams) => void;
@@ -32,7 +33,7 @@ function FormGraph(props: {
     setValue,
   } = useForm<FormGraphType>({
     mode: 'onChange',
-    // resolver: zodResolver(RestSchema(t)),
+    resolver: zodResolver(GraphSchema(t)),
     defaultValues: {
       endpoint: props.inputData?.endpoint,
       headers: InputsObjectToArray(props.inputData, 'headers'),

@@ -22,6 +22,7 @@
       "required": "Fill the field",
       "method": "Select method",
       "endpointMin": "Enter endpoint URL",
+      "sdlMin": "Enter SDL URL",
       "endpointURL": "Write valid URL",
       "body": "Fix the following errors:"
     },

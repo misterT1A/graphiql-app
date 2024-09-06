@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 
-const RestSchema = (t: ReturnType<typeof useTranslations<'Form'>>): ZodSchema => {
+const GraphSchema = (t: ReturnType<typeof useTranslations<'Form'>>): ZodSchema => {
   const errorCatcher = (value: string): string => {
     try {
       return JSON.parse(value);
@@ -14,22 +14,21 @@ const RestSchema = (t: ReturnType<typeof useTranslations<'Form'>>): ZodSchema =>
   };
 
   const schema = z.object({
-    method: z.string().min(1, t('errors.method')),
     endpoint: z.string().min(1, t('errors.endpointMin')).url(t('errors.endpointURL')),
+    sdl: z.string().min(1, t('errors.sdlMin')).url(t('errors.endpointURL')),
     headers: z.array(
       z.object({ key: z.string().min(1, t('errors.required')), value: z.string().min(1, t('errors.required')) }),
     ),
     variables: z.array(
       z.object({ key: z.string().min(1, t('errors.required')), value: z.string().min(1, t('errors.required')) }),
     ),
-    bodyJSON: z.string().refine(
+    query: z.string().refine(
       (value) => codeMirrorParser(value),
       (value) => ({ message: `"${errorCatcher(value)}"` }),
     ),
-    bodyText: z.string(),
   });
 
   return schema;
 };
 
-export default RestSchema;
+export default GraphSchema;
