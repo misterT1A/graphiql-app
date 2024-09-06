@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import type { ReactElement } from 'react';
 
 import { useAuth } from '@/context/AuthContext';
+import { signOut } from '@/firebase/auth';
 import { LinkIntl, useRouterIntl } from '@/navigation';
 
 export const AuthenticationButtons = (): ReactElement => {
@@ -12,8 +13,8 @@ export const AuthenticationButtons = (): ReactElement => {
   const t = useTranslations('Auth.buttons');
   const router = useRouterIntl();
 
-  const signOut = async (): Promise<void> => {
-    await fetch('/api/logout');
+  const handleSignOut = async (): Promise<void> => {
+    await signOut();
     router.replace('/');
     router.refresh();
   };
@@ -21,7 +22,7 @@ export const AuthenticationButtons = (): ReactElement => {
   return (
     <>
       {user ? (
-        <Button color="primary" variant="flat" onPress={signOut}>
+        <Button color="primary" variant="flat" onPress={handleSignOut}>
           {t('signOut')}
         </Button>
       ) : (
