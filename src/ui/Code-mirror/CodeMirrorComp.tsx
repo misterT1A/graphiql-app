@@ -14,7 +14,7 @@ function CodeMirrorComp<T extends FieldValues>(props: {
   setResponse: Dispatch<SetStateAction<string>>;
   size: { width: string; height: string };
   initValue: string;
-  t: ReturnType<typeof useTranslations<'RestForm'>>;
+  t: ReturnType<typeof useTranslations<'Form'>>;
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
   name: 'bodyJSON' | 'query';

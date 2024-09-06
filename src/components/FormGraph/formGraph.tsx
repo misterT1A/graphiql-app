@@ -21,7 +21,7 @@ function FormGraph(props: {
   inputData?: FormGraphDataType;
 }): ReactNode {
   // const { encrypt } = useEncryption();
-  const t = useTranslations('RestForm'); //fix
+  const t = useTranslations('Form');
 
   const {
     register,
@@ -84,7 +84,7 @@ function FormGraph(props: {
           <div className="w-full">
             <Input
               type="text"
-              label="SDL URL" //TRANSLATION
+              label={t('labels.sdl')}
               {...register('sdl')}
               // onBlur={() => encrypt(getValues())}
               className="w-full text-center"
@@ -145,8 +145,7 @@ function FormGraph(props: {
             key="queryTab"
             title={
               <div className="flex items-center space-x-2">
-                <span>Query</span>
-                {/* TRANSLATE */}
+                <span>{t('buttons.queryTab')}</span>
                 {errors.query && (
                   <Chip size="sm" variant="faded" color="danger">
                     +1

@@ -13,7 +13,7 @@ import { RemoveIcon } from '../Icons/RemoveIcon';
 
 function InputsArray<T extends FieldValues>(props: {
   getValues: UseFormGetValues<T>;
-  t: ReturnType<typeof useTranslations<'RestForm'>>;
+  t: ReturnType<typeof useTranslations<'Form'>>;
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
   control: Control<T>;

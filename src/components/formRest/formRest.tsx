@@ -31,7 +31,7 @@ function FormRest(props: {
   };
 }): ReactNode {
   const { encrypt } = useEncryption();
-  const t = useTranslations('RestForm');
+  const t = useTranslations('Form');
 
   const {
     register,

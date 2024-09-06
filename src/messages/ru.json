@@ -7,7 +7,7 @@
   "NotFound": {
     "message": "Запрошенная страница не найдена."
   },
-  "RestForm": {
+  "Form": {
     "labels": {
       "method": "Метод",
       "endpoint": "URL адрес",
@@ -15,7 +15,8 @@
       "headerValue": "Значение заголовка",
       "variableKey": "Ключ переменной",
       "variableValue": "Значение переменной",
-      "bodyText": "Тело запроса"
+      "bodyText": "Тело запроса",
+      "sdl": "SDL адрес"
     },
     "errors": {
       "required": "Заполните поле",
@@ -31,7 +32,8 @@
       "bodyTab": "Тело",
       "headerAdd": "Добавить заголовок",
       "variableAdd": "Добавить переменную",
-      "bodyTextTab": "Текст"
+      "bodyTextTab": "Текст",
+      "queryTab": "Запрос"
     },
     "placeholders": {
       "bodyText": "Поддерживается только обычный текст"

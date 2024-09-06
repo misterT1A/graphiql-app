@@ -7,7 +7,7 @@
   "NotFound": {
     "message": "The requested page was not found."
   },
-  "RestForm": {
+  "Form": {
     "labels": {
       "method": "Method",
       "endpoint": "Endpoint URL",
@@ -15,7 +15,8 @@
       "headerValue": "Header value",
       "variableKey": "Variable key",
       "variableValue": "Variable value",
-      "bodyText": "Request Body"
+      "bodyText": "Request Body",
+      "sdl": "SDL URL"
     },
     "errors": {
       "required": "Fill the field",
@@ -31,7 +32,8 @@
       "bodyTab": "Body",
       "headerAdd": "Add Header",
       "variableAdd": "Add Variable",
-      "bodyTextTab": "Plain Text"
+      "bodyTextTab": "Plain Text",
+      "queryTab": "Query"
     },
     "placeholders": {
       "bodyText": "Plain text supports only"
