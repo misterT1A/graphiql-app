@@ -2,9 +2,8 @@
 
 import { useState, type ReactElement } from 'react';
 
-import type { IErrorObj } from '@/services/getRestfullData';
 import getRestfullData from '@/services/getRestfullData';
-import type { IFormParams, IInitParams } from '@/types/restFullTypes';
+import type { IErrorObj, IFormParams, IInitParams } from '@/types/restFullTypes';
 import ResponseView from '@/ui/ResponseView/ResponseView';
 import { replaceVariablesSybmit } from '@/utils/replaceVariables';
 
