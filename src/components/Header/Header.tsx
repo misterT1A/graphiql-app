@@ -26,6 +26,7 @@ const Header = (): ReactElement => {
   const menuItems = [
     { name: t('menuItems.home'), href: '/' },
     { name: 'RestFull client', href: '/restfull-client' },
+    { name: 'GraphQL client', href: '/graph-client' },
     // { name: 'GraphiQL client', href: '/graphiql-client' },
   ];
 
