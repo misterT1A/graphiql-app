@@ -2,6 +2,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { NextIntlClientProvider } from 'next-intl';
+import { ToastContainer } from 'react-toastify';
 
 import SignUp from '@/app/[locale]/sign-up/page';
 import { signUp } from '@/firebase/auth';
@@ -26,6 +27,7 @@ describe('SignUp', () => {
     render(
       <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
         <SignUp />
+        <ToastContainer />
       </NextIntlClientProvider>,
     );
 
@@ -95,6 +97,15 @@ describe('SignUp', () => {
     expect(form.confirmInput).toBeValid();
     expect(form.submitButton).toBeValid();
     expect(signUp).toHaveBeenCalledWith(form.validData);
+  });
+
+  it('should show an error if sign up request fails', async () => {
+    (signUp as jest.Mock).mockRejectedValueOnce(new Error('Sign up request fails.'));
+
+    const { form } = renderComponent();
+    await form.fill(form.validData);
+
+    expect(screen.getByText('Sign up request fails.')).toBeInTheDocument();
   });
 
   describe('Username input', () => {
