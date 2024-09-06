@@ -13,12 +13,14 @@
       "username": "Username",
       "password": "Password",
       "confirm": "Confirm Password",
-      "submit": "Sign up"
+      "submit": "Sign up",
+      "signUpSuccess": "Your account has been successfully created."
     },
     "signInForm": {
       "heading": "Sign In",
       "password": "Password",
-      "submit": "Sign in"
+      "submit": "Sign in",
+      "signInSuccess": "Successfully authenticated."
     },
     "buttons": {
       "signUp": "Sign Up",

@@ -5,6 +5,7 @@ import { Button, Input } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
 import { type ReactElement } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import { signIn } from '@/firebase/auth';
 import { useRouterIntl } from '@/navigation';
@@ -23,10 +24,16 @@ const SignIn = (): ReactElement => {
   });
 
   const onSubmit: SubmitHandler<SignInDto> = async (dto): Promise<void> => {
-    await signIn(dto);
-
-    router.replace('/');
-    router.refresh();
+    try {
+      await signIn(dto);
+      toast.success(t('signInForm.signInSuccess'));
+      router.replace('/');
+      router.refresh();
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
   };
 
   return (

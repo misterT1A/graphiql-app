@@ -7,7 +7,6 @@ import { getMessages } from 'next-intl/server';
 import type { ReactElement } from 'react';
 
 import Header from '@/components/Header/Header';
-import { AuthProvider } from '@/context/AuthProvider';
 import { toUser } from '@/context/toUser';
 import { type Locale } from '@/i18n';
 
@@ -45,11 +44,9 @@ const RootLayout = async ({
   return (
     <html lang={locale} suppressHydrationWarning={true}>
       <body className={inter.className}>
-        <Providers locale={locale} messages={messages}>
-          <AuthProvider user={user}>
-            <Header />
-            <main className="max-w-[1000px] w-full mx-auto p-[10px]">{children}</main>
-          </AuthProvider>
+        <Providers locale={locale} messages={messages} user={user}>
+          <Header />
+          <main className="max-w-[1000px] w-full mx-auto p-[10px]">{children}</main>
         </Providers>
       </body>
     </html>

@@ -13,12 +13,14 @@
       "username": "Имя пользователя",
       "password": "Пароль",
       "confirm": "Подтвердите пароль",
-      "submit": "Зарегистрироваться"
+      "submit": "Зарегистрироваться",
+      "signUpSuccess": "Ваш аккаунт успешно создан."
     },
     "signInForm": {
       "heading": "Вход",
       "password": "Пароль",
-      "submit": "Войти"
+      "submit": "Войти",
+      "signInSuccess": "Вход выполнен успешно."
     },
     "buttons": {
       "signUp": "Регистрация",
