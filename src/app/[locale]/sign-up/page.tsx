@@ -2,12 +2,11 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@nextui-org/react';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { useTranslations } from 'next-intl';
 import { type ReactElement } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 
-import { auth } from '@/firebase/config';
+import { signUp } from '@/firebase/auth';
 import { useRouterIntl } from '@/navigation';
 import InputPassword from '@/ui/InputPassword/InputPassword';
 import { signUpSchema, type SignUpDto } from '@/validation/signUpSchema';
@@ -24,18 +23,13 @@ const SignUp = (): ReactElement => {
   });
 
   const onSubmit: SubmitHandler<SignUpDto> = async (dto): Promise<void> => {
-    const response = await createUserWithEmailAndPassword(auth, dto.email, dto.password);
-    await updateProfile(response.user, { displayName: dto.username });
-    const idToken = await response.user.getIdToken();
-
-    await fetch('/api/login', {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    });
-
-    router.replace('/');
-    router.refresh();
+    try {
+      await signUp(dto);
+      router.replace('/');
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

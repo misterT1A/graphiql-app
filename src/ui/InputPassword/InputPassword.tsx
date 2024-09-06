@@ -6,7 +6,7 @@ import { forwardRef, useState, type ReactElement } from 'react';
 import EyeFilledIcon from './EyeFilledIcon';
 import EyeSlashFilledIcon from './EyeSlashFilledIcon';
 
-const InputPassword = forwardRef<HTMLInputElement, Omit<InputProps, 'type'>>(
+const InputPassword = forwardRef<HTMLInputElement, Omit<InputProps, 'type' | 'role'>>(
   function InputPassword(props, ref): ReactElement {
     const [isVisible, setIsVisible] = useState(false);
 
@@ -31,6 +31,7 @@ const InputPassword = forwardRef<HTMLInputElement, Omit<InputProps, 'type'>>(
           </button>
         }
         type={isVisible ? 'text' : 'password'}
+        role="textbox"
         {...props}
       />
     );

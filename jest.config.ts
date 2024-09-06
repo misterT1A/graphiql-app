@@ -24,6 +24,9 @@ const config: Config = {
     customExportConditions: [''],
   },
   coverageReporters: ['json', 'lcov', 'text', 'clover'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
 };
 
 export default createJestConfig(config);

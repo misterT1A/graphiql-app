@@ -40,7 +40,6 @@ export default async function middleware(request: NextRequest): Promise<NextResp
     },
     checkRevoked: true,
     cookieName: process.env.COOKIE_NAME || 'AuthToken',
-    debug: true,
     handleValidToken: async () => {
       if (!isPagesMatch(request.nextUrl.pathname, privatePages)) {
         return NextResponse.redirect(new URL('/', request.url));
