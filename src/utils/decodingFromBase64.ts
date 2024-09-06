@@ -14,7 +14,7 @@ const decodingFromBase64 = (slug: string[], query: { [key: string]: string }): I
   const headers: [string, string][] = [];
 
   Object.entries(query).forEach(([key, value]) => {
-    headers.push([key, decodeURIComponent(value) || '']);
+    headers.push([key, decodeURIComponent(value)]);
   });
 
   const endpoint = (slug && slug.find((elem) => decodeBase64(elem).startsWith('http'))) || '';
