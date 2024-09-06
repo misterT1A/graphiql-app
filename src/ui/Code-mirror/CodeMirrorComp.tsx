@@ -8,19 +8,17 @@ import type { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState, type ReactElement } from 'react';
-import type { FieldErrors, UseFormRegister } from 'react-hook-form';
+import type { FieldError, FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-import type { FormRestType } from '@/types/types';
-
-const CodeMirrorComp = (props: {
+function CodeMirrorComp<T extends FieldValues>(props: {
   setResponse: Dispatch<SetStateAction<string>>;
   size: { width: string; height: string };
   initValue: string;
   t: ReturnType<typeof useTranslations<'RestForm'>>;
-  register: UseFormRegister<FormRestType>;
-  errors: FieldErrors<FormRestType>;
-  name: 'bodyJSON';
-}): ReactElement | null => {
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
+  name: 'bodyJSON' | 'query';
+}): ReactElement | null {
   const [value, setValue] = useState(props.initValue);
 
   const onChange = useCallback(
@@ -45,15 +43,15 @@ const CodeMirrorComp = (props: {
           theme={theme === 'dark' ? githubDark : githubLight}
         />
       </div>
-      <Input type="hidden" {...props.register(props.name)} />
+      <Input type="hidden" {...props.register(props.name as Path<T>)} />
       {props.errors[props.name] && (
         <div>
           <p className="text-[#F31260] text-center text-xs">{props.errors[props.name] && props.t('errors.body')}</p>
-          <p className="text-[#F31260] text-center text-xs">{props.errors[props.name]?.message}</p>
+          <p className="text-[#F31260] text-center text-xs">{(props.errors[props.name] as FieldError)?.message}</p>
         </div>
       )}
     </>
   );
-};
+}
 
 export default CodeMirrorComp;
