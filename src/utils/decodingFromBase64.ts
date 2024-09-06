@@ -5,7 +5,6 @@ const decodeBase64 = (str: string): string => {
     const padding = str.length % 4 === 0 ? '' : '='.repeat(4 - (str.length % 4));
     return atob(str + padding);
   } catch {
-    console.log(`error decoding Base64: ${str}`);
     return '';
   }
 };
