@@ -1,8 +1,7 @@
 'use client';
 
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 import type { SignInDto } from '@/validation/signInSchema';
 import type { SignUpDto } from '@/validation/signUpSchema';
