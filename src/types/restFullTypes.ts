@@ -1,6 +1,6 @@
 export interface IPageProps {
   params: {
-    slug: string;
+    slug?: string[];
   };
   searchParams: { [key: string]: string };
 }

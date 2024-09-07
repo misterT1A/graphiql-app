@@ -9,7 +9,7 @@ const replaceString = (
 ): string => {
   const templateRegex = /(["'])?{{(.*?)}}(["'])?/g;
 
-  return str.replace(templateRegex, (match, p1, key) => {
+  return str.replace(templateRegex, (match, _, key) => {
     const trimmedKey = key.trim();
     return Object.prototype.hasOwnProperty.call(variables, trimmedKey) ? variables[trimmedKey] : match;
   });

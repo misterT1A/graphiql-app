@@ -5,7 +5,6 @@ const decodeBase64 = (str: string): string => {
     const padding = str.length % 4 === 0 ? '' : '='.repeat(4 - (str.length % 4));
     return atob(str + padding);
   } catch {
-    console.log(`error decoding Base64: ${str}`);
     return '';
   }
 };
@@ -14,7 +13,7 @@ const decodingFromBase64 = (slug: string[], query: { [key: string]: string }): I
   const headers: [string, string][] = [];
 
   Object.entries(query).forEach(([key, value]) => {
-    headers.push([key, decodeURIComponent(value) || '']);
+    headers.push([key, decodeURIComponent(value)]);
   });
 
   const endpoint = (slug && slug.find((elem) => decodeBase64(elem).startsWith('http'))) || '';
