@@ -7,7 +7,8 @@ import type { SetStateAction } from 'react';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
-import useEncryption from '@/hooks/useEncryption';
+import { useEncryption, useHistoryService } from '@/hooks';
+import { Client } from '@/types/historyServiceTypes';
 import type { IFormParams } from '@/types/restFullTypes';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
@@ -30,6 +31,7 @@ function FormRest(props: {
     method: string;
   };
 }): ReactNode {
+  const { setRequest } = useHistoryService();
   const { encrypt } = useEncryption();
   const t = useTranslations('RestForm');
 
@@ -66,6 +68,20 @@ function FormRest(props: {
       variables: InputsArrayToObject(data.variables),
       body: selectedBody === 'bodyJSON' ? JSON.stringify(codeMirrorParser(bodyJSONData as string)) : data.bodyText,
     });
+
+    setRequest(
+      {
+        method: data.method,
+        endpoint: data.endpoint,
+        headers: data.headers,
+        variables: InputsArrayToObject(data.variables),
+        body:
+          selectedBody === 'bodyJSON'
+            ? { type: 'json', value: JSON.stringify(codeMirrorParser(bodyJSONData as string)) }
+            : { type: 'string', value: data.bodyText },
+      },
+      Client.REST,
+    );
 
     props.getData({
       method: data.method,
