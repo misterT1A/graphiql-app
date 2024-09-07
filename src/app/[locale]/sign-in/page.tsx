@@ -37,7 +37,7 @@ const SignIn = (): ReactElement => {
   };
 
   return (
-    <main className="flex justify-center">
+    <div className="flex justify-center">
       <form onSubmit={handleSubmit(onSubmit)} className="p-4 flex flex-col gap-2" noValidate>
         <h1 className="text-lg">{t('signInForm.heading')}</h1>
         <Input
@@ -61,7 +61,7 @@ const SignIn = (): ReactElement => {
           {t('signInForm.submit')}
         </Button>
       </form>
-    </main>
+    </div>
   );
 };
 
