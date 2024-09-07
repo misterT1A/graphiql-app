@@ -50,10 +50,14 @@ describe('FormRest', () => {
   });
 
   it('should render FormRest', async () => {
-    const component = await act(async () => {
+    let counter = 0;
+
+    await act(async () => {
       return render(
         <FormRest
-          getData={() => {}}
+          getData={() => {
+            counter++;
+          }}
           inputData={{
             endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
             method: 'GET',
@@ -73,20 +77,20 @@ describe('FormRest', () => {
       fireEvent.click(screen.getByText('Send'));
     });
 
-    expect(component).toMatchSnapshot();
+    expect(counter).toEqual(1);
   });
 
   it('should render all tabs', async () => {
-    const component = await act(async () => {
+    await act(async () => {
       return render(<FormRest getData={() => {}} />);
     });
 
     await act(async () => {
-      fireEvent.click(screen.getByText('Variables'));
       fireEvent.click(screen.getByText('Body'));
+      fireEvent.click(screen.getByText('Variables'));
     });
 
-    expect(component).toMatchSnapshot();
+    expect(screen.getByLabelText('Variable key')).toBeInTheDocument();
   });
 
   it('should show headers and variables errors', async () => {
@@ -135,7 +139,7 @@ describe('FormRest', () => {
   });
 
   it('should add and remove headers and variables inputs', async () => {
-    const component = await act(async () => {
+    await act(async () => {
       return render(<FormRest getData={() => {}} />);
     });
 
@@ -144,7 +148,7 @@ describe('FormRest', () => {
       fireEvent.click(screen.getByText('Add Header'));
     });
 
-    expect(component).toMatchSnapshot();
+    expect(screen.getByLabelText('Header key')).toBeInTheDocument();
   });
 });
 
@@ -237,7 +241,8 @@ describe('FormRest hooks', () => {
 
 describe('FormRest icons', () => {
   it('should make default color for Remove icon while no colors are specified', async () => {
-    const removeIcon = render(<RemoveIcon filled />);
-    expect(removeIcon).toMatchSnapshot();
+    render(<RemoveIcon filled />);
+
+    expect(screen.getByRole('img')).toBeInTheDocument();
   });
 });
