@@ -7,6 +7,36 @@
   "NotFound": {
     "message": "Запрошенная страница не найдена."
   },
+  "Auth": {
+    "signUpForm": {
+      "heading": "Регистрация",
+      "username": "Имя пользователя",
+      "password": "Пароль",
+      "confirm": "Подтвердите пароль",
+      "submit": "Зарегистрироваться",
+      "signUpSuccess": "Ваш аккаунт успешно создан."
+    },
+    "signInForm": {
+      "heading": "Вход",
+      "password": "Пароль",
+      "submit": "Войти",
+      "signInSuccess": "Вход выполнен успешно."
+    },
+    "buttons": {
+      "signUp": "Регистрация",
+      "signIn": "Войти",
+      "signOut": "Выйти"
+    },
+    "validation": {
+      "usernameRequired": "Введите имя пользователя.",
+      "invalidEmail": "Некорректный почтовый адрес.",
+      "invalidPasswordLength": "Пароль должен состоять минимум из {length} символов.",
+      "mustContainLetter": "Пароль должен содержать как минимум 1 букву.",
+      "mustContainDigit": "Пароль должен содержать как минимум 1 цифру.",
+      "mustContainSpecialCharacter": "Пароль должен содержат как минимум 1 специальный символ.",
+      "mismatchPasswords": "Пароли не совпадают."
+    }
+  },
   "RestForm": {
     "labels": {
       "method": "Метод",
