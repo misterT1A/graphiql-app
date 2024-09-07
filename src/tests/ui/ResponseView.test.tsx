@@ -18,7 +18,6 @@ describe('ResponseView Component', () => {
   });
   it('should render JSON content correctly', () => {
     render(<ResponseView response={mockResponse} />);
-
     expect(screen.getByText('key')).toBeInTheDocument();
   });
 
@@ -29,9 +28,7 @@ describe('ResponseView Component', () => {
 
   it('should apply custom styles', () => {
     const customStyles = 'test';
-
     render(<ResponseView response={mockResponse} styles={customStyles} />);
-
     expect(screen.getByText('{').closest('div')).toHaveClass(customStyles);
   });
 });
