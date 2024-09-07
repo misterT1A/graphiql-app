@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format:fix": "prettier .  --write",
-    "test": "jest -u",
-    "test:coverage": "jest --coverage -u",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "prepare": "husky"
   },
   "lint-staged": {
