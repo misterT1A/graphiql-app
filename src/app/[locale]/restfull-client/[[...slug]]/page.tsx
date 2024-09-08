@@ -1,28 +1,23 @@
 import { type ReactElement } from 'react';
 
 import RestFullClient from '@/components/RestFullClient/RestFullClient';
-import getRestfullData from '@/services/getRestfullData';
-import type { IErrorObj, IInitParams, IPageProps } from '@/types/restFullTypes';
+import type { IInitParams, IPageProps } from '@/types/restFullTypes';
 import decodingFromBase64 from '@/utils/decodingFromBase64';
 import parseBody from '@/utils/parseBody';
 
-const initializeData = async ({
-  params,
-  searchParams,
-}: IPageProps): Promise<{ initFormData: IInitParams; response: Response | IErrorObj } | undefined> => {
-  if (!params.slug && !searchParams) {
+const initializeData = ({ params, searchParams }: IPageProps): IInitParams | undefined => {
+  if (!params.slug && !Object.keys(searchParams).length) {
     return undefined;
   }
 
   const requestParams = decodingFromBase64(params.slug as unknown as string[], searchParams);
-  const initFormData: IInitParams = { ...requestParams, body: parseBody(requestParams.body) };
-  const response = await getRestfullData(requestParams);
+  const initFormData: IInitParams = { ...requestParams, body: parseBody(requestParams.body) || {} };
 
-  return { initFormData, response };
+  return initFormData;
 };
 
-const Page = async ({ params, searchParams }: IPageProps): Promise<ReactElement> => {
-  const initData = await initializeData({ params, searchParams });
+const Page = ({ params, searchParams }: IPageProps): ReactElement => {
+  const initData = initializeData({ params, searchParams });
 
   return (
     <>

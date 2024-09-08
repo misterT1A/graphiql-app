@@ -5,7 +5,7 @@
     }
   },
   "NotFound": {
-    "message": "The requested page was not found."
+    "message": "The page you were looking for doesn't exist."
   },
   "Auth": {
     "signUpForm": {

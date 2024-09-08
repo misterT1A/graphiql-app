@@ -10,12 +10,8 @@ import { replaceVariablesSybmit } from '@/utils/replaceVariables';
 import ResponseLoader from '../../ui/ResponseLoader/ResponseLoader';
 import FormRest from '../formRest/formRest';
 
-const RestFullClient = ({
-  initParams,
-}: {
-  initParams?: { initFormData: IInitParams; response: Response | IErrorObj };
-}): ReactElement => {
-  const [state, setState] = useState<Response | undefined | IErrorObj>(initParams?.response || undefined);
+const RestFullClient = ({ initParams }: { initParams?: IInitParams }): ReactElement => {
+  const [state, setState] = useState<Response | undefined | IErrorObj>(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
   const sumbiteHandler = async (form: IFormParams): Promise<void> => {
@@ -28,7 +24,7 @@ const RestFullClient = ({
 
   return (
     <>
-      <FormRest inputData={initParams?.initFormData} getData={sumbiteHandler} />
+      <FormRest inputData={initParams} getData={sumbiteHandler} />
       {isLoading && <ResponseLoader />}
       {!isLoading && state && <ResponseView response={state as object} />}
     </>

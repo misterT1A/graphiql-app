@@ -54,7 +54,10 @@ function FormRest(props: {
   });
 
   const [bodyJSONData, setBodyData] = useState<object | string>(
-    (typeof props.inputData?.body !== 'string' && JSON.stringify(props.inputData?.body, null, '  ')) || '{\n  \n}',
+    (typeof props.inputData?.body !== 'string' &&
+      JSON.stringify(props.inputData?.body) !== '{}' &&
+      JSON.stringify(props.inputData?.body, null, '  ')) ||
+      '{\n  \n}',
   );
 
   const [selectedBody, setSelectedBody] = useState(typeof props.inputData?.body === 'string' ? 'bodyText' : 'bodyJSON');
