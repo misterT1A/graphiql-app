@@ -6,14 +6,6 @@ export interface IFormParams {
   variables: { [key: string]: string };
 }
 
-export enum Method {
-  GET = 'GET',
-  POST = 'POST',
-  PUT = 'PUT',
-  DELETE = 'DELETE',
-  GRAPHQL = 'GRAPHQL',
-}
-
 export interface IBodyHistory {
   type: 'json' | 'string';
   value: string;
