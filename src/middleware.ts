@@ -5,7 +5,7 @@ import createMiddleware from 'next-intl/middleware';
 import { defaultLocale, locales } from './i18n';
 
 const publicPages = ['/', '/sign-up', '/sign-in'];
-const privatePages = ['/', '/restfull-client.*'];
+const privatePages = ['/', '/restfull-client.*', '/history'];
 
 const intlMiddleware = createMiddleware({
   locales,

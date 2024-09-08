@@ -6,9 +6,12 @@ export interface IFormParams {
   variables: { [key: string]: string };
 }
 
-export enum Client {
-  REST = 'REST',
-  GRAPH = 'GRAPH',
+export enum Method {
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  DELETE = 'DELETE',
+  GRAPHQL = 'GRAPHQL',
 }
 
 export interface IBodyHistory {
@@ -16,9 +19,10 @@ export interface IBodyHistory {
   value: string;
 }
 
-export type request = { href: string; name: string; data: Date; variables: { [key: string]: string } };
+export type request = { href: string; endpoint: string; name: string; data: Date };
 
 export interface IReturnType {
   requests?: request[];
-  setRequest: (form: IFormParams, name: Client) => void;
+  setHistory: (form: IFormParams, name: string) => void;
+  getHistory: request[];
 }
