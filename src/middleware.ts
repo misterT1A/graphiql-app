@@ -4,8 +4,8 @@ import createMiddleware from 'next-intl/middleware';
 
 import { defaultLocale, locales } from './i18n';
 
-const publicPages = ['/', '/sign-up', '/sign-in'];
-const privatePages = ['/', '/restfull-client.*'];
+const privatePages = ['/restfull-client.*'];
+const redirectPages = ['/sign-up', '/sign-in'];
 
 const intlMiddleware = createMiddleware({
   locales,
@@ -41,14 +41,14 @@ export default async function middleware(request: NextRequest): Promise<NextResp
     checkRevoked: true,
     cookieName: process.env.COOKIE_NAME || 'AuthToken',
     handleValidToken: async () => {
-      if (!isPagesMatch(request.nextUrl.pathname, privatePages)) {
+      if (isPagesMatch(request.nextUrl.pathname, redirectPages)) {
         return NextResponse.redirect(new URL('/', request.url));
       }
 
       return intlMiddleware(request);
     },
     handleInvalidToken: async () => {
-      if (!isPagesMatch(request.nextUrl.pathname, publicPages)) {
+      if (isPagesMatch(request.nextUrl.pathname, privatePages)) {
         return NextResponse.redirect(new URL('/', request.url));
       }
 
