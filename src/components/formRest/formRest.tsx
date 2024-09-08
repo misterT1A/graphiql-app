@@ -1,5 +1,6 @@
 'use client';
 
+import { json } from '@codemirror/lang-json';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Chip, Input, Tab, Tabs, Textarea } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
@@ -183,6 +184,7 @@ function FormRest(props: {
                     register={register}
                     errors={errors}
                     name="bodyJSON"
+                    ext={json()}
                   />
                 </div>
               </Tab>

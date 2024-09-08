@@ -1,8 +1,9 @@
 'use client';
 
-import { json } from '@codemirror/lang-json';
+// 
 import { Input } from '@nextui-org/react';
 import { githubLight, githubDark } from '@uiw/codemirror-theme-github';
+import type { Extension } from '@uiw/react-codemirror';
 import CodeMirror from '@uiw/react-codemirror';
 import type { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
@@ -18,6 +19,7 @@ function CodeMirrorComp<T extends FieldValues>(props: {
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
   name: 'bodyJSON' | 'query';
+  ext: Extension;
 }): ReactElement | null {
   const [value, setValue] = useState(props.initValue);
 
@@ -38,7 +40,7 @@ function CodeMirrorComp<T extends FieldValues>(props: {
           value={value}
           width={props.size.width}
           height={props.size.height}
-          extensions={[json()]}
+          extensions={[props.ext]}
           onChange={onChange}
           theme={theme === 'dark' ? githubDark : githubLight}
         />

@@ -2,6 +2,8 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Chip, Input, Tab, Tabs } from '@nextui-org/react';
+import { graphql } from 'cm6-graphql';
+import type { GraphQLSchema } from 'graphql';
 import { useTranslations } from 'next-intl';
 import type { SetStateAction } from 'react';
 import { useEffect, useState, type ReactNode } from 'react';
@@ -192,12 +194,13 @@ function FormGraph(props: {
             >
               <CodeMirrorComp
                 setResponse={setBodyData}
-                size={{ width: '100%', height: '98.4px' }}
+                size={{ width: '100%', height: '300px' }}
                 initValue={queryData as string}
                 t={t}
                 register={register}
                 errors={errors}
                 name="query"
+                ext={graphql(schema as GraphQLSchema)}
               />
             </div>
           </Tab>

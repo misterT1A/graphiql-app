@@ -9,7 +9,7 @@ function SubmitButton(props: {
   t: ReturnType<typeof useTranslations<'Form'>>;
   register: UseFormRegister<FormRestType> | UseFormRegister<FormGraphType>;
   errors: FieldErrors<FormRestType>;
-  schema: { message?: string };
+  schema?: { message?: string };
 }): ReactNode {
   return (
     <Button
@@ -17,11 +17,12 @@ function SubmitButton(props: {
       type="submit"
       color={
         (Object.keys(props.errors).length && 'danger') ||
-        ((!Object.keys(props.schema).length || Boolean(props.schema.message)) && 'default') ||
+        (props.schema && (!Object.keys(props.schema).length || Boolean(props.schema.message)) && 'default') ||
         'success'
       }
       isDisabled={
-        Boolean(Object.keys(props.errors).length) || !Object.keys(props.schema).length || Boolean(props.schema.message)
+        Boolean(Object.keys(props.errors).length) ||
+        (props.schema && (!Object.keys(props.schema).length || Boolean(props.schema.message)))
       }
       className="h-14"
     >
