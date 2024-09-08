@@ -8,9 +8,15 @@ import type { ReactElement } from 'react';
 
 import Header from '@/components/Header/Header';
 import { toUser } from '@/context/toUser';
-import { type Locale } from '@/i18n';
+import { locales, type Locale } from '@/i18n';
 
 import Providers from '../providers';
+
+export function generateStaticParams(): {
+  locale: Locale;
+}[] {
+  return locales.map((locale) => ({ locale }));
+}
 
 const inter = Inter({ subsets: ['latin'] });
 
