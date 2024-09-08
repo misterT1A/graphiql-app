@@ -31,7 +31,7 @@ const HistoryView = (): ReactElement => {
     <div className="w-full min-w-[300px] max-w-[700px] border-small px-1 py-2 rounded-small border-default-200 dark:border-default-100">
       <Listbox aria-label="Actions" className="min-w-[300px]">
         {history.map((request) => (
-          <ListboxItem key={+new Date(request.data)} href={request.href}>
+          <ListboxItem textValue={request.name} key={+new Date(request.data)} href={request.href}>
             <div className="flex flex-col gap-[10px] sm:flex-row gap-[20px]">
               <p className="min-w-[60px]">{request.name}</p>
               <p>{new Date(request.data).toLocaleString()}</p>

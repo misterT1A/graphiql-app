@@ -1,14 +1,9 @@
-// import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { LSHistoryName } from '@/constants/constants';
 import { usePathnameIntl } from '@/navigation';
 import type { IFormParams, IReturnType, request } from '@/types/historyServiceTypes';
 import { buildURL } from '@/utils/encryptHelpers';
-
-const setToLS = (data: string): void => {
-  window.localStorage.setItem(LSHistoryName, data);
-};
 
 const useHistoryService = (): IReturnType => {
   const path = usePathnameIntl();
@@ -21,7 +16,7 @@ const useHistoryService = (): IReturnType => {
   });
 
   useEffect(() => {
-    setToLS(JSON.stringify(requests));
+    window.localStorage.setItem(LSHistoryName, JSON.stringify(requests));
   }, [requests]);
 
   const setHistory = (form: IFormParams, method: string): void => {

@@ -18,6 +18,7 @@ export const encryptHeadersToBase64 = (headers: { key: string; value: string }[]
       queryParams.append(key, encodeURIComponent(value));
     }
   });
+
   return queryParams.size ? `?${queryParams.toString()}` : '';
 };
 
