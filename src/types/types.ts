@@ -16,7 +16,7 @@ export type FormRestDataType = {
 };
 
 export type RestAPI = Readonly<{
-  getData: (inputData: FormRestType, headers: { [key: string]: string }, bodyData: object) => Promise<unknown>;
+  getSchema: (url: string) => Promise<unknown>;
 }>;
 
 export type FormGraphType = {

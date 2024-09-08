@@ -1,12 +1,14 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Chip, Input, Tab, Tabs } from '@nextui-org/react';
+import { Button, Chip, Input, Tab, Tabs } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
+import type { SetStateAction } from 'react';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
 // import useEncryption from '@/hooks/useEncryption';
+import { API } from '@/services/API';
 import type { FormGraphDataType, FormGraphType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import InputsArray from '@/ui/InputsArray/InputsArray';
@@ -31,6 +33,7 @@ function FormGraph(props: {
     getValues,
     formState: { errors },
     setValue,
+    watch,
   } = useForm<FormGraphType>({
     mode: 'onChange',
     resolver: zodResolver(GraphSchema(t)),
@@ -41,6 +44,8 @@ function FormGraph(props: {
     },
   });
 
+  const [schema, setSchema] = useState({} as { message?: string });
+
   const [queryData, setBodyData] = useState<object | string>(
     (typeof props.inputData?.query !== 'string' && JSON.stringify(props.inputData?.query, null, '  ')) || '{\n  \n}',
   );
@@ -48,10 +53,10 @@ function FormGraph(props: {
   const submit = async (data: FormGraphType): Promise<void> => {
     console.log({
       endpoint: data.endpoint,
-      sdl: data.sdl,
       headers: InputsArrayToObject(data.headers),
       variables: InputsArrayToObject(data.variables),
       query: codeMirrorParser(queryData as string),
+      schema: schema,
     });
 
     // props.getData({
@@ -82,6 +87,10 @@ function FormGraph(props: {
               errorMessage={errors.endpoint?.message}
             />
           </div>
+          <SubmitButton t={t} register={register} errors={errors} schema={schema} />
+        </div>
+
+        <div className="flex justify-between w-full gap-2">
           <div className="w-full">
             <Input
               type="text"
@@ -91,11 +100,33 @@ function FormGraph(props: {
               className="w-full text-center"
               isInvalid={Boolean(errors.sdl)}
               errorMessage={errors.sdl?.message}
+              isDisabled={!(!Object.keys(schema).length || Boolean(schema.message))}
             />
           </div>
-          <SubmitButton t={t} register={register} errors={errors} />
+          <Button
+            size="lg"
+            color={((!Object.keys(schema).length || Boolean(schema.message)) && 'success') || 'default'}
+            isDisabled={!(!Object.keys(schema).length || Boolean(schema.message))}
+            className="h-14"
+            onClick={async () => {
+              const graphSchema = await API().getSchema(watch('sdl'));
+              setSchema(graphSchema as SetStateAction<object>);
+            }}
+          >
+            {t('buttons.getSchema')}
+          </Button>
         </div>
-        <Tabs aria-label="Options">
+
+        {Boolean(Object.keys(schema).length) && !schema.message && (
+          <p className="text-[#17C964]">{t('text.schemaLoaded')}</p>
+        )}
+        {schema.message && <p className="text-[#F31260]">{schema.message}</p>}
+        {!Object.keys(schema).length && !schema.message && <p>{t('text.schemaPenging')}</p>}
+
+        <Tabs
+          disabledKeys={[`${!Object.keys(schema).length || Boolean(schema.message) ? 'queryTab' : ''}`]}
+          aria-label="Options"
+        >
           <Tab
             key="headersTab"
             title={

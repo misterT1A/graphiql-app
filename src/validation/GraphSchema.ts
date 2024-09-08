@@ -15,7 +15,6 @@ const GraphSchema = (t: ReturnType<typeof useTranslations<'Form'>>): ZodSchema =
 
   const schema = z.object({
     endpoint: z.string().min(1, t('errors.endpointMin')).url(t('errors.endpointURL')),
-    sdl: z.string().min(1, t('errors.sdlMin')).url(t('errors.endpointURL')),
     headers: z.array(
       z.object({ key: z.string().min(1, t('errors.required')), value: z.string().min(1, t('errors.required')) }),
     ),
