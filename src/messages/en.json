@@ -4,6 +4,17 @@
       "home": "Home"
     }
   },
+  "Home": {
+    "welcome": "Welcome!",
+    "welcomeUsername": "Welcome Back, {username}!",
+    "buttons": {
+      "signUp": "Sign Up",
+      "signIn": "Sign In",
+      "restFullClient": "RestFull client",
+      "graphiQlClient": "GraphiQL client",
+      "history": "History"
+    }
+  },
   "NotFound": {
     "message": "The page you were looking for doesn't exist."
   },

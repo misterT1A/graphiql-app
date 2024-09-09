@@ -4,6 +4,17 @@
       "home": "Главная"
     }
   },
+  "Home": {
+    "welcome": "Добро пожаловать!",
+    "welcomeUsername": "С возвращением, {username}!",
+    "buttons": {
+      "signUp": "Регистрация",
+      "signIn": "Войти",
+      "restFullClient": "RestFull-клиент",
+      "graphiQlClient": "GraphiQL-клиент",
+      "history": "История"
+    }
+  },
   "NotFound": {
     "message": "Запрошенная страница не найдена."
   },
