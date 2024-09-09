@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Chip, Input, Tab, Tabs } from '@nextui-org/react';
 import { graphql } from 'cm6-graphql';
-import type { GraphQLSchema } from 'graphql';
+import { getIntrospectionQuery, type GraphQLSchema } from 'graphql';
 import { useTranslations } from 'next-intl';
 import type { SetStateAction } from 'react';
 import { useEffect, useState, type ReactNode } from 'react';
@@ -47,7 +47,7 @@ function FormGraph(props: {
     },
   });
 
-  const [queryData, setBodyData] = useState<string>(props.inputData?.query || 'query {\n  \n}');
+  const [queryData, setBodyData] = useState<string>(props.inputData?.query || getIntrospectionQuery());
 
   const submit = async (data: FormGraphType): Promise<void> => {
     console.log({
