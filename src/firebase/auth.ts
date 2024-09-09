@@ -44,3 +44,5 @@ export async function signIn(dto: SignInDto): Promise<void> {
 export async function signOut(): Promise<void> {
   await fetch('/api/logout');
 }
+
+export { FirebaseError } from 'firebase/app';

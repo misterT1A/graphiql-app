@@ -20,6 +20,7 @@ jest.mock('@/navigation', () => ({
 
 jest.mock('@/firebase/auth', () => ({
   signUp: jest.fn(),
+  FirebaseError: jest.fn(),
 }));
 
 describe('SignUp', () => {

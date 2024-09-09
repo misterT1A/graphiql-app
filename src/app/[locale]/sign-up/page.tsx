@@ -2,12 +2,13 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from '@nextui-org/react';
-import { useTranslations } from 'next-intl';
+import { type MessageKeys, useTranslations } from 'next-intl';
 import { type ReactElement } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { signUp } from '@/firebase/auth';
+import { FirebaseError, signUp } from '@/firebase/auth';
+import messages from '@/messages/en.json';
 import { useRouterIntl } from '@/navigation';
 import InputPassword from '@/ui/InputPassword/InputPassword';
 import { signUpSchema, type SignUpDto } from '@/validation/signUpSchema';
@@ -30,8 +31,14 @@ const SignUp = (): ReactElement => {
       router.replace('/');
       router.refresh();
     } catch (error) {
-      if (error instanceof Error) {
+      if (error instanceof FirebaseError && error.code in messages.Auth.firebaseAuthErrors) {
+        toast.error(
+          t(('firebaseAuthErrors.' + error.code) as MessageKeys<typeof messages.Auth, keyof typeof messages.Auth>),
+        );
+      } else if (error instanceof Error) {
         toast.error(error.message);
+      } else {
+        toast.error('Something went wrong.');
       }
     }
   };
