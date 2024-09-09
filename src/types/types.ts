@@ -24,7 +24,7 @@ export type FormGraphType = {
   sdl: string;
   headers: { key: string; value: string }[];
   variables: { key: string; value: string }[];
-  query: object;
+  query: string;
 };
 
 export type FormGraphDataType = {
@@ -32,7 +32,7 @@ export type FormGraphDataType = {
   sdl: string;
   headers: { [key: string]: string };
   variables: { [key: string]: string };
-  query: object;
+  query: string;
 };
 
 export type InputArrayErrors = {

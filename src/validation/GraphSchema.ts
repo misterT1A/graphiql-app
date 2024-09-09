@@ -1,16 +1,17 @@
+import { graphql } from 'graphql';
+import type { GraphQLSchema } from 'graphql';
 import type { useTranslations } from 'next-intl';
 import type { ZodSchema } from 'zod';
 import { z } from 'zod';
 
-import { codeMirrorParser } from '@/utils/codeMirrorParser';
+const GraphSchema = (t: ReturnType<typeof useTranslations<'Form'>>, graphSchema: GraphQLSchema | object): ZodSchema => {
+  const errorCatcher = async (value: string): Promise<string | boolean> => {
+    if (JSON.stringify(graphSchema) === '{}') return false;
 
-const GraphSchema = (t: ReturnType<typeof useTranslations<'Form'>>): ZodSchema => {
-  const errorCatcher = (value: string): string => {
-    try {
-      return JSON.parse(value);
-    } catch (error) {
-      return (error as Error).message;
-    }
+    const output = await graphql({ schema: graphSchema as GraphQLSchema, source: value });
+
+    if (output.errors) return output.errors[0].message;
+    return false;
   };
 
   const schema = z.object({
@@ -21,10 +22,16 @@ const GraphSchema = (t: ReturnType<typeof useTranslations<'Form'>>): ZodSchema =
     variables: z.array(
       z.object({ key: z.string().min(1, t('errors.required')), value: z.string().min(1, t('errors.required')) }),
     ),
-    query: z.string().refine(
-      (value) => codeMirrorParser(value),
-      (value) => ({ message: `"${errorCatcher(value)}"` }),
-    ),
+    query: z.string().superRefine(async (value, ctx) => {
+      const output = await errorCatcher(value);
+
+      if (output) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: `"${output}"`,
+        });
+      }
+    }),
   });
 
   return schema;

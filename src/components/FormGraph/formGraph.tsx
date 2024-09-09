@@ -27,6 +27,7 @@ function FormGraph(props: {
 }): ReactNode {
   // const { encrypt } = useEncryption();
   const t = useTranslations('Form');
+  const [schema, setSchema] = useState({} as { message?: string });
 
   const {
     register,
@@ -38,7 +39,7 @@ function FormGraph(props: {
     watch,
   } = useForm<FormGraphType>({
     mode: 'onChange',
-    resolver: zodResolver(GraphSchema(t)),
+    resolver: zodResolver(GraphSchema(t, schema)),
     defaultValues: {
       endpoint: props.inputData?.endpoint,
       headers: InputsObjectToArray(props.inputData, 'headers'),
@@ -46,11 +47,7 @@ function FormGraph(props: {
     },
   });
 
-  const [schema, setSchema] = useState({} as { message?: string });
-
-  const [queryData, setBodyData] = useState<object | string>(
-    (typeof props.inputData?.query !== 'string' && JSON.stringify(props.inputData?.query, null, '  ')) || '{\n  \n}',
-  );
+  const [queryData, setBodyData] = useState<string>(props.inputData?.query || 'query {\n  \n}');
 
   const submit = async (data: FormGraphType): Promise<void> => {
     console.log({
@@ -71,7 +68,7 @@ function FormGraph(props: {
   };
 
   useEffect(() => {
-    setValue('query', queryData as object, { shouldValidate: true });
+    setValue('query', queryData, { shouldValidate: true });
   }, [queryData, setValue]);
 
   return (
@@ -98,7 +95,6 @@ function FormGraph(props: {
               type="text"
               label={t('labels.sdl')}
               {...register('sdl')}
-              // onBlur={() => encrypt(getValues())}
               className="w-full text-center"
               isInvalid={Boolean(errors.sdl)}
               errorMessage={errors.sdl?.message}
@@ -200,7 +196,7 @@ function FormGraph(props: {
                 register={register}
                 errors={errors}
                 name="query"
-                ext={graphql(schema as GraphQLSchema)}
+                ext={[graphql(schema as GraphQLSchema)]}
               />
             </div>
           </Tab>

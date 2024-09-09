@@ -184,7 +184,7 @@ function FormRest(props: {
                     register={register}
                     errors={errors}
                     name="bodyJSON"
-                    ext={json()}
+                    ext={[json()]}
                   />
                 </div>
               </Tab>
