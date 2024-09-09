@@ -100,7 +100,11 @@ function FormRest(props: {
 
   return (
     <div className="flex flex-col items-center py-10 px-2 gap-2 md:p-10">
-      <form onSubmit={handleSubmit(submit)} className="flex flex-col items-center gap-5 w-full sm:w-[70%]">
+      <form
+        onChange={() => encrypt(getValues())}
+        onSubmit={handleSubmit(submit)}
+        className="flex flex-col items-center gap-5 w-full sm:w-[70%]"
+      >
         <div className="flex justify-between w-full gap-2">
           <div>
             <SelectInput t={t} register={register} getValues={getValues} errors={errors} />
@@ -110,7 +114,6 @@ function FormRest(props: {
               type="text"
               label={t('labels.endpoint')}
               {...register('endpoint')}
-              onBlur={() => encrypt(getValues())}
               className="w-full text-center"
               isInvalid={Boolean(errors.endpoint)}
               errorMessage={errors.endpoint?.message}
