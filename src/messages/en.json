@@ -171,5 +171,11 @@
     "placeholders": {
       "bodyText": "Plain text supports only"
     }
+  },
+  "History": {
+    "heading": "History requests",
+    "NoRequests": "You haven't executed any requests It's empty here. Try:",
+    "RestClient": "Rest Client",
+    "GraphiQLClient": "GraphiQL Client"
   }
 }

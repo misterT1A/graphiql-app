@@ -55,3 +55,12 @@ export interface IRestFormParams {
   bodyJSON: string;
   bodyText: string;
 }
+
+export interface IEncryptParams {
+  startUrl: string;
+  method: string;
+  endpoint: string;
+  bodyJSON: string;
+  bodyText: string;
+  headers: { key: string; value: string }[];
+}

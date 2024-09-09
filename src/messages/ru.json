@@ -171,5 +171,11 @@
     "placeholders": {
       "bodyText": "Поддерживается только обычный текст"
     }
+  },
+  "History": {
+    "heading": "История запросов",
+    "NoRequests": "Вы не выполнили ни одного запроса. Здесь пусто. Попробуйте:",
+    "RestClient": "Rest Клиент",
+    "GraphiQLClient": "GraphiQL Клиент"
   }
 }
