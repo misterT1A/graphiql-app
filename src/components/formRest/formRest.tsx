@@ -141,6 +141,11 @@ function FormRest(props: {
             }
             className="flex flex-col items-center gap-5 w-full"
           >
+            <p className="text-center">
+              {t('text.varsInfoStart')}
+              <span className="text-[#F5A524]">{' {{varName}} '}</span>
+              {t('text.restVarsInfoEnd')}
+            </p>
             <InputsArray
               getValues={getValues}
               t={t}

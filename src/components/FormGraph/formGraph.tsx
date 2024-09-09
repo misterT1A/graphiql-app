@@ -162,6 +162,11 @@ function FormGraph(props: {
             }
             className="flex flex-col items-center gap-5 w-full"
           >
+            <p className="text-center">
+              {t('text.varsInfoStart')}
+              <span className="text-[#F5A524]">{' $var_name '}</span>
+              {t('text.graphVarsInfoEnd')}
+            </p>
             <InputsArray
               getValues={getValues}
               t={t}

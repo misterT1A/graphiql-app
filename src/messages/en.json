@@ -41,7 +41,10 @@
     },
     "text": {
       "schemaLoaded": "The Schema has been loaded successfully!",
-      "schemaPenging": "Please get a GraphQL Schema before filling out the form"
+      "schemaPenging": "Please get a GraphQL Schema before filling out the form",
+      "varsInfoStart": "To reuse variables, use the",
+      "restVarsInfoEnd": "construct in the request body",
+      "graphVarsInfoEnd": "construct in the request query"
     }
   }
 }
