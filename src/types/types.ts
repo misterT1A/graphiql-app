@@ -1,3 +1,5 @@
+import type { GraphQLSchema } from 'graphql';
+
 export type FormRestType = {
   method: string;
   endpoint: string;
@@ -33,6 +35,7 @@ export type FormGraphDataType = {
   headers: { [key: string]: string };
   variables: { [key: string]: string };
   query: string;
+  schema: GraphQLSchema | object;
 };
 
 export type InputArrayErrors = {
