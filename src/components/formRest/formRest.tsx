@@ -8,7 +8,7 @@ import type { SetStateAction } from 'react';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
-import useEncryption from '@/hooks/useEncryption';
+import { useEncryption, useHistoryService } from '@/hooks';
 import type { IFormParams } from '@/types/restFullTypes';
 import type { FormRestType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
@@ -31,6 +31,7 @@ function FormRest(props: {
     method: string;
   };
 }): ReactNode {
+  const { setHistory } = useHistoryService();
   const { encrypt } = useEncryption();
   const t = useTranslations('Form');
 
@@ -54,7 +55,8 @@ function FormRest(props: {
   });
 
   const [bodyJSONData, setBodyData] = useState<object | string>(
-    ((typeof props.inputData?.body !== 'string' || JSON.stringify(props.inputData?.body) !== '{}') &&
+    (typeof props.inputData?.body !== 'string' &&
+      JSON.stringify(props.inputData?.body) !== '{}' &&
       JSON.stringify(props.inputData?.body, null, '  ')) ||
       '{\n  \n}',
   );
@@ -69,6 +71,20 @@ function FormRest(props: {
       variables: InputsArrayToObject(data.variables),
       body: selectedBody === 'bodyJSON' ? JSON.stringify(codeMirrorParser(bodyJSONData as string)) : data.bodyText,
     });
+
+    setHistory(
+      {
+        method: data.method,
+        endpoint: data.endpoint,
+        headers: data.headers,
+        variables: InputsArrayToObject(data.variables),
+        body:
+          selectedBody === 'bodyJSON'
+            ? { type: 'json', value: JSON.stringify(codeMirrorParser(bodyJSONData as string)) }
+            : { type: 'string', value: data.bodyText },
+      },
+      data.method,
+    );
 
     props.getData({
       method: data.method,

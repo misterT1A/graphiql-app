@@ -8,7 +8,6 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   Link,
-  Button,
 } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState, type ReactElement } from 'react';
@@ -16,6 +15,8 @@ import { useEffect, useState, type ReactElement } from 'react';
 import { usePathnameIntl } from '@/navigation';
 import LangDropdown from '@/ui/LangDropdown/LangDropdown';
 import ThemTogler from '@/ui/ThemTogler/ThemTogler';
+
+import { AuthenticationButtons } from '../AuthenticationButtons/AuthenticationButtons';
 
 const Header = (): ReactElement => {
   const t = useTranslations('Header');
@@ -27,7 +28,7 @@ const Header = (): ReactElement => {
     { name: t('menuItems.home'), href: '/' },
     { name: 'RestFull client', href: '/restfull-client' },
     { name: 'GraphQL client', href: '/graph-client' },
-    // { name: 'GraphiQL client', href: '/graphiql-client' },
+    { name: 'History', href: '/history' },
   ];
 
   const handleScroll = (): void => {
@@ -73,9 +74,7 @@ const Header = (): ReactElement => {
           <ThemTogler />
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat" onPress={() => console.log('sign In')}>
-            Sign In
-          </Button>
+          <AuthenticationButtons />
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu>

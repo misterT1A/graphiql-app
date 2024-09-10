@@ -30,14 +30,17 @@
     "@uiw/react-codemirror": "^4.23.0",
     "classnames": "^2.5.1",
     "cm6-graphql": "^0.1.1",
+    "firebase": "^10.13.1",
     "framer-motion": "^11.3.29",
     "graphql": "^16.9.0",
     "next": "14.2.5",
+    "next-firebase-auth-edge": "^1.7.0-canary.2",
     "next-intl": "^3.17.6",
     "next-themes": "^0.3.0",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.52.2",
+    "react-toastify": "^10.0.5",
     "react18-json-view": "^0.2.8"
   },
   "devDependencies": {

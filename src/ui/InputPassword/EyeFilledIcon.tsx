@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
-export const EyeFilledIcon = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>): ReactElement => (
+
+const EyeFilledIcon = (props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>): ReactElement => (
   <svg
     aria-hidden="true"
     fill="none"
@@ -20,3 +21,5 @@ export const EyeFilledIcon = (props: React.JSX.IntrinsicAttributes & React.SVGPr
     />
   </svg>
 );
+
+export default EyeFilledIcon;

@@ -4,3 +4,5 @@ export const TEXT_CONTENT = {
 };
 
 export const EMPTY_ARRAY_INPUT = { key: '', value: '' };
+
+export const LSHistoryName = 'history_requests';
