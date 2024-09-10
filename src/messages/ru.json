@@ -33,15 +33,12 @@
       "headerAdd": "Добавить заголовок",
       "variableAdd": "Добавить переменную",
       "bodyTextTab": "Текст",
-      "queryTab": "Запрос",
-      "getSchema": "Получить схему"
+      "queryTab": "Запрос"
     },
     "placeholders": {
       "bodyText": "Поддерживается только обычный текст"
     },
     "text": {
-      "schemaLoaded": "Схема загружена успешно!",
-      "schemaPenging": "Пожалуйста, получите схему GraphQL, прежде чем заполнять форму",
       "varsInfoStart": "Чтобы переиспользовать переменные, используйте конструкцию",
       "restVarsInfoEnd": "в теле запроса",
       "graphVarsInfoEnd": "в теле запроса"
