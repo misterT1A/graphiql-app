@@ -4,7 +4,7 @@ import { z } from 'zod';
 
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 
-const RestSchema = (t: ReturnType<typeof useTranslations<'RestForm'>>): ZodSchema => {
+const RestSchema = (t: ReturnType<typeof useTranslations<'Form'>>): ZodSchema => {
   const errorCatcher = (value: string): string => {
     try {
       return JSON.parse(value);

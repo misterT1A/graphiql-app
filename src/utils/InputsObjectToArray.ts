@@ -1,7 +1,10 @@
 import { EMPTY_ARRAY_INPUT } from '@/constants/constants';
-import type { FormRestDataType } from '@/types/types';
+import type { FormGraphDataType, FormRestDataType } from '@/types/types';
 
-export function InputsObjectToArray(object: FormRestDataType | undefined, name: 'headers' | 'variables'): object[] {
+export function InputsObjectToArray(
+  object: FormRestDataType | FormGraphDataType | undefined,
+  name: 'headers' | 'variables',
+): object[] {
   const outputArray = [];
 
   if (object) {

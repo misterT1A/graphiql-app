@@ -1,5 +1,5 @@
 export const TEXT_CONTENT = {
-  methodValues: ['GET', 'POST', 'PUT', 'DELETE'],
+  methodValues: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   editorMods: ['JSON', 'Plain text'],
 };
 

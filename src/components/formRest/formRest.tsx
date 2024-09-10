@@ -1,5 +1,6 @@
 'use client';
 
+import { json } from '@codemirror/lang-json';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Chip, Input, Tab, Tabs, Textarea } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
@@ -32,7 +33,7 @@ function FormRest(props: {
 }): ReactNode {
   const { setHistory } = useHistoryService();
   const { encrypt } = useEncryption();
-  const t = useTranslations('RestForm');
+  const t = useTranslations('Form');
 
   const {
     register,
@@ -156,6 +157,11 @@ function FormRest(props: {
             }
             className="flex flex-col items-center gap-5 w-full"
           >
+            <p className="text-center">
+              {t('text.varsInfoStart')}
+              <span className="text-[#F5A524]">{' {{varName}} '}</span>
+              {t('text.restVarsInfoEnd')}
+            </p>
             <InputsArray
               getValues={getValues}
               t={t}
@@ -199,6 +205,7 @@ function FormRest(props: {
                     register={register}
                     errors={errors}
                     name="bodyJSON"
+                    ext={[json()]}
                   />
                 </div>
               </Tab>
