@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { LSHistoryName } from '@/constants/constants';
 import { usePathnameIntl } from '@/navigation';
 import type { IFormParams, IReturnType, request } from '@/types/historyServiceTypes';
-import { buildURL } from '@/utils/encryptHelpers';
+import { buildURLRest } from '@/utils/encryptHelpers';
 
 const useHistoryService = (): IReturnType => {
   const path = usePathnameIntl();
@@ -21,7 +21,7 @@ const useHistoryService = (): IReturnType => {
 
   const setHistory = (form: IFormParams, method: string): void => {
     const isBodyJson = form.body.type === 'json';
-    const url = buildURL(
+    const url = buildURLRest(
       {
         startUrl: path,
         ...form,

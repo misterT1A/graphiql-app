@@ -32,7 +32,7 @@ function FormRest(props: {
   };
 }): ReactNode {
   const { setHistory } = useHistoryService();
-  const { encrypt } = useEncryption();
+  const { encryptRest } = useEncryption();
   const t = useTranslations('Form');
 
   const {
@@ -102,7 +102,7 @@ function FormRest(props: {
   return (
     <div className="flex flex-col items-center py-10 px-2 gap-2 md:p-10">
       <form
-        onChange={() => encrypt(getValues())}
+        onChange={() => encryptRest(getValues())}
         onSubmit={handleSubmit(submit)}
         className="flex flex-col items-center gap-5 w-full sm:w-[70%]"
       >
@@ -115,7 +115,6 @@ function FormRest(props: {
               type="text"
               label={t('labels.endpoint')}
               {...register('endpoint')}
-              // onBlur={() => encrypt(getValues())}
               className="w-full text-center"
               isInvalid={Boolean(errors.endpoint)}
               errorMessage={errors.endpoint?.message}
@@ -200,7 +199,7 @@ function FormRest(props: {
               color="success"
             >
               <Tab key="bodyJSON" title="JSON" className="flex flex-col gap-2 w-full">
-                <div onBlur={() => encrypt(getValues())}>
+                <div onBlur={() => encryptRest(getValues())}>
                   <CodeMirrorComp
                     setResponse={setBodyData}
                     size={{ width: '100%', height: '98.4px' }}
@@ -221,7 +220,7 @@ function FormRest(props: {
               >
                 <Textarea
                   {...register('bodyText')}
-                  onBlur={() => encrypt(getValues(), true)}
+                  onBlur={() => encryptRest(getValues(), true)}
                   label={t('labels.bodyText')}
                   placeholder={t('placeholders.bodyText')}
                   className="w-full h-[100px]"

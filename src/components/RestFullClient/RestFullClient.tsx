@@ -5,7 +5,7 @@ import { useState, type ReactElement } from 'react';
 import getRestfullData from '@/services/getRestfullData';
 import type { IErrorObj, IFormParams, IInitParams } from '@/types/restFullTypes';
 import ResponseView from '@/ui/ResponseView/ResponseView';
-import { replaceVariablesSybmit } from '@/utils/replaceVariables';
+import { replaceVariablesSybmitRest } from '@/utils/replaceVariables';
 
 import ResponseLoader from '../../ui/ResponseLoader/ResponseLoader';
 import FormRest from '../formRest/formRest';
@@ -15,7 +15,7 @@ const RestFullClient = ({ initParams }: { initParams?: IInitParams }): ReactElem
   const [isLoading, setIsLoading] = useState(false);
 
   const sumbiteHandler = async (form: IFormParams): Promise<void> => {
-    const replacedParams = replaceVariablesSybmit(form);
+    const replacedParams = replaceVariablesSybmitRest(form);
     setIsLoading(true);
     const resp = await getRestfullData(replacedParams);
     setIsLoading(false);
