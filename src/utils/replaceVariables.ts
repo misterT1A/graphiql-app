@@ -1,6 +1,8 @@
-import type { IFormGraphEncrypt } from '@/types/graphTypes';
+import type {  IFormGraphEncrypt } from '@/types/graphTypes';
 import type { IFormParams, IRequestParams, IRestFormParams } from '@/types/restFullTypes';
 import type { FormRestType } from '@/types/types';
+
+import { InputsArrayToObject } from './InputsArrayToObject';
 
 const replaceStringRest = (
   str: string,
@@ -61,13 +63,12 @@ const replaceVariablesSybmitRest = (params: IFormParams): IRequestParams => {
 };
 
 const replaceVariablesGraph = (params: IFormGraphEncrypt): IFormGraphEncrypt => {
-  const variables: { [key: string]: string } = {};
-  params.variables.forEach((value) => (variables[value.key] = value.value));
+  const variables = InputsArrayToObject(params.variables);
 
   return {
     ...params,
-    query: replaceStringGraph(params.query, variables),
-  };
-};
+    query: replaceStringGraph(params.query,  variables),
+  }
+}
 
-export { replaceVariablesRest, replaceVariablesSybmitRest, replaceVariablesGraph };
+export { replaceVariablesRest, replaceVariablesSybmitRest,  replaceVariablesGraph };

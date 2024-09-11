@@ -11,7 +11,7 @@ export const convertToBase64 = (value: string): string => {
   }
 };
 
-export const encryptHeadersToBase64 = (headers: { key: string; value: string }[]): string => {
+const encryptHeadersToBase64 = (headers: { key: string; value: string }[]): string => {
   const queryParams = new URLSearchParams();
 
   headers.forEach(({ key, value }) => {
@@ -23,9 +23,13 @@ export const encryptHeadersToBase64 = (headers: { key: string; value: string }[]
   return queryParams.size ? `?${queryParams.toString()}` : '';
 };
 
+const convertEndpoint = (value: string): string => {
+  return value && convertToBase64(value) && `/${convertToBase64(value)}`;
+}
+
 export const buildURLRest = (params: IEncryptParams, isBodyText = false): string => {
   const method = params.method && `/${params.method}`;
-  const endopints = params.endpoint && convertToBase64(params.endpoint) && `/${convertToBase64(params.endpoint)}`;
+  const endopints = convertEndpoint(params.endpoint);
   const bodyJSON = Object.keys(codeMirrorParser(params.bodyJSON) || {}).length
     ? `/${convertToBase64('json_' + JSON.stringify(codeMirrorParser(params.bodyJSON as string)))}`
     : '';
@@ -35,7 +39,7 @@ export const buildURLRest = (params: IEncryptParams, isBodyText = false): string
 };
 
 export const buildURLGraph = (params: IFormGraphEncrypt): string => {
-  const endopints = params.endpoint && convertToBase64(params.endpoint) && `/${convertToBase64(params.endpoint)}`;
+  const endopints = convertEndpoint(params.endpoint);
   const bodyJSON = params.query && `/${convertToBase64('query_' + params.query)}`;
 
   const headers = params.headers && encryptHeadersToBase64(params.headers);

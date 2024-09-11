@@ -28,6 +28,7 @@ const useEncryption = (): IReturnType => {
   };
 
   const encryptGraph = (form: IFormGraphEncrypt): void => {
+
     const replacedForm = replaceVariablesGraph(form);
     const data = {
       ...replacedForm,

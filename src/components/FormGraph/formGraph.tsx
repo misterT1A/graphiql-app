@@ -9,17 +9,20 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
 import useEncryption from '@/hooks/useEncryption';
-import type { IFormGraph } from '@/types/graphTypes';
+import type {  IFormGraphEncrypt } from '@/types/graphTypes';
 import type { FormGraphDataType, FormGraphType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import InputsArray from '@/ui/InputsArray/InputsArray';
 import SubmitButton from '@/ui/SubmitButton/SubmitButton';
 import { fieldsCounter } from '@/utils/fieldsCounter';
-import { InputsArrayToObject } from '@/utils/InputsArrayToObject';
 import { InputsObjectToArray } from '@/utils/InputsObjectToArray';
 import GraphSchema from '@/validation/GraphSchema';
 
-function FormGraph(props: { getData: (form: IFormGraph) => void; inputData?: FormGraphDataType }): ReactNode {
+function FormGraph(props: {
+  getData: (form: IFormGraphEncrypt) => void;
+  inputData?: FormGraphDataType;
+  schema?: object;
+}): ReactNode {
   const { encryptGraph } = useEncryption();
   const t = useTranslations('Form');
 
@@ -44,19 +47,11 @@ function FormGraph(props: { getData: (form: IFormGraph) => void; inputData?: For
   const [queryData, setBodyData] = useState<string>(props.inputData?.query || '{\n  \n}');
 
   const submit = async (data: FormGraphType): Promise<void> => {
-    // console.log({
-    //   endpoint: data.endpoint,
-    //   sdl: data.sdl,
-    //   headers: InputsArrayToObject(data.headers),
-    //   variables: InputsArrayToObject(data.variables),
-    //   query: queryData,
-    // });
-
     props.getData({
       endpoint: data.endpoint,
       sdl: data.sdl,
-      headers: InputsArrayToObject(data.headers),
-      variables: InputsArrayToObject(data.variables),
+      headers: data.headers,
+      variables: data.variables,
       query: queryData,
     });
   };
@@ -78,7 +73,6 @@ function FormGraph(props: { getData: (form: IFormGraph) => void; inputData?: For
               type="text"
               label={t('labels.endpoint')}
               {...register('endpoint')}
-              // onBlur={() => encrypt(getValues())}
               className="w-full text-center"
               isInvalid={Boolean(errors.endpoint)}
               errorMessage={errors.endpoint?.message}
@@ -173,10 +167,9 @@ function FormGraph(props: { getData: (form: IFormGraph) => void; inputData?: For
                 errors={errors}
                 name="query"
                 ext={
-                  (props.inputData?.schema &&
-                    Object.keys(props.inputData.schema).length && [
-                      graphql(props.inputData.schema as GraphQLSchema),
-                    ]) || [graphql()]
+                  (props.schema && Object.keys(props.schema).length && [graphql(props.schema as GraphQLSchema)]) || [
+                    graphql(),
+                  ]
                 }
               />
             </div>

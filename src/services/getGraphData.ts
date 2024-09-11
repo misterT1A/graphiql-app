@@ -1,12 +1,13 @@
 'use server';
 
-import type { IGraphRequestParams } from '@/types/graphTypes';
+import type { IFormGraphEncrypt } from '@/types/graphTypes';
 import type { IErrorObj } from '@/types/restFullTypes';
+import { InputsArrayToObject } from '@/utils/InputsArrayToObject';
 
-const getGraphData = async (requestParams: IGraphRequestParams): Promise<Response | IErrorObj> => {
+const getGraphData = async (requestParams: IFormGraphEncrypt): Promise<Response | IErrorObj> => {
   const payloadObj = {
     method: 'POST',
-    headers: requestParams.headers,
+    headers: InputsArrayToObject(requestParams.headers),
     body: JSON.stringify({ query: requestParams.query }),
   };
 
