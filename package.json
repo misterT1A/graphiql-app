@@ -21,8 +21,10 @@
       "prettier --write"
     ]
   },
+  "overrides": {
+    "@codemirror/state": "^6.4.1"
+  },
   "dependencies": {
-    "@codemirror/state": "^6.4.1",
     "@hookform/resolvers": "^3.9.0",
     "@nextui-org/react": "^2.4.6",
     "@reduxjs/toolkit": "^2.2.7",
