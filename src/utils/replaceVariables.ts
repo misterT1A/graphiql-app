@@ -6,12 +6,17 @@ const replaceString = (
   variables: {
     [key: string]: string;
   },
+  isBody = false,
 ): string => {
   const templateRegex = /(["'])?{{(.*?)}}(["'])?/g;
 
   return str.replace(templateRegex, (match, _, key) => {
     const trimmedKey = key.trim();
-    return Object.prototype.hasOwnProperty.call(variables, trimmedKey) ? variables[trimmedKey] : match;
+    return Object.prototype.hasOwnProperty.call(variables, trimmedKey)
+      ? isBody
+        ? `"${variables[trimmedKey]}"`
+        : variables[trimmedKey]
+      : match;
   });
 };
 
@@ -21,7 +26,7 @@ const replaceVariables = (params: FormRestType): IRestFormParams => {
 
   return {
     endpoint: replaceString(params.endpoint, variables),
-    bodyJSON: replaceString(params.bodyJSON, variables),
+    bodyJSON: replaceString(params.bodyJSON, variables, true),
     bodyText: replaceString(params.bodyText, variables),
   };
 };
@@ -30,7 +35,7 @@ const replaceVariablesSybmit = (params: IFormParams): IRequestParams => {
   return {
     method: params.method,
     endpoint: replaceString(params.endpoint, params.variables),
-    body: replaceString(params.body, params.variables),
+    body: replaceString(params.body, params.variables, true),
     headers: params.headers,
   };
 };
