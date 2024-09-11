@@ -6,11 +6,11 @@ import { decodingFromBase64Rest } from '@/utils/decodingFromBase64';
 import parseBody from '@/utils/parseBody';
 
 const initializeData = ({ params, searchParams }: IPageProps): IInitParams | undefined => {
-  if (!params.slug && !Object.keys(searchParams).length) {
+  if (!params.method && !params.slug && !Object.keys(searchParams).length) {
     return undefined;
   }
 
-  const requestParams = decodingFromBase64Rest(params.slug as unknown as string[], searchParams);
+  const requestParams = decodingFromBase64Rest(params.method as unknown as string, params.slug as unknown as string[], searchParams);
   const initFormData: IInitParams = { ...requestParams, body: parseBody(requestParams.body) || {} };
 
   return initFormData;

@@ -64,14 +64,6 @@ function FormRest(props: {
   const [selectedBody, setSelectedBody] = useState(typeof props.inputData?.body === 'string' ? 'bodyText' : 'bodyJSON');
 
   const submit = async (data: FormRestType): Promise<void> => {
-    console.log({
-      method: data.method,
-      endpoint: data.endpoint,
-      headers: InputsArrayToObject(data.headers),
-      variables: InputsArrayToObject(data.variables),
-      body: selectedBody === 'bodyJSON' ? JSON.stringify(codeMirrorParser(bodyJSONData as string)) : data.bodyText,
-    });
-
     setHistory(
       {
         method: data.method,
