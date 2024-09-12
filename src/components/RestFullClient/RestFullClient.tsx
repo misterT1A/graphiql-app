@@ -2,7 +2,9 @@
 
 import { useState, type ReactElement } from 'react';
 
+import { useHistoryService } from '@/hooks';
 import getRestfullData from '@/services/getRestfullData';
+import type { IHistoryID } from '@/types/historyServiceTypes';
 import type { IErrorObj, IFormParams, IInitParams } from '@/types/restFullTypes';
 import ResponseView from '@/ui/ResponseView/ResponseView';
 import { replaceVariablesSybmit } from '@/utils/replaceVariables';
@@ -10,9 +12,24 @@ import { replaceVariablesSybmit } from '@/utils/replaceVariables';
 import ResponseLoader from '../../ui/ResponseLoader/ResponseLoader';
 import FormRest from '../formRest/formRest';
 
-const RestFullClient = ({ initParams }: { initParams?: IInitParams }): ReactElement => {
+const RestFullClient = ({ initParams }: { initParams?: IInitParams | IHistoryID }): ReactElement => {
+  const { geHistoryInitParams } = useHistoryService();
   const [state, setState] = useState<Response | undefined | IErrorObj>(undefined);
   const [isLoading, setIsLoading] = useState(false);
+  const formParams = geHistoryInitParams(initParams);
+  // let historyParams: IInitParams | undefined = undefined;
+  // const hasHistory = instanceOfHistory(initParams || {});
+  // if (hasHistory) {
+  //   const historyItem = getHistory.find((item) => item.id === (initParams as IHistoryID).id);
+  //   historyParams = {
+  //     endpoint: historyItem?.endpoint || '',
+  //     headers: historyItem?.headers || {},
+  //     variables: historyItem?.variables || {},
+  //     method: historyItem?.method || '',
+  //     body: parseBody(historyItem?.body || { type: 'json', value: '' }) || {},
+  //   };
+  //   window.history.pushState(null, '', historyItem.);
+  // }
 
   const sumbiteHandler = async (form: IFormParams): Promise<void> => {
     const replacedParams = replaceVariablesSybmit(form);
@@ -24,7 +41,7 @@ const RestFullClient = ({ initParams }: { initParams?: IInitParams }): ReactElem
 
   return (
     <>
-      <FormRest inputData={initParams} getData={sumbiteHandler} />
+      <FormRest inputData={formParams} getData={sumbiteHandler} />
       {isLoading && <ResponseLoader />}
       {!isLoading && state && <ResponseView response={state as object} />}
     </>

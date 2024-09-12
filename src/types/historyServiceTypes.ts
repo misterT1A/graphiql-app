@@ -1,3 +1,5 @@
+import type { IInitParams } from './restFullTypes';
+
 export interface IFormParams {
   method: string;
   endpoint: string;
@@ -11,10 +13,29 @@ export interface IBodyHistory {
   value: string;
 }
 
-export type request = { href: string; endpoint: string; name: string; data: Date };
+export interface IHistoryRequest {
+  id: string;
+  href: string;
+  hrefHistory: string;
+  endpoint: string;
+  method: string;
+  data: Date;
+  headers?: { [key: string]: string };
+  variables?: { [key: string]: string };
+  body?: IBodyHistory;
+}
 
 export interface IReturnType {
-  requests?: request[];
+  requests?: IHistoryRequest[];
   setHistory: (form: IFormParams, name: string) => void;
-  getHistory: request[];
+  getHistory: IHistoryRequest[];
+  geHistoryInitParams: (initParams: IInitParams | IHistoryID | undefined) => IInitParams | undefined;
+}
+
+export interface IHistoryID {
+  id: string;
+}
+
+export function instanceOfHistory(object: object): object is IHistoryID {
+  return 'id' in object;
 }
