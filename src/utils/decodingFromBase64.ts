@@ -1,3 +1,4 @@
+import type { IFormGraph } from '@/types/graphTypes';
 import type { IBody, IDecodingParams } from '@/types/restFullTypes';
 
 const decodeBase64 = (str: string): string => {
@@ -9,7 +10,7 @@ const decodeBase64 = (str: string): string => {
   }
 };
 
-const decodingFromBase64 = (slug: string[], query: { [key: string]: string }): IDecodingParams => {
+const decodingFromBase64Rest = (method: string, slug: string[], query: { [key: string]: string }): IDecodingParams => {
   const headers: [string, string][] = [];
 
   Object.entries(query).forEach(([key, value]) => {
@@ -27,7 +28,7 @@ const decodingFromBase64 = (slug: string[], query: { [key: string]: string }): I
       : { type: 'string', value: '' };
 
   const requestParams: IDecodingParams = {
-    method: (slug && slug.find((elem) => ['GET', 'POST', 'PUT', 'DELETE'].includes(elem))) || '',
+    method: (method && ['GET', 'POST', 'PUT', 'DELETE'].includes(method) && method) || '',
     endpoint: decodeBase64(endpoint),
     body: body,
     headers: Object.fromEntries(headers),
@@ -37,4 +38,19 @@ const decodingFromBase64 = (slug: string[], query: { [key: string]: string }): I
   return requestParams;
 };
 
-export default decodingFromBase64;
+const decodingFromBase64Graph = (slug: string[], query: { [key: string]: string }): IFormGraph => {
+  const arrHeaders = Object.entries(query).map(([key, value]) => [key, decodeURIComponent(value)]);
+
+  const endpoint = (slug && slug.find((elem) => decodeBase64(elem).startsWith('http'))) || '';
+  const body = (slug && slug.find((elem) => decodeBase64(elem).startsWith('query_'))) || '';
+
+  return {
+    endpoint: decodeBase64(endpoint),
+    query: decodeBase64(body).slice(6),
+    headers: Object.fromEntries(arrHeaders),
+    variables: {},
+    sdl: '',
+  };
+};
+
+export { decodingFromBase64Rest, decodingFromBase64Graph };

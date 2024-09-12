@@ -63,4 +63,3 @@ describe('AuthenticationButtons', () => {
     expect(signOut).toHaveBeenCalled();
   });
 });
-

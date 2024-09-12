@@ -179,6 +179,12 @@
       "graphVarsInfoEnd": "construct in the request query"
     }
   },
+  "RestClient": {
+    "Title": "RestFull client"
+  },
+  "GraphClient": {
+    "Title": "GraphQL client"
+  },
   "History": {
     "heading": "History requests",
     "NoRequests": "You haven't executed any requests It's empty here. Try:",

@@ -35,7 +35,7 @@ export type FormGraphDataType = {
   headers: { [key: string]: string };
   variables: { [key: string]: string };
   query: string;
-  schema: GraphQLSchema | object;
+  schema?: GraphQLSchema | object;
 };
 
 export type InputArrayErrors = {

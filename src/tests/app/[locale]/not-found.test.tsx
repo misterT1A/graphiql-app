@@ -16,4 +16,3 @@ describe('NotFound', () => {
     expect(screen.getByText(/doesn't exist/i));
   });
 });
-
