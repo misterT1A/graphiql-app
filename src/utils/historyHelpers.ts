@@ -57,8 +57,8 @@ const geHistoryInitParamsGraph = (
   return initParams as FormGraphDataType;
 };
 
-const removeQuotesBody = (input: string): string => {
-  return input.replace(/"({{.*?}})":/g, '$1:');
+const removeQuotesBody = (value: string): string => {
+  return value?.replace(/"({{.*?}})":/g, '$1:');
 };
 
 export { geHistoryInitParamsRest, geHistoryInitParamsGraph, removeQuotesBody };
