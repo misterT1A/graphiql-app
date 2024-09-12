@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { useHistoryService } from '@/hooks';
 import useEncryption from '@/hooks/useEncryption';
 import type { IFormGraphEncrypt } from '@/types/graphTypes';
 import type { FormGraphDataType, FormGraphType } from '@/types/types';
@@ -15,6 +16,7 @@ import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import InputsArray from '@/ui/InputsArray/InputsArray';
 import SubmitButton from '@/ui/SubmitButton/SubmitButton';
 import { fieldsCounter } from '@/utils/fieldsCounter';
+import { InputsArrayToObject } from '@/utils/InputsArrayToObject';
 import { InputsObjectToArray } from '@/utils/InputsObjectToArray';
 import GraphSchema from '@/validation/GraphSchema';
 
@@ -23,6 +25,7 @@ function FormGraph(props: {
   inputData?: FormGraphDataType;
   schema?: object;
 }): ReactNode {
+  const { setHistoryGraph } = useHistoryService();
   const { encryptGraph } = useEncryption();
   const t = useTranslations('Form');
 
@@ -52,6 +55,14 @@ function FormGraph(props: {
       sdl: data.sdl,
       headers: data.headers,
       variables: data.variables,
+      query: queryData,
+    });
+
+    setHistoryGraph({
+      endpoint: data.endpoint,
+      sdl: data.sdl,
+      headers: InputsArrayToObject(data.headers),
+      variables: InputsArrayToObject(data.variables),
       query: queryData,
     });
   };

@@ -175,7 +175,7 @@
     },
     "text": {
       "varsInfoStart": "Чтобы переиспользовать переменные, используйте конструкцию",
-      "restVarsInfoEnd": "в теле запроса",
+      "restVarsInfoEnd": "в теле запроса и URL адресе",
       "graphVarsInfoEnd": "в теле запроса"
     }
   },

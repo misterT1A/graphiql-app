@@ -4,12 +4,12 @@ import { type ReactElement } from 'react';
 
 import type { IHistoryID } from '@/types/historyServiceTypes';
 import type { IInitParams } from '@/types/restFullTypes';
-import { geHistoryInitParams } from '@/utils/historyHelpers';
+import { geHistoryInitParamsRest } from '@/utils/historyHelpers';
 
 import RestFullContent from './RestFullContent';
 
 const RestFullClient = ({ initParams }: { initParams?: IInitParams | IHistoryID }): ReactElement => {
-  const formParams = geHistoryInitParams(initParams);
+  const formParams = geHistoryInitParamsRest(initParams);
 
   return <RestFullContent initParams={formParams} />;
 };

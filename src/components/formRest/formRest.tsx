@@ -32,7 +32,7 @@ function FormRest(props: {
     method: string;
   };
 }): ReactNode {
-  const { setHistory } = useHistoryService();
+  const { setHistoryRest } = useHistoryService();
   const { encryptRest } = useEncryption();
   const t = useTranslations('Form');
 
@@ -65,11 +65,11 @@ function FormRest(props: {
   const [selectedBody, setSelectedBody] = useState(typeof props.inputData?.body === 'string' ? 'bodyText' : 'bodyJSON');
 
   const submit = async (data: FormRestType): Promise<void> => {
-    setHistory(
+    setHistoryRest(
       {
         method: data.method,
         endpoint: data.endpoint,
-        headers: data.headers,
+        headers: InputsArrayToObject(data.headers),
         variables: InputsArrayToObject(data.variables),
         body:
           selectedBody === 'bodyJSON'
