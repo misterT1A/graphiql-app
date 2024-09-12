@@ -142,7 +142,7 @@
       "auth/invalid-req-type": "Invalid request type."
     }
   },
-  "RestForm": {
+  "Form": {
     "labels": {
       "method": "Method",
       "endpoint": "Endpoint URL",
@@ -150,7 +150,8 @@
       "headerValue": "Header value",
       "variableKey": "Variable key",
       "variableValue": "Variable value",
-      "bodyText": "Request Body"
+      "bodyText": "Request Body",
+      "sdl": "SDL URL"
     },
     "errors": {
       "required": "Fill the field",
@@ -166,11 +167,23 @@
       "bodyTab": "Body",
       "headerAdd": "Add Header",
       "variableAdd": "Add Variable",
-      "bodyTextTab": "Plain Text"
+      "bodyTextTab": "Plain Text",
+      "queryTab": "Query"
     },
     "placeholders": {
       "bodyText": "Plain text supports only"
+    },
+    "text": {
+      "varsInfoStart": "To reuse variables, use the",
+      "restVarsInfoEnd": "construct in the request body",
+      "graphVarsInfoEnd": "construct in the request query"
     }
+  },
+  "RestClient": {
+    "Title": "RestFull client"
+  },
+  "GraphClient": {
+    "Title": "GraphQL client"
   },
   "History": {
     "heading": "History requests",

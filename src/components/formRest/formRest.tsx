@@ -1,5 +1,6 @@
 'use client';
 
+import { json } from '@codemirror/lang-json';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Chip, Input, Tab, Tabs, Textarea } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
@@ -31,8 +32,8 @@ function FormRest(props: {
   };
 }): ReactNode {
   const { setHistory } = useHistoryService();
-  const { encrypt } = useEncryption();
-  const t = useTranslations('RestForm');
+  const { encryptRest } = useEncryption();
+  const t = useTranslations('Form');
 
   const {
     register,
@@ -63,14 +64,6 @@ function FormRest(props: {
   const [selectedBody, setSelectedBody] = useState(typeof props.inputData?.body === 'string' ? 'bodyText' : 'bodyJSON');
 
   const submit = async (data: FormRestType): Promise<void> => {
-    console.log({
-      method: data.method,
-      endpoint: data.endpoint,
-      headers: InputsArrayToObject(data.headers),
-      variables: InputsArrayToObject(data.variables),
-      body: selectedBody === 'bodyJSON' ? JSON.stringify(codeMirrorParser(bodyJSONData as string)) : data.bodyText,
-    });
-
     setHistory(
       {
         method: data.method,
@@ -101,7 +94,7 @@ function FormRest(props: {
   return (
     <div className="flex flex-col items-center py-10 px-2 gap-2 md:p-10">
       <form
-        onChange={() => encrypt(getValues())}
+        onChange={() => encryptRest(getValues())}
         onSubmit={handleSubmit(submit)}
         className="flex flex-col items-center gap-5 w-full sm:w-[70%]"
       >
@@ -159,6 +152,11 @@ function FormRest(props: {
             }
             className="flex flex-col items-center gap-5 w-full"
           >
+            <p className="text-center">
+              {t('text.varsInfoStart')}
+              <span className="text-[#F5A524]">{' {{varName}} '}</span>
+              {t('text.restVarsInfoEnd')}
+            </p>
             <InputsArray
               getValues={getValues}
               t={t}
@@ -193,7 +191,7 @@ function FormRest(props: {
               color="success"
             >
               <Tab key="bodyJSON" title="JSON" className="flex flex-col gap-2 w-full">
-                <div onBlur={() => encrypt(getValues())}>
+                <div onBlur={() => encryptRest(getValues())}>
                   <CodeMirrorComp
                     setResponse={setBodyData}
                     size={{ width: '100%', height: '98.4px' }}
@@ -202,6 +200,7 @@ function FormRest(props: {
                     register={register}
                     errors={errors}
                     name="bodyJSON"
+                    ext={[json()]}
                   />
                 </div>
               </Tab>
@@ -213,7 +212,7 @@ function FormRest(props: {
               >
                 <Textarea
                   {...register('bodyText')}
-                  onBlur={() => encrypt(getValues(), true)}
+                  onBlur={() => encryptRest(getValues(), true)}
                   label={t('labels.bodyText')}
                   placeholder={t('placeholders.bodyText')}
                   className="w-full h-[100px]"

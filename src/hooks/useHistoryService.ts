@@ -4,14 +4,14 @@ import { useEffect, useState } from 'react';
 import { LSHistoryName } from '@/constants/constants';
 // import { usePathnameIntl } from '@/navigation';
 import {
-  type IFormParams,
-  type IReturnType,
-  type IHistoryRequest,
-  type IHistoryID,
   instanceOfHistory,
+  type IFormParams,
+  type IHistoryID,
+  type IHistoryRequest,
+  type IReturnType,
 } from '@/types/historyServiceTypes';
 import type { IInitParams } from '@/types/restFullTypes';
-import { buildURL } from '@/utils/encryptHelpers';
+import { buildURLRest } from '@/utils/encryptHelpers';
 import { InputsArrayToObject } from '@/utils/InputsArrayToObject';
 import parseBody from '@/utils/parseBody';
 
@@ -32,7 +32,7 @@ const useHistoryService = (): IReturnType => {
 
   const setHistory = (form: IFormParams, method: string): void => {
     const isBodyJson = form.body.type === 'json';
-    const url = buildURL(
+    const url = buildURLRest(
       {
         startUrl: window.location.origin + path,
         ...form,

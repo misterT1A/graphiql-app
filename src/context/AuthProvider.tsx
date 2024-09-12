@@ -12,4 +12,3 @@ export interface AuthProviderProps {
 export const AuthProvider: React.FunctionComponent<AuthProviderProps> = ({ user, children }) => {
   return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>;
 };
-

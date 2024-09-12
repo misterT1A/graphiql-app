@@ -21,14 +21,19 @@
       "prettier --write"
     ]
   },
+  "overrides": {
+    "@codemirror/state": "^6.4.1"
+  },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
     "@nextui-org/react": "^2.4.6",
     "@uiw/codemirror-theme-github": "^4.23.0",
     "@uiw/react-codemirror": "^4.23.0",
     "classnames": "^2.5.1",
+    "cm6-graphql": "^0.1.1",
     "firebase": "^10.13.1",
     "framer-motion": "^11.3.29",
+    "graphql": "^16.9.0",
     "next": "14.2.5",
     "next-firebase-auth-edge": "^1.7.0-canary.2",
     "next-intl": "^3.17.6",

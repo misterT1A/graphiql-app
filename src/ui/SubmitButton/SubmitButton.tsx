@@ -3,11 +3,11 @@ import type { useTranslations } from 'next-intl';
 import type { ReactNode } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import type { FormRestType } from '@/types/types';
+import type { FormGraphType, FormRestType } from '@/types/types';
 
 function SubmitButton(props: {
-  t: ReturnType<typeof useTranslations<'RestForm'>>;
-  register: UseFormRegister<FormRestType>;
+  t: ReturnType<typeof useTranslations<'Form'>>;
+  register: UseFormRegister<FormRestType> | UseFormRegister<FormGraphType>;
   errors: FieldErrors<FormRestType>;
 }): ReactNode {
   return (
@@ -24,4 +24,3 @@ function SubmitButton(props: {
 }
 
 export default SubmitButton;
-

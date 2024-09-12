@@ -142,7 +142,7 @@
       "auth/invalid-req-type": "Недействительный тип запроса."
     }
   },
-  "RestForm": {
+  "Form": {
     "labels": {
       "method": "Метод",
       "endpoint": "URL адрес",
@@ -150,7 +150,8 @@
       "headerValue": "Значение заголовка",
       "variableKey": "Ключ переменной",
       "variableValue": "Значение переменной",
-      "bodyText": "Тело запроса"
+      "bodyText": "Тело запроса",
+      "sdl": "SDL адрес"
     },
     "errors": {
       "required": "Заполните поле",
@@ -166,11 +167,23 @@
       "bodyTab": "Тело",
       "headerAdd": "Добавить заголовок",
       "variableAdd": "Добавить переменную",
-      "bodyTextTab": "Текст"
+      "bodyTextTab": "Текст",
+      "queryTab": "Запрос"
     },
     "placeholders": {
       "bodyText": "Поддерживается только обычный текст"
+    },
+    "text": {
+      "varsInfoStart": "Чтобы переиспользовать переменные, используйте конструкцию",
+      "restVarsInfoEnd": "в теле запроса",
+      "graphVarsInfoEnd": "в теле запроса"
     }
+  },
+  "RestClient": {
+    "Title": "RestFull клиент"
+  },
+  "GraphClient": {
+    "Title": "GraphQL клиент"
   },
   "History": {
     "heading": "История запросов",

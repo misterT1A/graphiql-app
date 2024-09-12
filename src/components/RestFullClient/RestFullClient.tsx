@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState, type ReactElement } from 'react';
 
 import { useHistoryService } from '@/hooks';
@@ -7,13 +8,14 @@ import getRestfullData from '@/services/getRestfullData';
 import type { IHistoryID } from '@/types/historyServiceTypes';
 import type { IErrorObj, IFormParams, IInitParams } from '@/types/restFullTypes';
 import ResponseView from '@/ui/ResponseView/ResponseView';
-import { replaceVariablesSybmit } from '@/utils/replaceVariables';
+import { replaceVariablesSybmitRest } from '@/utils/replaceVariables';
 
 import ResponseLoader from '../../ui/ResponseLoader/ResponseLoader';
 import FormRest from '../formRest/formRest';
 
 const RestFullClient = ({ initParams }: { initParams?: IInitParams | IHistoryID }): ReactElement => {
   const { geHistoryInitParams } = useHistoryService();
+  const t = useTranslations('RestClient');
   const [state, setState] = useState<Response | undefined | IErrorObj>(undefined);
   const [isLoading, setIsLoading] = useState(false);
   const formParams = geHistoryInitParams(initParams);
@@ -32,7 +34,7 @@ const RestFullClient = ({ initParams }: { initParams?: IInitParams | IHistoryID 
   // }
 
   const sumbiteHandler = async (form: IFormParams): Promise<void> => {
-    const replacedParams = replaceVariablesSybmit(form);
+    const replacedParams = replaceVariablesSybmitRest(form);
     setIsLoading(true);
     const resp = await getRestfullData(replacedParams);
     setIsLoading(false);
@@ -41,6 +43,7 @@ const RestFullClient = ({ initParams }: { initParams?: IInitParams | IHistoryID 
 
   return (
     <>
+      <h1 className="text-center">{t('Title')}</h1>
       <FormRest inputData={formParams} getData={sumbiteHandler} />
       {isLoading && <ResponseLoader />}
       {!isLoading && state && <ResponseView response={state as object} />}
