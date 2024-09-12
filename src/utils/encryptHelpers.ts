@@ -11,7 +11,7 @@ export const convertToBase64 = (value: string): string => {
   }
 };
 
-const encryptHeadersToBase64 = (headers: { key: string; value: string }[]): string => {
+export const encryptHeadersToBase64 = (headers: { key: string; value: string }[]): string => {
   const queryParams = new URLSearchParams();
 
   headers.forEach(({ key, value }) => {
@@ -25,7 +25,7 @@ const encryptHeadersToBase64 = (headers: { key: string; value: string }[]): stri
 
 const convertEndpoint = (value: string): string => {
   return value && convertToBase64(value) && `/${convertToBase64(value)}`;
-}
+};
 
 export const buildURLRest = (params: IEncryptParams, isBodyText = false): string => {
   const method = params.method && `/${params.method}`;

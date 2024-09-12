@@ -17,12 +17,7 @@ const initializeData = ({ params, searchParams }: IPageProps): IFormGraph | unde
 const Page = ({ params, searchParams }: IPageProps): ReactElement => {
   const initData = initializeData({ params, searchParams });
 
-  return (
-    <>
-      <h1 className="text-center">GraphQL client</h1>
-      <GraphQLClient initParams={initData} />
-    </>
-  );
+  return <GraphQLClient initParams={initData} />;
 };
 
 export default Page;

@@ -8,9 +8,15 @@ import useEncryption from '@/hooks/useEncryption';
 import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
-import { replaceVariables, replaceVariablesSybmit } from '@/utils/replaceVariables';
+import { replaceVariablesRest, replaceVariablesSybmitRest } from '@/utils/replaceVariables';
 
 jest.mock('next/navigation');
+
+jest.mock('.../../../navigation.ts', () => ({
+  usePathnameIntl: (): { path: string } => ({
+    path: '/en/client',
+  }),
+}));
 
 describe('FormRest', () => {
   beforeAll(async () => {
@@ -164,7 +170,7 @@ describe('FormRest utils', () => {
   });
 
   it('should return changed object with replaceVariables', async () => {
-    const fixedObject = replaceVariables({
+    const fixedObject = replaceVariablesRest({
       endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/{{testVar}}',
       method: 'GET',
       bodyText: '{{testVar}}',
@@ -185,13 +191,13 @@ describe('FormRest utils', () => {
 
     expect(fixedObject).toEqual({
       endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/testValue',
-      bodyJSON: '{"test" : testValue}',
+      bodyJSON: '{"test" : "testValue"}',
       bodyText: 'testValue',
     });
   });
 
   it('should return changed object with replaceVariables', async () => {
-    const fixedObject = replaceVariablesSybmit({
+    const fixedObject = replaceVariablesSybmitRest({
       endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/{{testVar}}',
       method: 'GET',
       body: '{{testVar}}',
@@ -206,7 +212,7 @@ describe('FormRest utils', () => {
     expect(fixedObject).toEqual({
       method: 'GET',
       endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/testValue',
-      body: 'testValue',
+      body: '"testValue"',
       headers: { 'test key': 'test value' },
     });
   });
@@ -214,9 +220,9 @@ describe('FormRest utils', () => {
 
 describe('FormRest hooks', () => {
   it('should handle objectJSON field with useEncryption', async () => {
-    const { encrypt } = useEncryption();
+    const { encryptRest } = useEncryption();
 
-    const encryptTest = encrypt({
+    const encryptTest = encryptRest({
       endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
       method: 'GET',
       bodyText: 'Text',

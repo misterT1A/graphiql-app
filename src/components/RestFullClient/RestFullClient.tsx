@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState, type ReactElement } from 'react';
 
 import getRestfullData from '@/services/getRestfullData';
@@ -11,6 +12,7 @@ import ResponseLoader from '../../ui/ResponseLoader/ResponseLoader';
 import FormRest from '../formRest/formRest';
 
 const RestFullClient = ({ initParams }: { initParams?: IInitParams }): ReactElement => {
+  const t = useTranslations('RestClient');
   const [state, setState] = useState<Response | undefined | IErrorObj>(undefined);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,6 +26,7 @@ const RestFullClient = ({ initParams }: { initParams?: IInitParams }): ReactElem
 
   return (
     <>
+      <h1 className="text-center">{t('Title')}</h1>
       <FormRest inputData={initParams} getData={sumbiteHandler} />
       {isLoading && <ResponseLoader />}
       {!isLoading && state && <ResponseView response={state as object} />}

@@ -179,6 +179,12 @@
       "graphVarsInfoEnd": "в теле запроса"
     }
   },
+  "RestClient": {
+    "Title": "RestFull клиент"
+  },
+  "GraphClient": {
+    "Title": "GraphQL клиент"
+  },
   "History": {
     "heading": "История запросов",
     "NoRequests": "Вы не выполнили ни одного запроса. Здесь пусто. Попробуйте:",

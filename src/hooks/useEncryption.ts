@@ -1,7 +1,4 @@
-
-
 import { usePathname } from 'next/navigation';
-
 
 import type { IFormGraphEncrypt } from '@/types/graphTypes';
 import type { FormRestType } from '@/types/types';
@@ -16,7 +13,7 @@ interface IReturnType {
 const useEncryption = (): IReturnType => {
   const path = usePathname();
   const startUrl = path.split('/').slice(0, 2).join('/');
-  
+
   const encryptRest = (form: FormRestType, isBodyText = false): void => {
     const replecedForm = replaceVariablesRest(form);
     const data = {
@@ -31,7 +28,6 @@ const useEncryption = (): IReturnType => {
   };
 
   const encryptGraph = (form: IFormGraphEncrypt): void => {
-
     const replacedForm = replaceVariablesGraph(form);
     const data = {
       ...replacedForm,

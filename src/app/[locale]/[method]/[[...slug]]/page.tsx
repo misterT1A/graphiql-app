@@ -10,7 +10,11 @@ const initializeData = ({ params, searchParams }: IPageProps): IInitParams | und
     return undefined;
   }
 
-  const requestParams = decodingFromBase64Rest(params.method as unknown as string, params.slug as unknown as string[], searchParams);
+  const requestParams = decodingFromBase64Rest(
+    params.method as unknown as string,
+    params.slug as unknown as string[],
+    searchParams,
+  );
   const initFormData: IInitParams = { ...requestParams, body: parseBody(requestParams.body) || {} };
 
   return initFormData;
@@ -19,12 +23,7 @@ const initializeData = ({ params, searchParams }: IPageProps): IInitParams | und
 const Page = ({ params, searchParams }: IPageProps): ReactElement => {
   const initData = initializeData({ params, searchParams });
 
-  return (
-    <>
-      <h1 className="text-center">RestFull client</h1>
-      <RestFullClient initParams={initData} />
-    </>
-  );
+  return <RestFullClient initParams={initData} />;
 };
 
 export default Page;

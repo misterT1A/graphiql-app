@@ -10,7 +10,7 @@ const decodeBase64 = (str: string): string => {
   }
 };
 
-const decodingFromBase64Rest = (method: string,  slug: string[], query: { [key: string]: string }): IDecodingParams => {
+const decodingFromBase64Rest = (method: string, slug: string[], query: { [key: string]: string }): IDecodingParams => {
   const headers: [string, string][] = [];
 
   Object.entries(query).forEach(([key, value]) => {

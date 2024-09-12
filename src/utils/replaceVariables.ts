@@ -1,4 +1,4 @@
-import type {  IFormGraphEncrypt } from '@/types/graphTypes';
+import type { IFormGraphEncrypt } from '@/types/graphTypes';
 import type { IFormParams, IRequestParams, IRestFormParams } from '@/types/restFullTypes';
 import type { FormRestType } from '@/types/types';
 
@@ -67,8 +67,8 @@ const replaceVariablesGraph = (params: IFormGraphEncrypt): IFormGraphEncrypt => 
 
   return {
     ...params,
-    query: replaceStringGraph(params.query,  variables),
-  }
-}
+    query: replaceStringGraph(params.query, variables),
+  };
+};
 
-export { replaceVariablesRest, replaceVariablesSybmitRest,  replaceVariablesGraph };
+export { replaceVariablesRest, replaceVariablesSybmitRest, replaceVariablesGraph };

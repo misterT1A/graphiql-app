@@ -9,7 +9,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { useForm } from 'react-hook-form';
 
 import useEncryption from '@/hooks/useEncryption';
-import type {  IFormGraphEncrypt } from '@/types/graphTypes';
+import type { IFormGraphEncrypt } from '@/types/graphTypes';
 import type { FormGraphDataType, FormGraphType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import InputsArray from '@/ui/InputsArray/InputsArray';

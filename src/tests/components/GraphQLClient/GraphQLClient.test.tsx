@@ -2,20 +2,20 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { NextIntlClientProvider } from 'next-intl';
 import type { ReactElement } from 'react';
 
-import RestFullClient from '@/components/RestFullClient/RestFullClient';
+import GraphQLClient from '@/components/GraphQLClient/GraphQLClient';
 import messages from '@/messages/en.json';
-import getRestfullData from '@/services/getRestfullData';
+import getGraphData from '@/services/getGraphData';
 
-jest.mock('../../../services/getRestfullData.ts', () => ({
+jest.mock('../../../services/getGraphData.ts', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
 jest.mock('../../../utils/replaceVariables.ts', () => ({
-  replaceVariablesSybmitRest: jest.fn().mockReturnValue({ method: 'GET' }),
+  replaceVariablesGraph: jest.fn().mockReturnValue({ method: 'GET' }),
 }));
 
-jest.mock('../../../components/formRest/formRest.tsx', () => {
+jest.mock('../../../components/FormGraph/formGraph.tsx', () => {
   const Form = (props: { getData: (value: { method: string }) => void }): ReactElement => (
     <form
       onSubmit={(e) => {
@@ -35,22 +35,22 @@ jest.mock('../../../ui/ResponseView/ResponseView.tsx', () => {
   return View;
 });
 
-describe('RestFullClient', () => {
+describe('Graph client', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
   it('Should render component', () => {
     render(
       <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
-        <RestFullClient />
+        <GraphQLClient />
       </NextIntlClientProvider>,
     );
     expect(screen.getByText('Form')).toBeInTheDocument();
   });
-  it('Should call getRestfullData with correct arguments', async () => {
+  it('Should call getGraphData with correct arguments', async () => {
     render(
       <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
-        <RestFullClient />
+        <GraphQLClient />
       </NextIntlClientProvider>,
     );
 
@@ -58,7 +58,7 @@ describe('RestFullClient', () => {
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(getRestfullData).toHaveBeenCalledWith({ method: 'GET' });
+      expect(getGraphData).toHaveBeenCalledWith({ method: 'GET' });
     });
   });
 });
