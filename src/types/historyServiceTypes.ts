@@ -1,4 +1,4 @@
-import type { IInitParams } from './restFullTypes';
+// import type { IInitParams } from './restFullTypes';
 
 export interface IFormParams {
   method: string;
@@ -18,6 +18,7 @@ export interface IHistoryRequest {
   href: string;
   hrefHistory: string;
   endpoint: string;
+  replacedEndpoint: string;
   method: string;
   data: Date;
   headers?: { [key: string]: string };
@@ -29,7 +30,7 @@ export interface IReturnType {
   requests?: IHistoryRequest[];
   setHistory: (form: IFormParams, name: string) => void;
   getHistory: IHistoryRequest[];
-  geHistoryInitParams: (initParams: IInitParams | IHistoryID | undefined) => IInitParams | undefined;
+  // geHistoryInitParams: (initParams: IInitParams | IHistoryID | undefined) => IInitParams | undefined;
 }
 
 export interface IHistoryID {

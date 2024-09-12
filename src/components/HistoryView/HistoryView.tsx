@@ -35,7 +35,7 @@ const HistoryView = (): ReactElement => {
             <div className="flex flex-col gap-[10px] sm:flex-row gap-[20px]">
               <p className="min-w-[60px]">{request.method}</p>
               <p>{new Date(request.data).toLocaleString()}</p>
-              <p>{request.endpoint}</p>
+              <p>{request.replacedEndpoint}</p>
             </div>
           </ListboxItem>
         ))}

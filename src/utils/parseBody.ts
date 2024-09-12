@@ -2,7 +2,6 @@ function parseBody(jsonString: { type: 'json' | 'string'; value: string }): stri
   if (jsonString.type === 'json') {
     try {
       const data = JSON.parse(jsonString.value);
-
       return data;
     } catch (error) {
       return `Error JSON: ${error instanceof Error ? error.message : String(error)}`;

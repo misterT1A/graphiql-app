@@ -17,6 +17,7 @@ import SelectInput from '@/ui/SelectInput/SelectInput';
 import SubmitButton from '@/ui/SubmitButton/SubmitButton';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
+import { removeQuotesBody } from '@/utils/historyHelpers';
 import { InputsArrayToObject } from '@/utils/InputsArrayToObject';
 import { InputsObjectToArray } from '@/utils/InputsObjectToArray';
 import RestSchema from '@/validation/RestSchema';
@@ -57,7 +58,7 @@ function FormRest(props: {
   const [bodyJSONData, setBodyData] = useState<object | string>(
     (typeof props.inputData?.body !== 'string' &&
       JSON.stringify(props.inputData?.body) !== '{}' &&
-      JSON.stringify(props.inputData?.body, null, '  ')) ||
+      removeQuotesBody(JSON.stringify(props.inputData?.body, null, '  '))) ||
       '{\n  \n}',
   );
 
