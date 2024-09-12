@@ -19,8 +19,6 @@ function InputsArray<T extends FieldValues>(props: {
   control: Control<T>;
   name: ArrayPath<T>;
 }): ReactNode {
-  // const { encrypt } = useEncryption();
-
   const {
     fields: fields,
     append: append,
