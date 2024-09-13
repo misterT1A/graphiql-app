@@ -17,9 +17,11 @@ jest.mock('@/navigation', () => ({
   },
 }));
 
-jest.mock('@/components/AuthenticationButtons/AuthenticationButtons', () => ({
-  AuthenticationButtons: () => <div>AuthenticationButtons</div>,
-}));
+jest.mock('@/components/AuthenticationButtons/AuthenticationButtons', () => {
+  return function AuthenticationButtons() {
+    return <div>AuthenticationButtons</div>;
+  };
+});
 
 describe('Header', () => {
   it('should render Header component', () => {
@@ -38,4 +40,3 @@ describe('Header', () => {
     expect(langButtons).toHaveLength(2);
   });
 });
-

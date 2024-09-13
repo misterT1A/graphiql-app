@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { NextIntlClientProvider } from 'next-intl';
 
-import { AuthenticationButtons } from '@/components/AuthenticationButtons/AuthenticationButtons';
+import AuthenticationButtons from '@/components/AuthenticationButtons/AuthenticationButtons';
 import type { User } from '@/context/AuthContext';
 import { AuthProvider } from '@/context/AuthProvider';
 import { signOut } from '@/firebase/auth';
@@ -63,4 +63,3 @@ describe('AuthenticationButtons', () => {
     expect(signOut).toHaveBeenCalled();
   });
 });
-

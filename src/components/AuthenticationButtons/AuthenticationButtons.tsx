@@ -8,7 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 import { signOut } from '@/firebase/auth';
 import { LinkIntl, useRouterIntl } from '@/navigation';
 
-export const AuthenticationButtons = (): ReactElement => {
+const AuthenticationButtons = (): ReactElement => {
   const { user } = useAuth();
   const t = useTranslations('Auth.buttons');
   const router = useRouterIntl();
@@ -38,3 +38,5 @@ export const AuthenticationButtons = (): ReactElement => {
     </>
   );
 };
+
+export default AuthenticationButtons;
