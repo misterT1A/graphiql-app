@@ -45,9 +45,10 @@ const SignUp = (): ReactElement => {
 
   return (
     <div className="flex justify-center">
-      <form onSubmit={handleSubmit(onSubmit)} className="p-4 flex flex-col gap-2" noValidate>
+      <form onSubmit={handleSubmit(onSubmit)} className="w-80 p-4 flex flex-col" noValidate>
         <h1 className="text-lg">{t('signUpForm.heading')}</h1>
         <Input
+          className="h-24"
           label={t('signUpForm.username')}
           isRequired={true}
           errorMessage={errors.username?.message}
@@ -56,6 +57,7 @@ const SignUp = (): ReactElement => {
           {...register('username')}
         />
         <Input
+          className="h-24"
           type="email"
           label="Email"
           isRequired={true}
@@ -65,6 +67,7 @@ const SignUp = (): ReactElement => {
           {...register('email')}
         />
         <InputPassword
+          className="h-24"
           label={t('signUpForm.password')}
           isRequired={true}
           errorMessage={errors.password?.message}
@@ -73,6 +76,7 @@ const SignUp = (): ReactElement => {
           {...register('password')}
         />
         <InputPassword
+          className="h-24"
           label={t('signUpForm.confirm')}
           isRequired={true}
           errorMessage={errors.confirm?.message}
