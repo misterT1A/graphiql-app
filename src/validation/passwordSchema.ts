@@ -9,4 +9,3 @@ export const passwordSchema = (t: ReturnType<typeof useTranslations<'Auth'>>) =>
     .regex(new RegExp('\\p{Letter}+', 'u'), t('validation.mustContainLetter'))
     .regex(new RegExp('\\d+'), t('validation.mustContainDigit'))
     .regex(new RegExp('[!@#$%^&*(),.?":{}|<>]+'), t('validation.mustContainSpecialCharacter'));
-

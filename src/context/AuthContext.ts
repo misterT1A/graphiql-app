@@ -16,4 +16,3 @@ export const AuthContext = createContext<AuthContextValue>({
 });
 
 export const useAuth = (): AuthContextValue => useContext(AuthContext);
-

@@ -1,6 +1,7 @@
 'use client';
 
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from '@nextui-org/react';
+import { useSearchParams } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import type { Key, ReactElement } from 'react';
 
@@ -11,9 +12,10 @@ const LangDropdown = (): ReactElement => {
   const router = useRouterIntl();
   const pathname = usePathnameIntl();
   const locale = useLocale();
+  const search = useSearchParams();
 
   const changeLocale = (locale: Key): void => {
-    router.replace(pathname, { locale: locale as Locale });
+    router.replace(`${pathname}?${search}`, { locale: locale as Locale });
   };
 
   return (

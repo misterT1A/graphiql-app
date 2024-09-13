@@ -1,5 +1,5 @@
 import type { IEncryptParams } from '@/types/restFullTypes';
-import { buildURL, convertToBase64, encryptHeadersToBase64 } from '@/utils/encryptHelpers';
+import { buildURLRest, convertToBase64, encryptHeadersToBase64 } from '@/utils/encryptHelpers';
 
 describe('Utility functions', () => {
   describe('convertToBase64', () => {
@@ -40,7 +40,7 @@ describe('Utility functions', () => {
         headers: [],
       };
 
-      const result = buildURL(params, true);
+      const result = buildURLRest(params, true);
       expect(result).toBe('https://api.example.com/POST/dGVzdC1lbmRwb2ludA/dGV4dF9zb21lIHRleHQ');
     });
   });

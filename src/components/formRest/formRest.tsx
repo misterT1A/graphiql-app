@@ -1,5 +1,6 @@
 'use client';
 
+import { json } from '@codemirror/lang-json';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Chip, Input, Tab, Tabs, Textarea } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
@@ -16,6 +17,7 @@ import SelectInput from '@/ui/SelectInput/SelectInput';
 import SubmitButton from '@/ui/SubmitButton/SubmitButton';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
+import { removeQuotesBody } from '@/utils/historyHelpers';
 import { InputsArrayToObject } from '@/utils/InputsArrayToObject';
 import { InputsObjectToArray } from '@/utils/InputsObjectToArray';
 import RestSchema from '@/validation/RestSchema';
@@ -30,9 +32,9 @@ function FormRest(props: {
     method: string;
   };
 }): ReactNode {
-  const { setHistory } = useHistoryService();
-  const { encrypt } = useEncryption();
-  const t = useTranslations('RestForm');
+  const { setHistoryRest } = useHistoryService();
+  const { encryptRest } = useEncryption();
+  const t = useTranslations('Form');
 
   const {
     register,
@@ -56,26 +58,18 @@ function FormRest(props: {
   const [bodyJSONData, setBodyData] = useState<object | string>(
     (typeof props.inputData?.body !== 'string' &&
       JSON.stringify(props.inputData?.body) !== '{}' &&
-      JSON.stringify(props.inputData?.body, null, '  ')) ||
+      removeQuotesBody(JSON.stringify(props.inputData?.body, null, '  '))) ||
       '{\n  \n}',
   );
 
   const [selectedBody, setSelectedBody] = useState(typeof props.inputData?.body === 'string' ? 'bodyText' : 'bodyJSON');
 
   const submit = async (data: FormRestType): Promise<void> => {
-    console.log({
-      method: data.method,
-      endpoint: data.endpoint,
-      headers: InputsArrayToObject(data.headers),
-      variables: InputsArrayToObject(data.variables),
-      body: selectedBody === 'bodyJSON' ? JSON.stringify(codeMirrorParser(bodyJSONData as string)) : data.bodyText,
-    });
-
-    setHistory(
+    setHistoryRest(
       {
         method: data.method,
         endpoint: data.endpoint,
-        headers: data.headers,
+        headers: InputsArrayToObject(data.headers),
         variables: InputsArrayToObject(data.variables),
         body:
           selectedBody === 'bodyJSON'
@@ -100,7 +94,11 @@ function FormRest(props: {
 
   return (
     <div className="flex flex-col items-center py-10 px-2 gap-2 md:p-10">
-      <form onSubmit={handleSubmit(submit)} className="flex flex-col items-center gap-5 w-full sm:w-[70%]">
+      <form
+        onChange={() => encryptRest(getValues())}
+        onSubmit={handleSubmit(submit)}
+        className="flex flex-col items-center gap-5 w-full sm:w-[70%]"
+      >
         <div className="flex justify-between w-full gap-2">
           <div>
             <SelectInput t={t} register={register} getValues={getValues} errors={errors} />
@@ -110,7 +108,6 @@ function FormRest(props: {
               type="text"
               label={t('labels.endpoint')}
               {...register('endpoint')}
-              onBlur={() => encrypt(getValues())}
               className="w-full text-center"
               isInvalid={Boolean(errors.endpoint)}
               errorMessage={errors.endpoint?.message}
@@ -156,6 +153,11 @@ function FormRest(props: {
             }
             className="flex flex-col items-center gap-5 w-full"
           >
+            <p className="text-center">
+              {t('text.varsInfoStart')}
+              <span className="text-[#F5A524]">{' {{varName}} '}</span>
+              {t('text.restVarsInfoEnd')}
+            </p>
             <InputsArray
               getValues={getValues}
               t={t}
@@ -190,7 +192,7 @@ function FormRest(props: {
               color="success"
             >
               <Tab key="bodyJSON" title="JSON" className="flex flex-col gap-2 w-full">
-                <div onBlur={() => encrypt(getValues())}>
+                <div onBlur={() => encryptRest(getValues())}>
                   <CodeMirrorComp
                     setResponse={setBodyData}
                     size={{ width: '100%', height: '98.4px' }}
@@ -199,6 +201,7 @@ function FormRest(props: {
                     register={register}
                     errors={errors}
                     name="bodyJSON"
+                    ext={[json()]}
                   />
                 </div>
               </Tab>
@@ -210,7 +213,7 @@ function FormRest(props: {
               >
                 <Textarea
                   {...register('bodyText')}
-                  onBlur={() => encrypt(getValues(), true)}
+                  onBlur={() => encryptRest(getValues(), true)}
                   label={t('labels.bodyText')}
                   placeholder={t('placeholders.bodyText')}
                   className="w-full h-[100px]"

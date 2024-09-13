@@ -7,4 +7,3 @@ export function fieldsCounter(array: object[]): number {
 
   return counter;
 }
-

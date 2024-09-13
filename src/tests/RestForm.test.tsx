@@ -8,9 +8,15 @@ import useEncryption from '@/hooks/useEncryption';
 import { RemoveIcon } from '@/ui/Icons/RemoveIcon';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
-import { replaceVariables, replaceVariablesSybmit } from '@/utils/replaceVariables';
+import { replaceVariablesRest, replaceVariablesSybmitRest } from '@/utils/replaceVariables';
 
 jest.mock('next/navigation');
+
+jest.mock('.../../../navigation.ts', () => ({
+  usePathnameIntl: (): { path: string } => ({
+    path: '/en/client',
+  }),
+}));
 
 describe('FormRest', () => {
   beforeAll(async () => {
@@ -50,10 +56,14 @@ describe('FormRest', () => {
   });
 
   it('should render FormRest', async () => {
-    const component = await act(async () => {
+    let counter = 0;
+
+    await act(async () => {
       return render(
         <FormRest
-          getData={() => {}}
+          getData={() => {
+            counter++;
+          }}
           inputData={{
             endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
             method: 'GET',
@@ -73,20 +83,20 @@ describe('FormRest', () => {
       fireEvent.click(screen.getByText('Send'));
     });
 
-    expect(component).toMatchSnapshot();
+    expect(counter).toEqual(1);
   });
 
   it('should render all tabs', async () => {
-    const component = await act(async () => {
+    await act(async () => {
       return render(<FormRest getData={() => {}} />);
     });
 
     await act(async () => {
-      fireEvent.click(screen.getByText('Variables'));
       fireEvent.click(screen.getByText('Body'));
+      fireEvent.click(screen.getByText('Variables'));
     });
 
-    expect(component).toMatchSnapshot();
+    expect(screen.getByLabelText('Variable key')).toBeInTheDocument();
   });
 
   it('should show headers and variables errors', async () => {
@@ -135,7 +145,7 @@ describe('FormRest', () => {
   });
 
   it('should add and remove headers and variables inputs', async () => {
-    const component = await act(async () => {
+    await act(async () => {
       return render(<FormRest getData={() => {}} />);
     });
 
@@ -144,7 +154,7 @@ describe('FormRest', () => {
       fireEvent.click(screen.getByText('Add Header'));
     });
 
-    expect(component).toMatchSnapshot();
+    expect(screen.getByLabelText('Header key')).toBeInTheDocument();
   });
 });
 
@@ -160,7 +170,7 @@ describe('FormRest utils', () => {
   });
 
   it('should return changed object with replaceVariables', async () => {
-    const fixedObject = replaceVariables({
+    const fixedObject = replaceVariablesRest({
       endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/{{testVar}}',
       method: 'GET',
       bodyText: '{{testVar}}',
@@ -181,13 +191,13 @@ describe('FormRest utils', () => {
 
     expect(fixedObject).toEqual({
       endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/testValue',
-      bodyJSON: '{"test" : testValue}',
+      bodyJSON: '{"test" : "testValue"}',
       bodyText: 'testValue',
     });
   });
 
   it('should return changed object with replaceVariables', async () => {
-    const fixedObject = replaceVariablesSybmit({
+    const fixedObject = replaceVariablesSybmitRest({
       endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/{{testVar}}',
       method: 'GET',
       body: '{{testVar}}',
@@ -202,7 +212,7 @@ describe('FormRest utils', () => {
     expect(fixedObject).toEqual({
       method: 'GET',
       endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/testValue',
-      body: 'testValue',
+      body: '"testValue"',
       headers: { 'test key': 'test value' },
     });
   });
@@ -210,9 +220,9 @@ describe('FormRest utils', () => {
 
 describe('FormRest hooks', () => {
   it('should handle objectJSON field with useEncryption', async () => {
-    const { encrypt } = useEncryption();
+    const { encryptRest } = useEncryption();
 
-    const encryptTest = encrypt({
+    const encryptTest = encryptRest({
       endpoint: 'https://kinopoiskapiunofficial.tech/api/v2.2/films',
       method: 'GET',
       bodyText: 'Text',
@@ -237,7 +247,8 @@ describe('FormRest hooks', () => {
 
 describe('FormRest icons', () => {
   it('should make default color for Remove icon while no colors are specified', async () => {
-    const removeIcon = render(<RemoveIcon filled />);
-    expect(removeIcon).toMatchSnapshot();
+    render(<RemoveIcon filled />);
+
+    expect(screen.getByRole('img')).toBeInTheDocument();
   });
 });

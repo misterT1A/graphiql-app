@@ -4,7 +4,7 @@ import createMiddleware from 'next-intl/middleware';
 
 import { defaultLocale, locales } from './i18n';
 
-const privatePages = ['/restfull-client.*', '/history'];
+const privatePages = ['/GET.*', '/POST.*', '/PATCH.*', '/DELETE.*', '/PUT.*', '/history', '/GRAPHQL'];
 const redirectPages = ['/sign-up', '/sign-in'];
 
 const intlMiddleware = createMiddleware({
