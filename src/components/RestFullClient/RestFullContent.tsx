@@ -25,10 +25,22 @@ const RestFullContent = ({ initParams }: { initParams?: IInitParams }): ReactEle
 
   return (
     <>
-      <h1 className="text-center">{t('Title')}</h1>
+      <h1 className="text-center text-2xl">{t('Title')}</h1>
       <FormRest inputData={initParams} getData={sumbiteHandler} />
-      {isLoading && <ResponseLoader />}
-      {!isLoading && state && <ResponseView response={state as object} />}
+      {isLoading && (
+        <div className="w-full flex justify-center">
+          <ResponseLoader />
+        </div>
+      )}
+      {!isLoading && state && (
+        <div className="w-full flex justify-center">
+          <div className="flex flex-col gap-5 w-full sm:w-[64%]">
+            <hr className="w-full" />
+            <h2 className="text-xl">Response</h2>
+            <ResponseView response={state as object} />
+          </div>
+        </div>
+      )}
     </>
   );
 };
