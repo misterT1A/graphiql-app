@@ -45,9 +45,10 @@ const SignIn = (): ReactElement => {
 
   return (
     <div className="flex justify-center">
-      <form onSubmit={handleSubmit(onSubmit)} className="p-4 flex flex-col gap-2" noValidate>
+      <form onSubmit={handleSubmit(onSubmit)} className="w-80 p-4 flex flex-col" noValidate>
         <h1 className="text-lg">{t('signInForm.heading')}</h1>
         <Input
+          className="h-24"
           type="email"
           label="Email"
           isRequired={true}
@@ -57,6 +58,7 @@ const SignIn = (): ReactElement => {
           {...register('email')}
         />
         <InputPassword
+          className="h-24"
           label={t('signInForm.password')}
           isRequired={true}
           errorMessage={errors.password?.message}

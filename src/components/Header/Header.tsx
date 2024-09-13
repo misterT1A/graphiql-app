@@ -9,27 +9,18 @@ import {
   NavbarMenuItem,
   Link,
 } from '@nextui-org/react';
-import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { useEffect, useState, type ReactElement } from 'react';
 
+import AuthenticationButtons from '@/components/AuthenticationButtons/AuthenticationButtons';
 import { usePathnameIntl } from '@/navigation';
 import LangDropdown from '@/ui/LangDropdown/LangDropdown';
 import ThemTogler from '@/ui/ThemTogler/ThemTogler';
 
-import { AuthenticationButtons } from '../AuthenticationButtons/AuthenticationButtons';
-
 const Header = (): ReactElement => {
-  const t = useTranslations('Header');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathnameIntl();
-
-  const menuItems = [
-    { name: t('menuItems.home'), href: '/' },
-    { name: 'RestFull client', href: '/GET' },
-    { name: 'GraphQL client', href: '/GRAPHQL' },
-    { name: 'History', href: '/history' },
-  ];
 
   const handleScroll = (): void => {
     if (window.scrollY > 0) {
@@ -45,6 +36,10 @@ const Header = (): ReactElement => {
     return (): void => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [pathname]);
+
   return (
     <Navbar
       isMenuOpen={isMenuOpen}
@@ -54,19 +49,15 @@ const Header = (): ReactElement => {
       className={`z-50 transition-all duration-300 ${isScrolled ? 'bg-white/30 shadow-lg' : 'bg-transparent'}`}
     >
       <NavbarContent>
-        <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className="sm:hidden" />
-      </NavbarContent>
-
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        {menuItems.map((item) => (
-          <NavbarItem key={item.name}>
-            <Link href={item.href} aria-current="page" color={pathname === item.href ? 'primary' : 'foreground'}>
-              {item.name}
-            </Link>
-          </NavbarItem>
-        ))}
+        <Link href="/">
+          <Image src="/images/logo.png" width={48} height={48} alt="logo" />
+        </Link>
       </NavbarContent>
       <NavbarContent justify="end">
+        <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} className="sm:hidden" />
+      </NavbarContent>
+      <NavbarContent className="hidden sm:flex gap-4" justify="center"></NavbarContent>
+      <NavbarContent className="hidden sm:flex" justify="end">
         <NavbarItem>
           <LangDropdown />
         </NavbarItem>
@@ -78,18 +69,13 @@ const Header = (): ReactElement => {
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={pathname === item.href ? 'primary' : 'foreground'}
-              href={item.href}
-              aria-current="page"
-              onPress={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {item.name}
-            </Link>
-          </NavbarMenuItem>
-        ))}
+        <NavbarMenuItem>
+          <AuthenticationButtons />
+        </NavbarMenuItem>
+        <NavbarMenuItem className="flex align-middle">
+          <LangDropdown />
+          <ThemTogler />
+        </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
   );

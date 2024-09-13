@@ -6,6 +6,7 @@ import { getTokens } from 'next-firebase-auth-edge';
 import { getMessages } from 'next-intl/server';
 import type { ReactElement } from 'react';
 
+import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import { toUser } from '@/context/toUser';
 import { locales, type Locale } from '@/i18n';
@@ -51,8 +52,11 @@ const RootLayout = async ({
     <html lang={locale} suppressHydrationWarning={true}>
       <body className={inter.className}>
         <Providers locale={locale} messages={messages} user={user}>
-          <Header />
-          <main className="max-w-[1000px] w-full mx-auto p-[10px]">{children}</main>
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="max-w-[1000px] w-full mx-auto p-[10px] flex-1">{children}</main>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

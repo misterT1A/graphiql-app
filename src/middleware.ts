@@ -4,7 +4,7 @@ import createMiddleware from 'next-intl/middleware';
 
 import { defaultLocale, locales } from './i18n';
 
-const privatePages = ['/GET.*', '/POST.*', '/PATCH.*', '/DELETE.*', '/PUT.*', '/history', '/GRAPHQL'];
+const privatePages = ['/GET/.*', '/POST/.*', '/PATCH/.*', '/DELETE/.*', '/PUT/.*', '/GRAPHQL/.*', '/history'];
 const redirectPages = ['/sign-up', '/sign-in'];
 
 const intlMiddleware = createMiddleware({
@@ -61,5 +61,5 @@ export default async function middleware(request: NextRequest): Promise<NextResp
 }
 
 export const config = {
-  matcher: ['/((?!_next).*)'],
+  matcher: ['/((?!_next|images|icon.ico).*)'],
 };

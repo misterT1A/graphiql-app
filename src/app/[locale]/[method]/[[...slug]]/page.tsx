@@ -1,6 +1,8 @@
+import { notFound } from 'next/navigation';
 import { type ReactElement } from 'react';
 
 import RestFullClient from '@/components/RestFullClient/RestFullClient';
+import { TEXT_CONTENT } from '@/constants/constants';
 import type { IHistoryID } from '@/types/historyServiceTypes';
 import type { IInitParams, IPageProps } from '@/types/restFullTypes';
 import { decodingFromBase64Rest } from '@/utils/decodingFromBase64';
@@ -24,6 +26,10 @@ const initializeData = ({ params, searchParams }: IPageProps): IInitParams | IHi
 };
 
 const Page = ({ params, searchParams }: IPageProps): ReactElement => {
+  if (!params.method || !TEXT_CONTENT.methodValues.includes(params.method)) {
+    notFound();
+  }
+
   const initData = initializeData({ params, searchParams });
 
   return <RestFullClient initParams={initData} />;

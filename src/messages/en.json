@@ -4,6 +4,34 @@
       "home": "Home"
     }
   },
+  "Home": {
+    "welcome": "Welcome!",
+    "welcomeUsername": "Welcome Back, {username}!",
+    "appInfo": "This application allows authorized users to make REST and GraphQL requests, as well as navigate through the request history. It is built using Next.js, with authentication through Firebase.",
+    "courseInfo": "It was developed as part of the RS School React 2024 Q3 online course. This course provides basic knowledge of React and frameworks like Next.js and Remix. It is available to anyone with basic web development skills, completely free of charge.",
+    "developers": "Developers",
+    "team": {
+      "developer1": {
+        "name": "Artem Taraskin",
+        "description": "I graduated from Technical University with a degree in shipbuilding and ocean engineering. I have been studying frontend since the beginning of 2023."
+      },
+      "developer2": {
+        "name": "Pavel Terno",
+        "description": "I graduated from St. Petersburg University in Chemistry. But in the middle of my studies I realized that practical chemistry is a boring direction for me and started training for the position of Frontend Developer in 2021. In my free time I run a YouTube channel and play drums and guitar."
+      },
+      "developer3": {
+        "name": "Rustam Abdrakhmanov",
+        "description": "Computers and everything related to them have captivated me since childhood. With a degree in mathematics, I have pursued a career as a system administrator. Playing the guitar is my hobby. I strive for perfection in all my endeavors, ensuring that every task is brought to completion."
+      }
+    },
+    "buttons": {
+      "signUp": "Sign Up",
+      "signIn": "Sign In",
+      "restFullClient": "RestFull client",
+      "graphiQlClient": "GraphiQL client",
+      "history": "History"
+    }
+  },
   "NotFound": {
     "message": "The page you were looking for doesn't exist."
   },
