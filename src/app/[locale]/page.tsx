@@ -20,8 +20,8 @@ const Home = (): ReactElement => {
         <div className="flex gap-4 justify-center">
           {user ? (
             <>
-              <Link href="/restfull-client">{t('buttons.restFullClient')}</Link>
-              <Link href="/graphiql-client">{t('buttons.graphiQlClient')}</Link>
+              <Link href="/GET">{t('buttons.restFullClient')}</Link>
+              <Link href="/GRAPHQL">{t('buttons.graphiQlClient')}</Link>
               <Link href="/history">{t('buttons.history')}</Link>
             </>
           ) : (
