@@ -1,40 +1,63 @@
 import { useEffect, useState } from 'react';
 
 import { LSHistoryName } from '@/constants/constants';
-import { usePathnameIntl } from '@/navigation';
-import type { IFormParams, IReturnType, request } from '@/types/historyServiceTypes';
-import { buildURLRest } from '@/utils/encryptHelpers';
+import type { IFormGraphHistory } from '@/types/historyServiceTypes';
+import { type IFormParams, type IHistoryRequest, type IReturnType } from '@/types/historyServiceTypes';
+import { replaceVariables } from '@/utils/replaceVariables';
 
 const useHistoryService = (): IReturnType => {
-  const path = usePathnameIntl();
-
-  const [requests, setRequests] = useState<request[]>(() => {
+  const [requests, setRequests] = useState<IHistoryRequest[]>(() => {
     if (typeof window === 'undefined') {
       return [];
     }
-    return JSON.parse(window.localStorage.getItem(LSHistoryName) || '[]') || [];
+    const allhistory = JSON.parse(window.localStorage.getItem(LSHistoryName) || '[]') || [];
+    return allhistory;
   });
 
   useEffect(() => {
     window.localStorage.setItem(LSHistoryName, JSON.stringify(requests));
   }, [requests]);
 
-  const setHistory = (form: IFormParams, method: string): void => {
-    const isBodyJson = form.body.type === 'json';
-    const url = buildURLRest(
-      {
-        startUrl: path,
-        ...form,
-        bodyJSON: isBodyJson ? form.body.value : '',
-        bodyText: isBodyJson ? '' : form.body.value,
-      },
-      !isBodyJson,
-    );
-    const request = { href: url, endpoint: form.endpoint, name: method, data: new Date() };
+  const setHistoryRest = (form: IFormParams, method: string): void => {
+    const url = window.location.href;
+    const hrefHistory = `/GET/history_${requests.length}`;
+
+    const request: IHistoryRequest = {
+      id: String(requests.length),
+      href: url,
+      hrefHistory: hrefHistory,
+      endpoint: form.endpoint,
+      replacedEndpoint: replaceVariables(form?.endpoint as string, form.variables),
+      method,
+      data: new Date(),
+      variables: form.variables,
+      headers: form.headers,
+      body: form.body,
+    };
     setRequests((prev) => [request, ...prev]);
   };
 
-  return { setHistory, getHistory: requests };
+  const setHistoryGraph = (form: IFormGraphHistory): void => {
+    const url = window.location.href;
+    const hrefHistory = `/GRAPHQL/history_${requests.length}`;
+
+    const request: IHistoryRequest = {
+      id: String(requests.length),
+      href: url,
+      hrefHistory: hrefHistory,
+      endpoint: form.endpoint,
+      replacedEndpoint: replaceVariables(form?.endpoint as string, form.variables),
+      method: 'GraphQL',
+      data: new Date(),
+      variables: form.variables,
+      headers: form.headers,
+      query: form.query,
+      sdl: form.sdl || '',
+    };
+    setRequests((prev) => [request, ...prev]);
+  };
+
+  return { setHistoryRest, setHistoryGraph, getHistory: requests };
 };
 
 export default useHistoryService;

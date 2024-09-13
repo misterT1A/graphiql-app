@@ -175,7 +175,7 @@
     },
     "text": {
       "varsInfoStart": "To reuse variables, use the",
-      "restVarsInfoEnd": "construct in the request body",
+      "restVarsInfoEnd": "construct in the request body and endpoint URL",
       "graphVarsInfoEnd": "construct in the request query"
     }
   },

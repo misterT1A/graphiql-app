@@ -17,6 +17,7 @@ import SelectInput from '@/ui/SelectInput/SelectInput';
 import SubmitButton from '@/ui/SubmitButton/SubmitButton';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
 import { fieldsCounter } from '@/utils/fieldsCounter';
+import { removeQuotesBody } from '@/utils/historyHelpers';
 import { InputsArrayToObject } from '@/utils/InputsArrayToObject';
 import { InputsObjectToArray } from '@/utils/InputsObjectToArray';
 import RestSchema from '@/validation/RestSchema';
@@ -31,7 +32,7 @@ function FormRest(props: {
     method: string;
   };
 }): ReactNode {
-  const { setHistory } = useHistoryService();
+  const { setHistoryRest } = useHistoryService();
   const { encryptRest } = useEncryption();
   const t = useTranslations('Form');
 
@@ -57,18 +58,18 @@ function FormRest(props: {
   const [bodyJSONData, setBodyData] = useState<object | string>(
     (typeof props.inputData?.body !== 'string' &&
       JSON.stringify(props.inputData?.body) !== '{}' &&
-      JSON.stringify(props.inputData?.body, null, '  ')) ||
+      removeQuotesBody(JSON.stringify(props.inputData?.body, null, '  '))) ||
       '{\n  \n}',
   );
 
   const [selectedBody, setSelectedBody] = useState(typeof props.inputData?.body === 'string' ? 'bodyText' : 'bodyJSON');
 
   const submit = async (data: FormRestType): Promise<void> => {
-    setHistory(
+    setHistoryRest(
       {
         method: data.method,
         endpoint: data.endpoint,
-        headers: data.headers,
+        headers: InputsArrayToObject(data.headers),
         variables: InputsArrayToObject(data.variables),
         body:
           selectedBody === 'bodyJSON'

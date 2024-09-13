@@ -26,19 +26,36 @@ describe('useHistoryService', () => {
     expect(result.current.getHistory).toEqual([]);
   });
 
-  it('should save requests to localStorage upon update', () => {
+  it('should save requests to localStorage upon update for rest', () => {
     const { result } = renderHook(() => useHistoryService());
     act(() => {
-      result.current.setHistory(
+      result.current.setHistoryRest(
         {
           method: 'GET',
-          headers: [],
+          headers: {},
           variables: {},
           endpoint: '/test',
           body: { type: 'json', value: '{"key":"value"}' },
         },
         'GET',
       );
+    });
+
+    waitFor(() => {
+      expect(mockLocalStorage.setItem).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  it('should save requests to localStorage upon update for graph', () => {
+    const { result } = renderHook(() => useHistoryService());
+    act(() => {
+      result.current.setHistoryGraph({
+        sdl: '',
+        headers: {},
+        variables: {},
+        endpoint: '/test',
+        query: 'test',
+      });
     });
 
     waitFor(() => {

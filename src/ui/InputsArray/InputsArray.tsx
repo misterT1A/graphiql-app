@@ -19,8 +19,6 @@ function InputsArray<T extends FieldValues>(props: {
   control: Control<T>;
   name: ArrayPath<T>;
 }): ReactNode {
-  // const { encrypt } = useEncryption();
-
   const {
     fields: fields,
     append: append,
@@ -33,10 +31,7 @@ function InputsArray<T extends FieldValues>(props: {
   const shortName = props.name.slice(0, props.name.length - 1) as 'header' | 'variable';
 
   return (
-    <div
-      className="flex flex-col gap-5 w-full"
-      // onBlur={() => encrypt(props.getValues())}
-    >
+    <div className="flex flex-col gap-5 w-full">
       {Boolean(fields.length) && (
         <div className="flex flex-col gap-2 w-full">
           {fields.map((item, index) => (

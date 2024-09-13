@@ -4,7 +4,7 @@ import type { FormRestType } from '@/types/types';
 
 import { InputsArrayToObject } from './InputsArrayToObject';
 
-const replaceStringRest = (
+const replaceVariables = (
   str: string,
   variables: {
     [key: string]: string;
@@ -47,17 +47,17 @@ const replaceVariablesRest = (params: FormRestType): IRestFormParams => {
   params.variables.forEach((value) => (variables[value.key] = value.value));
 
   return {
-    endpoint: replaceStringRest(params.endpoint, variables),
-    bodyJSON: replaceStringRest(params.bodyJSON, variables, true),
-    bodyText: replaceStringRest(params.bodyText, variables),
+    endpoint: replaceVariables(params.endpoint, variables),
+    bodyJSON: replaceVariables(params.bodyJSON, variables, true),
+    bodyText: replaceVariables(params.bodyText, variables),
   };
 };
 
 const replaceVariablesSybmitRest = (params: IFormParams): IRequestParams => {
   return {
     method: params.method,
-    endpoint: replaceStringRest(params.endpoint, params.variables),
-    body: replaceStringRest(params.body, params.variables, true),
+    endpoint: replaceVariables(params.endpoint, params.variables),
+    body: replaceVariables(params.body, params.variables, true),
     headers: params.headers,
   };
 };
@@ -71,4 +71,4 @@ const replaceVariablesGraph = (params: IFormGraphEncrypt): IFormGraphEncrypt => 
   };
 };
 
-export { replaceVariablesRest, replaceVariablesSybmitRest, replaceVariablesGraph };
+export { replaceVariables, replaceVariablesRest, replaceVariablesSybmitRest, replaceVariablesGraph };

@@ -12,13 +12,14 @@ interface IReturnType {
 
 const useEncryption = (): IReturnType => {
   const path = usePathname();
-  const startUrl = path.split('/').slice(0, 2).join('/');
+  const startUrlRest = path.split('/').slice(0, 2).join('/');
+  const startUrlGraph = path.split('/').slice(0, 3).join('/');
 
   const encryptRest = (form: FormRestType, isBodyText = false): void => {
     const replecedForm = replaceVariablesRest(form);
     const data = {
       ...replecedForm,
-      startUrl,
+      startUrl: startUrlRest,
       method: form.method,
       headers: form.headers,
     };
@@ -31,7 +32,7 @@ const useEncryption = (): IReturnType => {
     const replacedForm = replaceVariablesGraph(form);
     const data = {
       ...replacedForm,
-      startUrl,
+      startUrl: startUrlGraph,
     };
 
     const resultURL = buildURLGraph(data);
