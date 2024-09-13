@@ -61,5 +61,5 @@ export default async function middleware(request: NextRequest): Promise<NextResp
 }
 
 export const config = {
-  matcher: ['/((?!_next).*)'],
+  matcher: ['/((?!_next|images).*)'],
 };
