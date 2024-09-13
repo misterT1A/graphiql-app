@@ -37,7 +37,6 @@ const Home = (): ReactElement => {
         </div>
         <h2 className="text-3xl text-center mb-2">{t('developers')}</h2>
         <div className="flex gap-[20px] justify-center">
-          <Tooltip />
           <Tooltip
             showArrow={true}
             color="success"
