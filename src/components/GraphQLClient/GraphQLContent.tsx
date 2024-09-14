@@ -34,8 +34,20 @@ const GraphQLContent = ({ initParams }: { initParams?: FormGraphDataType }): Rea
     <>
       <h1 className="text-center">{t('Title')}</h1>
       <FormGraph inputData={initParams} getData={sumbiteHandler} />
-      {isLoading && <ResponseLoader />}
-      {!isLoading && response && <ResponseView response={response} />}
+      {isLoading && (
+        <div className="w-full flex justify-center">
+          <ResponseLoader />
+        </div>
+      )}
+      {!isLoading && response && (
+        <div className="w-full flex justify-center">
+          <div className="flex flex-col gap-5 w-full sm:w-[64%]">
+            <hr className="w-full" />
+            <h2 className="text-xl">{t('ResponseTitle')}</h2>
+            <ResponseView response={response} />
+          </div>
+        </div>
+      )}
       {/* {!isLoading && schema && <ResponseView response={schema.toConfig()} />} */}
     </>
   );

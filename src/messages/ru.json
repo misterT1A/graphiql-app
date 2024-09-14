@@ -208,10 +208,12 @@
     }
   },
   "RestClient": {
-    "Title": "RestFull клиент"
+    "Title": "RestFull клиент",
+    "ResponseTitle": "Ответ"
   },
   "GraphClient": {
-    "Title": "GraphQL клиент"
+    "Title": "GraphQL клиент",
+    "ResponseTitle": "Ответ"
   },
   "History": {
     "heading": "История запросов",

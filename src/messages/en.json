@@ -208,10 +208,12 @@
     }
   },
   "RestClient": {
-    "Title": "RestFull client"
+    "Title": "RestFull client",
+    "ResponseTitle": "Response"
   },
   "GraphClient": {
-    "Title": "GraphQL client"
+    "Title": "GraphQL client",
+    "ResponseTitle": "Response"
   },
   "History": {
     "heading": "History requests",
