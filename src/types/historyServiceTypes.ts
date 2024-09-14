@@ -34,7 +34,6 @@ export interface IReturnType {
   setHistoryRest: (form: IFormParams, name: string) => void;
   setHistoryGraph: (form: IFormGraphHistory) => void;
   getHistory: IHistoryRequest[];
-  // geHistoryInitParams: (initParams: IInitParams | IHistoryID | undefined) => IInitParams | undefined;
 }
 
 export interface IHistoryID {
