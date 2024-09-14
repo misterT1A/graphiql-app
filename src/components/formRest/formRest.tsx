@@ -118,7 +118,7 @@ function FormRest(props: {
         <Tabs
           aria-label="Options"
           classNames={{
-            panel: 'p-0',
+            panel: 'px-0',
           }}
         >
           <Tab
@@ -196,7 +196,7 @@ function FormRest(props: {
               defaultSelectedKey={selectedBody}
               color="success"
               classNames={{
-                panel: 'p-0',
+                panel: 'px-0',
               }}
             >
               <Tab key="bodyJSON" title="JSON" className="flex flex-col gap-2 w-full">

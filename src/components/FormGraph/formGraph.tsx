@@ -102,7 +102,12 @@ function FormGraph(props: {
           <SubmitButton t={t} register={register} errors={errors} />
         </div>
 
-        <Tabs aria-label="Options">
+        <Tabs
+          aria-label="Options"
+          classNames={{
+            panel: 'px-0',
+          }}
+        >
           <Tab
             key="headersTab"
             title={
