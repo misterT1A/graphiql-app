@@ -213,7 +213,8 @@
   },
   "GraphClient": {
     "Title": "GraphQL client",
-    "ResponseTitle": "Response"
+    "RespBtn": "Response",
+    "DocBtn": "Documentation"
   },
   "History": {
     "heading": "History requests",
