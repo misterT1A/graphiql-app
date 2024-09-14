@@ -49,7 +49,14 @@ const GraphQLContent = ({ initParams }: { initParams?: FormGraphDataType }): Rea
         <div className="w-full flex justify-center">
           <div className="flex flex-col gap-5 w-full sm:w-[64%]">
             <hr className="w-full" />
-            <Tabs aria-label="Options" className="self-center" disabledKeys={[`${schema ? '' : 'schema'}`]}>
+            <Tabs
+              aria-label="Options"
+              className="self-center"
+              classNames={{
+                panel: 'px-0',
+              }}
+              disabledKeys={[`${schema ? '' : 'schema'}`]}
+            >
               <Tab key="response" title={t('RespBtn')}>
                 <div className={'border border-black rounded-[12px] inline-block overflow-hidden w-full'}>
                   <ResponseView response={response} />
