@@ -8,7 +8,7 @@ import CodeMirror from '@uiw/react-codemirror';
 import type { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import type { Dispatch, SetStateAction } from 'react';
-import { useCallback, useState, type ReactElement } from 'react';
+import { useCallback, type ReactElement } from 'react';
 import type { FieldError, FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 function CodeMirrorComp<T extends FieldValues>(props: {
@@ -21,23 +21,20 @@ function CodeMirrorComp<T extends FieldValues>(props: {
   name: 'bodyJSON' | 'query';
   ext: Extension[];
 }): ReactElement | null {
-  const [value, setValue] = useState(props.initValue);
+  const { theme } = useTheme();
 
   const onChange = useCallback(
     (val: string) => {
-      setValue(val);
       props.setResponse(val as unknown as SetStateAction<string>);
     },
     [props],
   );
 
-  const { theme } = useTheme();
-
   return (
     <>
       <div className={'border border-black rounded-[12px] inline-block overflow-hidden w-full'}>
         <CodeMirror
-          value={value}
+          value={props.initValue}
           width={props.size.width}
           height={props.size.height}
           extensions={props.ext}

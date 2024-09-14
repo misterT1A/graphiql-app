@@ -8,7 +8,7 @@ import ResponseLoader from '@/ui/ResponseLoader/ResponseLoader';
 import ResponseView from '@/ui/ResponseView/ResponseView';
 import { replaceVariablesSybmitRest } from '@/utils/replaceVariables';
 
-import FormRest from '../FormRest/formRest';
+import FormRest from '../formRest/formRest';
 
 const RestFullContent = ({ initParams }: { initParams?: IInitParams }): ReactElement => {
   const t = useTranslations('RestClient');
