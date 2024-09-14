@@ -45,9 +45,8 @@ describe('Home', () => {
 
     expect(welcome).toBeInTheDocument();
     expect(username).toBeInTheDocument();
-    expect(restfullLink).toHaveAttribute('href', '/restfull-client');
-    expect(graphiqlLink).toHaveAttribute('href', '/graphiql-client');
+    expect(restfullLink).toHaveAttribute('href', '/GET');
+    expect(graphiqlLink).toHaveAttribute('href', '/GRAPHQL');
     expect(historyLink).toHaveAttribute('href', '/history');
   });
 });
-
