@@ -1,9 +1,4 @@
 {
-  "Header": {
-    "menuItems": {
-      "home": "Home"
-    }
-  },
   "Home": {
     "welcome": "Welcome!",
     "welcomeUsername": "Welcome Back, {username}!",
@@ -27,8 +22,8 @@
     "buttons": {
       "signUp": "Sign Up",
       "signIn": "Sign In",
-      "restFullClient": "RestFull client",
-      "graphiQlClient": "GraphiQL client",
+      "restFullClient": "Rest Client",
+      "graphiQlClient": "GraphiQL Client",
       "history": "History"
     }
   },

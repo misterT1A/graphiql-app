@@ -27,8 +27,8 @@
     "buttons": {
       "signUp": "Регистрация",
       "signIn": "Войти",
-      "restFullClient": "RestFull-клиент",
-      "graphiQlClient": "GraphiQL-клиент",
+      "restFullClient": "Rest Клиент",
+      "graphiQlClient": "GraphiQL Клиент",
       "history": "История"
     }
   },

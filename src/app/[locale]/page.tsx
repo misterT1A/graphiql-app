@@ -17,7 +17,7 @@ const Home = (): ReactElement => {
         <h1 className="text-4xl text-center">
           {user ? t('welcomeUsername', { username: user.displayName }) : t('welcome')}
         </h1>
-        <div className="flex gap-4 justify-center">
+        <div className="flex gap-5 justify-center">
           {user ? (
             <>
               <Link href="/GET">{t('buttons.restFullClient')}</Link>
