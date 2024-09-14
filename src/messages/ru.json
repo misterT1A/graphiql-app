@@ -1,9 +1,4 @@
 {
-  "Header": {
-    "menuItems": {
-      "home": "Главная"
-    }
-  },
   "Home": {
     "welcome": "Добро пожаловать!",
     "welcomeUsername": "С возвращением, {username}!",
