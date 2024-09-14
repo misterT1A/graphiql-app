@@ -37,7 +37,9 @@ const RestFullContent = ({ initParams }: { initParams?: IInitParams }): ReactEle
           <div className="flex flex-col gap-5 w-full sm:w-[64%]">
             <hr className="w-full" />
             <h2 className="text-xl">{t('ResponseTitle')}</h2>
-            <ResponseView response={state as object} />
+            <div className={'border border-black rounded-[12px] inline-block overflow-hidden w-full'}>
+              <ResponseView response={state as object} />
+            </div>
           </div>
         </div>
       )}
