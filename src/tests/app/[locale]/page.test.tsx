@@ -39,7 +39,7 @@ describe('Home', () => {
 
     const welcome = screen.getByText(/welcome back/i);
     const username = screen.getByText(new RegExp(user.displayName!));
-    const restfullLink = screen.getByRole('link', { name: /restfull/i });
+    const restfullLink = screen.getByRole('link', { name: /rest/i });
     const graphiqlLink = screen.getByRole('link', { name: /graphiql/i });
     const historyLink = screen.getByRole('link', { name: /history/i });
 
