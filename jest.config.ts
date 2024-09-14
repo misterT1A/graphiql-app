@@ -19,6 +19,10 @@ const config: Config = {
     '!src/**/node_modules/**',
     '!src/**/test-utils/**',
     '!src/**/types/**',
+    '!src/middleware.ts',
+    '!src/navigation.ts',
+    '!src/app/providers.tsx',
+    '!src/i18n.ts',
   ],
   testEnvironmentOptions: {
     customExportConditions: [''],

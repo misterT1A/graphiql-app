@@ -21,8 +21,8 @@ const HistoryView = (): ReactElement => {
       <div className="flex flex-col items-center gap-[30px] ">
         <h1>{t('NoRequests')}</h1>
         <div className="flex gap-[20px] text-lg">
-          <Link href={'/restfull-client'}>{t('RestClient')}</Link>
-          <Link href={'/graphiql-client'}>{t('GraphiQLClient')}</Link>
+          <Link href={'/GET'}>{t('RestClient')}</Link>
+          <Link href={'/GRAPHQL'}>{t('GraphiQLClient')}</Link>
         </div>
       </div>
     );
