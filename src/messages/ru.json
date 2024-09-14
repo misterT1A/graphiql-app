@@ -203,7 +203,7 @@
     }
   },
   "RestClient": {
-    "Title": "RestFull клиент"
+    "Title": "Rest клиент"
   },
   "GraphClient": {
     "Title": "GraphQL клиент"
