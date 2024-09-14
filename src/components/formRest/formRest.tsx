@@ -115,7 +115,12 @@ function FormRest(props: {
           </div>
           <SubmitButton t={t} register={register} errors={errors} />
         </div>
-        <Tabs aria-label="Options">
+        <Tabs
+          aria-label="Options"
+          classNames={{
+            panel: 'p-0',
+          }}
+        >
           <Tab
             key="headersTab"
             title={
@@ -184,12 +189,15 @@ function FormRest(props: {
             <Tabs
               aria-label="Mode"
               placement="start"
-              className="flex flex-col h-[100px] justify-center"
+              className="flex flex-col h-[100px] justify-center mr-2"
               onSelectionChange={(key: React.Key) => {
                 setSelectedBody(key as SetStateAction<string>);
               }}
               defaultSelectedKey={selectedBody}
               color="success"
+              classNames={{
+                panel: 'p-0',
+              }}
             >
               <Tab key="bodyJSON" title="JSON" className="flex flex-col gap-2 w-full">
                 <div onBlur={() => encryptRest(getValues())}>
