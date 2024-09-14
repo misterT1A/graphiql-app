@@ -65,4 +65,4 @@ const addQuotesBody = (value: string): string => {
   return value?.replace(/({{.*?}}):/g, '"$1":');
 };
 
-export { geHistoryInitParamsRest, geHistoryInitParamsGraph, removeQuotesBody, addQuotesBody };
+export { getHistoryFromLS, geHistoryInitParamsRest, geHistoryInitParamsGraph, removeQuotesBody, addQuotesBody };

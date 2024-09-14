@@ -2,13 +2,13 @@ import { format } from 'graphql-formatter';
 
 import { addQuotesBody, removeQuotesBody } from './historyHelpers';
 
-function prettifyGraphQLQuery(query: string): string {
+const prettifyGraphQLQuery = (query: string): string => {
   try {
     return format(query);
   } catch {
     return query;
   }
-}
+};
 
 const codePrettify = (value: string): string => {
   try {
