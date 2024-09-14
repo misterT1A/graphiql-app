@@ -1,17 +1,19 @@
-import { format } from 'graphql-prettier';
+import { format } from 'graphql-formatter';
+
+import { addQuotesBody, removeQuotesBody } from './historyHelpers';
 
 function prettifyGraphQLQuery(query: string): string {
   try {
     return format(query);
-  } catch (error) {
-    console.error('Error formatting GraphQL query:', error);
+  } catch {
     return query;
   }
 }
 
 const codePrettify = (value: string): string => {
   try {
-    const formattedJsCode = JSON.stringify(JSON.parse(value), null, '  ');
+    const addedQoutes = addQuotesBody(value);
+    const formattedJsCode = removeQuotesBody(JSON.stringify(JSON.parse(addedQoutes), null, '  '));
     return formattedJsCode;
   } catch {
     return value;

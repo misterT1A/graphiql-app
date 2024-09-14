@@ -23,9 +23,9 @@ const decodingFromBase64Rest = (method: string, slug: string[], query: { [key: s
     }
   });
 
-  const endpoint = (slug && slug.find((elem) => decodeBase64(elem).startsWith('http'))) || '';
-  const bodyJson = (slug && slug.find((elem) => decodeBase64(elem).startsWith('json_'))) || '';
-  const bodyText = (slug && slug.find((elem) => decodeBase64(elem).startsWith('text_'))) || '';
+  const endpoint = (slug && slug.find((elem) => decodeBase64(elem)?.startsWith('http'))) || '';
+  const bodyJson = (slug && slug.find((elem) => decodeBase64(elem)?.startsWith('json_'))) || '';
+  const bodyText = (slug && slug.find((elem) => decodeBase64(elem)?.startsWith('text_'))) || '';
 
   const body: IBody = bodyJson
     ? { type: 'json', value: decodeBase64(bodyJson).slice(5) }

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-function parseBody(jsonString: { type: 'json' | 'string'; value: string }): string | object {
+const parseBody = (jsonString: { type: 'json' | 'string'; value: string }): string | object => {
   if (jsonString.type === 'json') {
     try {
       const data = JSON.parse(jsonString.value);
@@ -11,6 +11,6 @@ function parseBody(jsonString: { type: 'json' | 'string'; value: string }): stri
   } else {
     return jsonString.value;
   }
-}
+};
 
 export default parseBody;
