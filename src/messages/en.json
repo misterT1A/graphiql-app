@@ -207,7 +207,7 @@
     }
   },
   "RestClient": {
-    "Title": "RestFull client"
+    "Title": "Rest client"
   },
   "GraphClient": {
     "Title": "GraphQL client"
