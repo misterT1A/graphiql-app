@@ -20,7 +20,13 @@ const initializeData = ({ params, searchParams }: IPageProps): IInitParams | IHi
     params.slug as unknown as string[],
     searchParams,
   );
-  const initFormData: IInitParams = { ...requestParams, body: parseBody(requestParams.body) || {} };
+  const initFormData: IInitParams = {
+    ...requestParams,
+    body: parseBody(requestParams.body) || {},
+  };
+
+  if (!Object.keys(initFormData.headers).length) initFormData.headers = { '': '' };
+  if (!Object.keys(initFormData.variables).length) initFormData.variables = { varName: 'testValue' };
 
   return initFormData;
 };
