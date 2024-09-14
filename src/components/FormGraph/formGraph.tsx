@@ -36,6 +36,7 @@ function FormGraph(props: {
     getValues,
     formState: { errors },
     setValue,
+    watch,
   } = useForm<FormGraphType>({
     mode: 'onChange',
     resolver: zodResolver(GraphSchema(t)),
@@ -87,12 +88,14 @@ function FormGraph(props: {
               className="w-full text-center"
               isInvalid={Boolean(errors.endpoint)}
               errorMessage={errors.endpoint?.message}
+              onChange={(event) => setValue('sdl', `${event.target.value}?sdl`)}
             />
           </div>
           <div className="w-full">
             <Input
               type="text"
               label={t('labels.sdl')}
+              value={watch('sdl')}
               {...register('sdl')}
               className="w-full text-center"
               isInvalid={Boolean(errors.sdl)}
