@@ -30,12 +30,10 @@ const GraphQLContent = ({ initParams }: { initParams?: FormGraphDataType }): Rea
     setIsLoading(true);
     const resp = await getGraphData(replacedParams);
     const schemaResp = await getGraphSchema(form.sdl);
+
     setIsLoading(false);
     setResponse(resp);
-
-    if (schemaResp) {
-      setSchema(schemaResp);
-    }
+    setSchema(schemaResp);
   };
 
   return (
