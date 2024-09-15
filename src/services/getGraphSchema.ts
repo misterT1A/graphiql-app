@@ -1,5 +1,3 @@
-// 'use server';
-
 import type { GraphQLSchema } from 'graphql';
 import { getIntrospectionQuery } from 'graphql';
 import { fromIntrospectionQuery } from 'graphql-2-json-schema';
