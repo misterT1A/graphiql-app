@@ -197,7 +197,8 @@
       "headerAdd": "Добавить заголовок",
       "variableAdd": "Добавить переменную",
       "bodyTextTab": "Текст",
-      "queryTab": "Запрос"
+      "queryTab": "Запрос",
+      "pretty": "Форматировать"
     },
     "placeholders": {
       "bodyText": "Поддерживается только обычный текст"
@@ -209,10 +210,13 @@
     }
   },
   "RestClient": {
-    "Title": "Rest клиент"
+    "Title": "Rest клиент",
+    "ResponseTitle": "Ответ"
   },
   "GraphClient": {
-    "Title": "GraphQL клиент"
+    "Title": "GraphQL клиент",
+    "RespBtn": "Ответ",
+    "DocBtn": "Документация"
   },
   "History": {
     "heading": "История запросов",

@@ -37,6 +37,7 @@ function FormGraph(props: {
     getValues,
     formState: { errors },
     setValue,
+    watch,
   } = useForm<FormGraphType>({
     mode: 'onChange',
     resolver: zodResolver(GraphSchema(t)),
@@ -88,12 +89,14 @@ function FormGraph(props: {
               className="w-full text-center"
               isInvalid={Boolean(errors.endpoint)}
               errorMessage={errors.endpoint?.message}
+              onChange={(event) => setValue('sdl', `${event.target.value}?sdl`)}
             />
           </div>
           <div className="w-full">
             <Input
               type="text"
               label={t('labels.sdl')}
+              value={watch('sdl')}
               {...register('sdl')}
               className="w-full text-center"
               isInvalid={Boolean(errors.sdl)}
@@ -103,7 +106,12 @@ function FormGraph(props: {
           <SubmitButton t={t} register={register} errors={errors} />
         </div>
 
-        <Tabs aria-label="Options">
+        <Tabs
+          aria-label="Options"
+          classNames={{
+            panel: 'px-0',
+          }}
+        >
           <Tab
             key="headersTab"
             title={
@@ -186,7 +194,7 @@ function FormGraph(props: {
               />
             </div>
             <Button className="w-full" onClick={() => setBodyData(prettifyGraphQLQuery(queryData))}>
-              Prettify
+              {t('buttons.pretty')}
             </Button>
           </Tab>
         </Tabs>

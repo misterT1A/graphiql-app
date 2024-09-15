@@ -25,7 +25,7 @@ const AuthenticationButtons = (): ReactElement => {
   return (
     <>
       {user ? (
-        <Button color="primary" variant="flat" onPress={handleSignOut}>
+        <Button color="warning" variant="flat" onPress={handleSignOut}>
           {t('buttons.signOut')}
         </Button>
       ) : (

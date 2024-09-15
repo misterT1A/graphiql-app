@@ -32,8 +32,8 @@ const Home = (): ReactElement => {
           )}
         </div>
         <div className="flex flex-col gap-4">
-          <p className="px-2 min-[440px]:px-4 text-base">{t('appInfo')}</p>
-          <p className="px-2 min-[440px]:px-4 text-base">{t('courseInfo')}</p>
+          <p className="px-2 min-[440px]:px-4 text-base text-justify">{t('appInfo')}</p>
+          <p className="px-2 min-[440px]:px-4 text-base text-justify">{t('courseInfo')}</p>
         </div>
         <h2 className="text-3xl text-center mb-2">{t('developers')}</h2>
         <div className="flex gap-[20px] justify-center">

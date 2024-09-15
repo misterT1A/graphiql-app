@@ -6,9 +6,12 @@ import type { IHistoryID } from '@/types/historyServiceTypes';
 import type { IPageProps } from '@/types/restFullTypes';
 import { decodingFromBase64Graph } from '@/utils/decodingFromBase64';
 
-const initializeData = ({ params, searchParams }: IPageProps): IFormGraph | IHistoryID | undefined => {
+const initializeData = ({
+  params,
+  searchParams,
+}: IPageProps): IFormGraph | IHistoryID | { headers: object; variables: object } => {
   if (!params.slug && !Object.keys(searchParams).length) {
-    return undefined;
+    return { headers: { '': '' }, variables: { var_name: 'test_value' } };
   }
 
   const historyID = params.slug?.find((str) => str.startsWith('history_'));
@@ -19,7 +22,9 @@ const initializeData = ({ params, searchParams }: IPageProps): IFormGraph | IHis
 };
 
 const Page = ({ params, searchParams }: IPageProps): ReactElement => {
-  const initData = initializeData({ params, searchParams });
+  const initData = initializeData({ params, searchParams }) as IFormGraph;
+
+  if (!Object.keys(initData.variables).length) initData.variables = { var_name: 'test_value' };
 
   return <GraphQLClient initParams={initData} />;
 };

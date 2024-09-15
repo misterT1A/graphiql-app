@@ -197,7 +197,8 @@
       "headerAdd": "Add Header",
       "variableAdd": "Add Variable",
       "bodyTextTab": "Plain Text",
-      "queryTab": "Query"
+      "queryTab": "Query",
+      "pretty": "Prettify"
     },
     "placeholders": {
       "bodyText": "Plain text supports only"
@@ -209,10 +210,13 @@
     }
   },
   "RestClient": {
-    "Title": "Rest client"
+    "Title": "Rest client",
+    "ResponseTitle": "Response"
   },
   "GraphClient": {
-    "Title": "GraphQL client"
+    "Title": "GraphQL client",
+    "RespBtn": "Response",
+    "DocBtn": "Documentation"
   },
   "History": {
     "heading": "History requests",
