@@ -3,8 +3,4 @@
 @import 'tailwindcss/utilities';
 @import '~react-toastify/dist/ReactToastify.min.css';
 @import 'loader.css';
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
-body {
-  font-family: 'Inter', sans-serif;
-}
+@import 'font.css';
