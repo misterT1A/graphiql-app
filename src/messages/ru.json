@@ -191,7 +191,8 @@
       "headerAdd": "Добавить заголовок",
       "variableAdd": "Добавить переменную",
       "bodyTextTab": "Текст",
-      "queryTab": "Запрос"
+      "queryTab": "Запрос",
+      "pretty": "Форматировать"
     },
     "placeholders": {
       "bodyText": "Поддерживается только обычный текст"

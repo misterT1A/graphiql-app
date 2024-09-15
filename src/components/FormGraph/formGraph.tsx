@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Chip, Input, Tab, Tabs } from '@nextui-org/react';
+import { Button, Chip, Input, Tab, Tabs } from '@nextui-org/react';
 import { graphql } from 'cm6-graphql';
 import type { GraphQLSchema } from 'graphql';
 import { useTranslations } from 'next-intl';
@@ -189,6 +189,9 @@ function FormGraph(props: {
                 }
               />
             </div>
+            <Button className="w-full" onClick={() => setBodyData(prettifyGraphQLQuery(queryData))}>
+              {t('buttons.pretty')}
+            </Button>
           </Tab>
         </Tabs>
       </form>

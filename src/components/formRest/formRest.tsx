@@ -2,7 +2,7 @@
 
 import { json } from '@codemirror/lang-json';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Chip, Input, Tab, Tabs, Textarea } from '@nextui-org/react';
+import { Button, Chip, Input, Tab, Tabs, Textarea } from '@nextui-org/react';
 import { useTranslations } from 'next-intl';
 import type { SetStateAction } from 'react';
 import { useEffect, useState, type ReactNode } from 'react';
@@ -212,6 +212,7 @@ function FormRest(props: {
                     ext={[json()]}
                   />
                 </div>
+                <Button onClick={() => setBodyData(codePrettify(bodyJSONData as string))}>{t('buttons.pretty')}</Button>
               </Tab>
               <Tab
                 key="bodyText"

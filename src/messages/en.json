@@ -191,7 +191,8 @@
       "headerAdd": "Add Header",
       "variableAdd": "Add Variable",
       "bodyTextTab": "Plain Text",
-      "queryTab": "Query"
+      "queryTab": "Query",
+      "pretty": "Prettify"
     },
     "placeholders": {
       "bodyText": "Plain text supports only"
