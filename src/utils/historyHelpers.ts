@@ -15,7 +15,7 @@ const getHistoryFromLS = (userName: string): IHistoryRequest[] => {
   return allhistory;
 };
 
-const geHistoryInitParamsRest = (
+const getHistoryInitParamsRest = (
   initParams: IInitParams | IHistoryID | undefined,
   userName: string,
 ): IInitParams | undefined => {
@@ -43,7 +43,7 @@ const geHistoryInitParamsRest = (
   return initParams as IInitParams;
 };
 
-const geHistoryInitParamsGraph = (
+const getHistoryInitParamsGraph = (
   initParams: FormGraphDataType | IHistoryID | undefined,
   userName: string,
 ): FormGraphDataType | undefined => {
@@ -79,4 +79,4 @@ const addQuotesBody = (value: string): string => {
   return value?.replace(/({{.*?}}):/g, '"$1":');
 };
 
-export { getHistoryFromLS, geHistoryInitParamsRest, geHistoryInitParamsGraph, removeQuotesBody, addQuotesBody };
+export { getHistoryFromLS, getHistoryInitParamsRest, getHistoryInitParamsGraph, removeQuotesBody, addQuotesBody };

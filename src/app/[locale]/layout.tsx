@@ -1,6 +1,5 @@
 import '@/styles/globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { getMessages } from 'next-intl/server';
 import type { ReactElement } from 'react';
 
@@ -16,8 +15,6 @@ export function generateStaticParams(): {
 }[] {
   return locales.map((locale) => ({ locale }));
 }
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'App',
@@ -36,7 +33,7 @@ const RootLayout = async ({
 
   return (
     <html lang={locale} suppressHydrationWarning={true}>
-      <body className={inter.className}>
+      <body>
         <Providers locale={locale} messages={messages} user={user}>
           <div className="min-h-screen flex flex-col">
             <Header />
