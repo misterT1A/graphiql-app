@@ -119,7 +119,7 @@ function FormRest(props: {
         <Tabs
           aria-label="Options"
           classNames={{
-            panel: 'p-0',
+            panel: 'px-0',
           }}
         >
           <Tab
@@ -197,7 +197,7 @@ function FormRest(props: {
               defaultSelectedKey={selectedBody}
               color="success"
               classNames={{
-                panel: 'p-0',
+                panel: 'px-0',
               }}
             >
               <Tab key="bodyJSON" title="JSON" className="flex flex-col gap-2 w-full">
@@ -213,7 +213,7 @@ function FormRest(props: {
                     ext={[json()]}
                   />
                 </div>
-                <Button onClick={() => setBodyData(codePrettify(bodyJSONData as string))}>Prettify</Button>
+                <Button onClick={() => setBodyData(codePrettify(bodyJSONData as string))}>{t('buttons.pretty')}</Button>
               </Tab>
               <Tab
                 key="bodyText"

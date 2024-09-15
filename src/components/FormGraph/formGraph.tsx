@@ -106,7 +106,12 @@ function FormGraph(props: {
           <SubmitButton t={t} register={register} errors={errors} />
         </div>
 
-        <Tabs aria-label="Options">
+        <Tabs
+          aria-label="Options"
+          classNames={{
+            panel: 'px-0',
+          }}
+        >
           <Tab
             key="headersTab"
             title={
@@ -189,7 +194,7 @@ function FormGraph(props: {
               />
             </div>
             <Button className="w-full" onClick={() => setBodyData(prettifyGraphQLQuery(queryData))}>
-              Prettify
+              {t('buttons.pretty')}
             </Button>
           </Tab>
         </Tabs>
