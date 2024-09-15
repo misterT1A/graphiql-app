@@ -43,7 +43,7 @@ function FormGraph(props: {
     resolver: zodResolver(GraphSchema(t)),
     defaultValues: {
       endpoint: props.inputData?.endpoint || '',
-      sdl: props.inputData?.sdl || '',
+      sdl: props.inputData?.sdl || (props.inputData?.endpoint && `${props.inputData?.endpoint}?sdl`) || '',
       headers: InputsObjectToArray(props.inputData, 'headers'),
       variables: InputsObjectToArray(props.inputData, 'variables'),
     },
