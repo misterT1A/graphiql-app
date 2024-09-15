@@ -16,6 +16,7 @@ import InputsArray from '@/ui/InputsArray/InputsArray';
 import SelectInput from '@/ui/SelectInput/SelectInput';
 import SubmitButton from '@/ui/SubmitButton/SubmitButton';
 import { codeMirrorParser } from '@/utils/codeMirrorParser';
+import { codePrettify } from '@/utils/codePrettify';
 import { fieldsCounter } from '@/utils/fieldsCounter';
 import { removeQuotesBody } from '@/utils/historyHelpers';
 import { InputsArrayToObject } from '@/utils/InputsArrayToObject';

@@ -30,6 +30,10 @@
   "NotFound": {
     "message": "The page you were looking for doesn't exist."
   },
+  "Error": {
+    "message": "Something went wrong!",
+    "button": "To main page"
+  },
   "Auth": {
     "signUpForm": {
       "heading": "Sign Up",
@@ -204,10 +208,13 @@
     }
   },
   "RestClient": {
-    "Title": "Rest client"
+    "Title": "Rest client",
+    "ResponseTitle": "Response"
   },
   "GraphClient": {
-    "Title": "GraphQL client"
+    "Title": "GraphQL client",
+    "RespBtn": "Response",
+    "DocBtn": "Documentation"
   },
   "History": {
     "heading": "History requests",
