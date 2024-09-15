@@ -35,6 +35,8 @@
     "button": "To main page"
   },
   "Auth": {
+    "sessionExpired": "Your session has expired.",
+    "signedOut": "You have signed out.",
     "signUpForm": {
       "heading": "Sign Up",
       "username": "Username",

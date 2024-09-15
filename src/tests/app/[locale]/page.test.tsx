@@ -7,6 +7,15 @@ import type { User } from '@/context/AuthContext';
 import { AuthProvider } from '@/context/AuthProvider';
 import messages from '@/messages/en.json';
 
+jest.mock('@/navigation', () => ({
+  useRouterIntl() {
+    return {
+      replace: jest.fn(),
+      refresh: jest.fn(),
+    };
+  },
+}));
+
 describe('Home', () => {
   const user: User = {
     displayName: 'Username',

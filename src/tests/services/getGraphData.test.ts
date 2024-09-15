@@ -1,6 +1,8 @@
 import getGraphData from '@/services/getGraphData';
 import type { IFormGraphEncrypt } from '@/types/graphTypes';
 
+jest.mock('@/utils/redirectIfNotAuthenticated', () => ({ redirectIfNotAuthenticated: jest.fn() }));
+
 describe('getRestfullData', () => {
   const requestParams: IFormGraphEncrypt = {
     endpoint: 'test',

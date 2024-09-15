@@ -35,6 +35,8 @@
     "button": "На главную страницу"
   },
   "Auth": {
+    "sessionExpired": "Ваша сессия истекла.",
+    "signedOut": "Вы вышли из системы.",
     "signUpForm": {
       "heading": "Регистрация",
       "username": "Имя пользователя",

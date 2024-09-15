@@ -3,8 +3,11 @@
 import type { IFormGraphEncrypt } from '@/types/graphTypes';
 import type { IErrorObj } from '@/types/restFullTypes';
 import { InputsArrayToObject } from '@/utils/InputsArrayToObject';
+import { redirectIfNotAuthenticated } from '@/utils/redirectIfNotAuthenticated';
 
 const getGraphData = async (requestParams: IFormGraphEncrypt): Promise<Response | IErrorObj> => {
+  await redirectIfNotAuthenticated();
+
   const payloadObj = {
     method: 'POST',
     headers: InputsArrayToObject(requestParams.headers),

@@ -1,6 +1,8 @@
 import getRestfullData from '@/services/getRestfullData';
 import type { IRequestParams } from '@/types/restFullTypes';
 
+jest.mock('@/utils/redirectIfNotAuthenticated', () => ({ redirectIfNotAuthenticated: jest.fn() }));
+
 describe('getRestfullData', () => {
   const requestParams: IRequestParams = {
     method: 'POST',
