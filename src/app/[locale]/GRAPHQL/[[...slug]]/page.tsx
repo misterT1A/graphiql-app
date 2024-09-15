@@ -24,7 +24,7 @@ const initializeData = ({
 const Page = ({ params, searchParams }: IPageProps): ReactElement => {
   const initData = initializeData({ params, searchParams }) as IFormGraph;
 
-  if (!Object.keys(initData.variables).length) initData.variables = { var_name: 'test_value' };
+  if (!Object.keys(initData?.variables || {}).length) initData.variables = { var_name: 'test_value' };
 
   return <GraphQLClient initParams={initData} />;
 };

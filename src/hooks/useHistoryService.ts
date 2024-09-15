@@ -1,22 +1,25 @@
 import { useEffect, useState } from 'react';
 
 import { LSHistoryName } from '@/constants/constants';
+import { useAuth } from '@/context/AuthContext';
 import type { IFormGraphHistory } from '@/types/historyServiceTypes';
 import { type IFormParams, type IHistoryRequest, type IReturnType } from '@/types/historyServiceTypes';
 import { replaceVariables } from '@/utils/replaceVariables';
 
 const useHistoryService = (): IReturnType => {
+  const { user } = useAuth();
+  const historyName = LSHistoryName + '_' + user?.displayName;
   const [requests, setRequests] = useState<IHistoryRequest[]>(() => {
     if (typeof window === 'undefined') {
       return [];
     }
-    const allhistory = JSON.parse(window.localStorage.getItem(LSHistoryName) || '[]') || [];
+    const allhistory = JSON.parse(window.localStorage.getItem(historyName) || '[]') || [];
     return allhistory;
   });
 
   useEffect(() => {
-    window.localStorage.setItem(LSHistoryName, JSON.stringify(requests));
-  }, [requests]);
+    window.localStorage.setItem(historyName, JSON.stringify(requests));
+  }, [requests, historyName]);
 
   const setHistoryRest = (form: IFormParams, method: string): void => {
     const url = window.location.href;

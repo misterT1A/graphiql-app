@@ -6,19 +6,23 @@ import type { FormGraphDataType } from '@/types/types';
 
 import parseBody from './parseBody';
 
-const getHistoryFromLS = (): IHistoryRequest[] => {
+const getHistoryFromLS = (userName: string): IHistoryRequest[] => {
   if (typeof window === 'undefined') {
     return [];
   }
-  const allhistory = JSON.parse(window.localStorage.getItem(LSHistoryName) || '[]') || [];
+  const historyName = LSHistoryName + '_' + userName;
+  const allhistory = JSON.parse(window.localStorage.getItem(historyName) || '[]') || [];
   return allhistory;
 };
 
-const geHistoryInitParamsRest = (initParams: IInitParams | IHistoryID | undefined): IInitParams | undefined => {
+const geHistoryInitParamsRest = (
+  initParams: IInitParams | IHistoryID | undefined,
+  userName: string,
+): IInitParams | undefined => {
   const hasHistory = instanceOfHistory(initParams || {});
   let historyParams: IInitParams | undefined = undefined;
   if (hasHistory) {
-    const historyItem = getHistoryFromLS()?.find((item) => item.id === (initParams as IHistoryID).id);
+    const historyItem = getHistoryFromLS(userName)?.find((item) => item.id === (initParams as IHistoryID).id);
     historyParams = {
       endpoint: historyItem?.endpoint || '',
       headers: historyItem?.headers || {},
@@ -26,7 +30,12 @@ const geHistoryInitParamsRest = (initParams: IInitParams | IHistoryID | undefine
       method: historyItem?.method || '',
       body: parseBody(historyItem?.body || { type: 'json', value: '' }) || {},
     };
-    setTimeout(() => window.history.pushState(null, '', historyItem?.href), 50);
+
+    setTimeout(() => {
+      if (window.location.href !== historyItem?.href) {
+        window.history.pushState(null, '', historyItem?.href);
+      }
+    }, 50);
 
     return historyParams;
   }
@@ -36,11 +45,12 @@ const geHistoryInitParamsRest = (initParams: IInitParams | IHistoryID | undefine
 
 const geHistoryInitParamsGraph = (
   initParams: FormGraphDataType | IHistoryID | undefined,
+  userName: string,
 ): FormGraphDataType | undefined => {
   const hasHistory = instanceOfHistory(initParams || {});
   let historyParams: FormGraphDataType | undefined = undefined;
   if (hasHistory) {
-    const historyItem = getHistoryFromLS()?.find((item) => item.id === (initParams as IHistoryID).id);
+    const historyItem = getHistoryFromLS(userName)?.find((item) => item.id === (initParams as IHistoryID).id);
     historyParams = {
       endpoint: historyItem?.endpoint || '',
       headers: historyItem?.headers || {},
@@ -49,7 +59,11 @@ const geHistoryInitParamsGraph = (
       query: historyItem?.query || '',
       schema: historyItem?.schema || {},
     };
-    setTimeout(() => window.history.pushState(null, '', historyItem?.href), 50);
+    setTimeout(() => {
+      if (window.location.href !== historyItem?.href) {
+        window.history.pushState(null, '', historyItem?.href);
+      }
+    }, 50);
 
     return historyParams;
   }

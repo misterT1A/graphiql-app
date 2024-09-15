@@ -64,7 +64,6 @@ const replaceVariablesSybmitRest = (params: IFormParams): IRequestParams => {
 
 const replaceVariablesGraph = (params: IFormGraphEncrypt): IFormGraphEncrypt => {
   const variables = InputsArrayToObject(params.variables);
-
   return {
     ...params,
     query: replaceStringGraph(params.query, variables),
