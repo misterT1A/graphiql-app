@@ -133,6 +133,7 @@ function FormGraph(props: {
               errors={errors}
               control={control}
               name="headers"
+              encrypt={encryptGraph}
             />
           </Tab>
           <Tab
