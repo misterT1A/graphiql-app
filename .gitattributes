@@ -1,0 +1,13 @@
+* text eol=crlf
+
+# ===
+# Binary Files (don't diff, don't fix line endings)
+# ===
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.tiff binary

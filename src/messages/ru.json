@@ -1,0 +1,227 @@
+{
+  "Home": {
+    "welcome": "Добро пожаловать!",
+    "welcomeUsername": "С возвращением, {username}!",
+    "appInfo": "Это приложение позволяет делать авторизованным пользователям делать REST и GraphQL запросы, а также перемещаться по истории запросов. Написано с использованием Next.js, аутентификация через Firebase.",
+    "courseInfo": "Приложение разработано в рамках онлайн курса RS School React 2024 Q3. Этот курс дает базовые знания по React и фреймворкам Next.js, Remix, доступен для всех, кто обладает начальными знаниями веб-разработки, абсолютно бесплатно.",
+    "developers": "Разработчики",
+    "team": {
+      "developer1": {
+        "name": "Артем Тараскин",
+        "description": "Я окончил Технический университет по специальности \"Судостроение и океанотехника\". Изучаю фронтенд с начала 2023 года."
+      },
+      "developer2": {
+        "name": "Павел Терно",
+        "description": "Я закончил Санкт-Петербургский университет по специальности \"Химия\". Однако в середине обучения я понял, что практическая химия — это скучное направление для меня, и в 2021 году начал обучаться на должность фронтенд-разработчика. В свободное время я веду YouTube-канал и играю на барабанах и гитаре."
+      },
+      "developer3": {
+        "name": "Рустам Абдрахманов",
+        "description": "Компьютеры и все, что с ними связано, увлекали меня с детства. Имея степень по математике, я выбрал карьеру системного администратора. Игра на гитаре — мое хобби. Я стремлюсь к совершенству во всех своих начинаниях, доводя каждое дело до конца."
+      }
+    },
+    "buttons": {
+      "signUp": "Регистрация",
+      "signIn": "Войти",
+      "restFullClient": "Rest Клиент",
+      "graphiQlClient": "GraphiQL Клиент",
+      "history": "История"
+    }
+  },
+  "NotFound": {
+    "message": "Запрошенная страница не найдена."
+  },
+  "Error": {
+    "message": "Что-то пошло не так!",
+    "button": "На главную страницу"
+  },
+  "Auth": {
+    "sessionExpired": "Ваша сессия истекла.",
+    "signedOut": "Вы вышли из системы.",
+    "signUpForm": {
+      "heading": "Регистрация",
+      "username": "Имя пользователя",
+      "password": "Пароль",
+      "confirm": "Подтвердите пароль",
+      "submit": "Зарегистрироваться",
+      "signUpSuccess": "Ваш аккаунт успешно создан."
+    },
+    "signInForm": {
+      "heading": "Вход",
+      "password": "Пароль",
+      "submit": "Войти",
+      "signInSuccess": "Вход выполнен успешно."
+    },
+    "buttons": {
+      "signUp": "Регистрация",
+      "signIn": "Войти",
+      "signOut": "Выйти"
+    },
+    "validation": {
+      "usernameRequired": "Введите имя пользователя.",
+      "invalidEmail": "Некорректный почтовый адрес.",
+      "invalidPasswordLength": "Пароль должен состоять минимум из {length} символов.",
+      "mustContainLetter": "Пароль должен содержать как минимум 1 букву.",
+      "mustContainDigit": "Пароль должен содержать как минимум 1 цифру.",
+      "mustContainSpecialCharacter": "Пароль должен содержат как минимум 1 специальный символ.",
+      "mismatchPasswords": "Пароли не совпадают."
+    },
+    "firebaseAuthErrors": {
+      "auth/admin-restricted-operation": "Эта операция доступна только администраторам.",
+      "auth/argument-error": "Предоставлены некорректные аргументы.",
+      "auth/app-not-authorized": "Это приложение не авторизовано для использования Firebase.",
+      "auth/app-not-installed": "Это приложение не установлено на вашем устройстве.",
+      "auth/captcha-check-failed": "Проверка Google reCAPTCHA не пройдена.",
+      "auth/code-expired": "Предоставленный код истек.",
+      "auth/cordova-not-ready": "Cordova не готов.",
+      "auth/cors-unsupported": "Ваш браузер не поддерживает CORS.",
+      "auth/credential-already-in-use": "Эти учетные данные уже связаны с другим аккаунтом.",
+      "auth/custom-token-mismatch": "Токен и API-ключ не совпадают.",
+      "auth/requires-recent-login": "Пожалуйста, выполните вход заново, так как ваш предыдущий вход был слишком давно.",
+      "auth/dependent-sdk-initialized-before-auth": "Инициализируйте Firebase Auth SDK перед другими зависимыми SDK.",
+      "auth/dynamic-link-not-activated": "Динамические ссылки не активированы.",
+      "auth/email-change-needs-verification": "Пожалуйста, подтвердите ваш новый email.",
+      "auth/email-already-in-use": "Этот адрес электронной почты уже используется.",
+      "auth/emulator-config-failed": "Ошибка конфигурации эмулятора.",
+      "auth/expired-action-code": "Код действия истек.",
+      "auth/cancelled-popup-request": "Запрос на всплывающее окно отменен.",
+      "auth/internal-error": "Произошла внутренняя ошибка.",
+      "auth/invalid-api-key": "Предоставленный API-ключ недействителен.",
+      "auth/invalid-app-credential": "Учетные данные приложения недействительны.",
+      "auth/invalid-app-id": "ID приложения недействителен.",
+      "auth/invalid-user-token": "Недействительный пользовательский токен.",
+      "auth/invalid-auth-event": "Недействительное событие аутентификации.",
+      "auth/invalid-cert-hash": "Недействительный хеш сертификата.",
+      "auth/invalid-verification-code": "Предоставленный код подтверждения недействителен.",
+      "auth/invalid-continue-uri": "Недействительный URL для продолжения.",
+      "auth/invalid-cordova-configuration": "Некорректная конфигурация Cordova.",
+      "auth/invalid-custom-token": "Предоставленный кастомный токен недействителен.",
+      "auth/invalid-dynamic-link-domain": "Домен динамической ссылки недействителен.",
+      "auth/invalid-email": "Недействительный адрес электронной почты.",
+      "auth/invalid-emulator-scheme": "Недействительная схема эмулятора.",
+      "auth/invalid-credential": "Недействительный адрес электронной почты или пароль.",
+      "auth/invalid-message-payload": "Недействительное содержимое сообщения.",
+      "auth/invalid-multi-factor-session": "Недействительная сессия многофакторной аутентификации.",
+      "auth/invalid-oauth-client-id": "Недействительный OAuth клиент ID.",
+      "auth/invalid-oauth-provider": "Недействительный провайдер OAuth.",
+      "auth/invalid-action-code": "Недействительный код для сброса пароля.",
+      "auth/unauthorized-domain": "Неавторизованный домен.",
+      "auth/wrong-password": "Неправильный пароль.",
+      "auth/invalid-persistence-type": "Недействительный тип сохранения.",
+      "auth/invalid-phone-number": "Недействительный номер телефона.",
+      "auth/invalid-provider-id": "Недействительный ID провайдера.",
+      "auth/invalid-recipient-email": "Недействительный email получателя.",
+      "auth/invalid-sender": "Недействительный отправитель.",
+      "auth/invalid-verification-id": "Недействительный ID подтверждения.",
+      "auth/invalid-tenant-id": "Недействительный ID арендатора.",
+      "auth/multi-factor-info-not-found": "Информация о многофакторной аутентификации не найдена.",
+      "auth/multi-factor-auth-required": "Требуется многофакторная аутентификация.",
+      "auth/missing-android-pkg-name": "Отсутствует имя пакета Android.",
+      "auth/missing-app-credential": "Отсутствуют учетные данные приложения.",
+      "auth/auth-domain-config-required": "Необходимо настроить домен аутентификации.",
+      "auth/missing-verification-code": "Отсутствует код подтверждения.",
+      "auth/missing-continue-uri": "Отсутствует URL для продолжения.",
+      "auth/missing-iframe-start": "Отсутствует начало iframe.",
+      "auth/missing-ios-bundle-id": "Отсутствует идентификатор пакета iOS.",
+      "auth/missing-or-invalid-nonce": "Отсутствует или недействительный nonce.",
+      "auth/missing-multi-factor-info": "Отсутствует информация о многофакторной аутентификации.",
+      "auth/missing-multi-factor-session": "Отсутствует сессия многофакторной аутентификации.",
+      "auth/missing-phone-number": "Отсутствует номер телефона.",
+      "auth/missing-verification-id": "Отсутствует ID подтверждения.",
+      "auth/app-deleted": "Модуль аутентификации был удален.",
+      "auth/account-exists-with-different-credential": "Аккаунт с этим email уже существует с другими учетными данными.",
+      "auth/network-request-failed": "Ошибка сетевого запроса.",
+      "auth/null-user": "На данный момент пользователь не авторизован.",
+      "auth/no-auth-event": "Событие аутентификации отсутствует.",
+      "auth/no-such-provider": "Такого провайдера идентификации нет.",
+      "auth/operation-not-allowed": "Эта операция не разрешена.",
+      "auth/operation-not-supported-in-this-environment": "Операция не поддерживается в вашем окружении.",
+      "auth/popup-blocked": "Всплывающее окно заблокировано браузером.",
+      "auth/popup-closed-by-user": "Всплывающее окно закрыто пользователем.",
+      "auth/provider-already-linked": "Этот провайдер уже привязан к вашему аккаунту.",
+      "auth/quota-exceeded": "Превышена квота.",
+      "auth/redirect-cancelled-by-user": "Переадресация отменена пользователем.",
+      "auth/redirect-operation-pending": "Операция переадресации ожидается.",
+      "auth/rejected-credential": "Учетные данные отклонены.",
+      "auth/second-factor-already-in-use": "Метод двухфакторной аутентификации уже используется.",
+      "auth/maximum-second-factor-count-exceeded": "Превышено максимальное количество методов двухфакторной аутентификации.",
+      "auth/tenant-id-mismatch": "Несоответствие ID арендатора.",
+      "auth/timeout": "Превышено время ожидания.",
+      "auth/user-token-expired": "Токен пользователя истек.",
+      "auth/too-many-requests": "Слишком много попыток. Пожалуйста, повторите позже.",
+      "auth/unauthorized-continue-uri": "Неавторизованный URL для продолжения.",
+      "auth/unsupported-first-factor": "Неподдерживаемый метод первой факторной аутентификации.",
+      "auth/unsupported-persistence-type": "Неподдерживаемый тип сохранения.",
+      "auth/unsupported-tenant-operation": "Неподдерживаемая операция арендатора.",
+      "auth/unverified-email": "Неподтвержденный адрес электронной почты.",
+      "auth/user-cancelled": "Пользователь отменил аутентификацию.",
+      "auth/user-not-found": "Пользователь не найден.",
+      "auth/user-disabled": "Учетная запись пользователя отключена.",
+      "auth/user-mismatch": "Несоответствие пользователя.",
+      "auth/user-signed-out": "Пользователь вышел из системы.",
+      "auth/weak-password": "Пароль слишком слабый.",
+      "auth/web-storage-unsupported": "Ваш браузер не поддерживает веб-хранилище.",
+      "auth/already-initialized": "Firebase Auth уже инициализирован.",
+      "auth/recaptcha-not-enabled": "Google reCAPTCHA не включен.",
+      "auth/missing-recaptcha-token": "Отсутствует токен Google reCAPTCHA.",
+      "auth/invalid-recaptcha-token": "Недействительный токен Google reCAPTCHA.",
+      "auth/invalid-recaptcha-action": "Недействительное действие Google reCAPTCHA.",
+      "auth/missing-client-type": "Отсутствует тип клиента.",
+      "auth/missing-recaptcha-version": "Отсутствует версия Google reCAPTCHA.",
+      "auth/invalid-recaptcha-version": "Недействительная версия Google reCAPTCHA.",
+      "auth/invalid-req-type": "Недействительный тип запроса."
+    }
+  },
+  "Form": {
+    "labels": {
+      "method": "Метод",
+      "endpoint": "URL адрес",
+      "headerKey": "Ключ заголовка",
+      "headerValue": "Значение заголовка",
+      "variableKey": "Ключ переменной",
+      "variableValue": "Значение переменной",
+      "bodyText": "Тело запроса",
+      "sdl": "SDL адрес"
+    },
+    "errors": {
+      "required": "Заполните поле",
+      "method": "Выберите метод",
+      "endpointMin": "Введите URL адрес",
+      "endpointURL": "Введите валидный URL адрес",
+      "body": "Исправьте следующие ошибки:"
+    },
+    "buttons": {
+      "send": "Отправить",
+      "headersTab": "Заголовки",
+      "variablesTab": "Переменные",
+      "bodyTab": "Тело",
+      "headerAdd": "Добавить заголовок",
+      "variableAdd": "Добавить переменную",
+      "bodyTextTab": "Текст",
+      "queryTab": "Запрос",
+      "pretty": "Форматировать"
+    },
+    "placeholders": {
+      "bodyText": "Поддерживается только обычный текст"
+    },
+    "text": {
+      "varsInfoStart": "Чтобы переиспользовать переменные, используйте конструкцию",
+      "restVarsInfoEnd": "в теле запроса и URL адресе",
+      "graphVarsInfoEnd": "в теле запроса"
+    }
+  },
+  "RestClient": {
+    "Title": "Rest клиент",
+    "ResponseTitle": "Ответ"
+  },
+  "GraphClient": {
+    "Title": "GraphQL клиент",
+    "RespBtn": "Ответ",
+    "DocBtn": "Документация"
+  },
+  "History": {
+    "heading": "История запросов",
+    "NoRequests": "Вы не выполнили ни одного запроса. Здесь пусто. Попробуйте:",
+    "RestClient": "Rest Клиент",
+    "GraphiQLClient": "GraphiQL Клиент"
+  }
+}
