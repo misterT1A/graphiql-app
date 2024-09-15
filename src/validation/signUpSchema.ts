@@ -3,8 +3,16 @@ import { z } from 'zod';
 
 import { passwordSchema } from './passwordSchema';
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const signUpSchema = (t: ReturnType<typeof useTranslations<'Auth'>>) =>
+export const signUpSchema = (
+  t: ReturnType<typeof useTranslations<'Auth'>>,
+): z.ZodEffects<
+  z.ZodObject<{
+    username: z.ZodString;
+    email: z.ZodString;
+    password: z.ZodString;
+    confirm: z.ZodString;
+  }>
+> =>
   z
     .object({
       username: z.string().min(1, t('validation.usernameRequired')),

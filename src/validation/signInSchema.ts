@@ -3,8 +3,12 @@ import { z } from 'zod';
 
 import { passwordSchema } from './passwordSchema';
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const signInSchema = (t: ReturnType<typeof useTranslations<'Auth'>>) =>
+export const signInSchema = (
+  t: ReturnType<typeof useTranslations<'Auth'>>,
+): z.ZodObject<{
+  email: z.ZodString;
+  password: z.ZodString;
+}> =>
   z.object({
     email: z
       .string()
