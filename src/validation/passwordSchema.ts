@@ -1,8 +1,7 @@
 import type { useTranslations } from 'next-intl';
 import { z } from 'zod';
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const passwordSchema = (t: ReturnType<typeof useTranslations<'Auth'>>) =>
+export const passwordSchema = (t: ReturnType<typeof useTranslations<'Auth'>>): z.ZodString =>
   z
     .string()
     .min(8, t('validation.invalidPasswordLength', { length: 8 }))
