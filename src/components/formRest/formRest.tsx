@@ -143,6 +143,7 @@ function FormRest(props: {
               errors={errors}
               control={control}
               name="headers"
+              encrypt={encryptRest}
             />
           </Tab>
           <Tab

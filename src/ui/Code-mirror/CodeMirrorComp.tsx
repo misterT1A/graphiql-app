@@ -1,6 +1,5 @@
 'use client';
 
-//
 import { Input } from '@nextui-org/react';
 import { githubLight, githubDark } from '@uiw/codemirror-theme-github';
 import type { Extension } from '@uiw/react-codemirror';

@@ -18,6 +18,7 @@ function InputsArray<T extends FieldValues>(props: {
   errors: FieldErrors<T>;
   control: Control<T>;
   name: ArrayPath<T>;
+  encrypt?: (form: T) => void;
 }): ReactNode {
   const {
     fields: fields,
@@ -76,7 +77,7 @@ function InputsArray<T extends FieldValues>(props: {
                   size="sm"
                   onClick={() => {
                     remove(index);
-                    // encrypt(props.getValues());
+                    if (props.encrypt) props.encrypt(props.getValues());
                   }}
                   data-testid="remove-btn"
                 >
