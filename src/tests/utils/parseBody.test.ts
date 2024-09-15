@@ -1,4 +1,10 @@
+import { notFound } from 'next/navigation';
+
 import parseBody from '@/utils/parseBody';
+
+jest.mock('next/navigation', () => ({
+  notFound: jest.fn(),
+}));
 
 describe('parseBody', () => {
   it('Should return string', () => {
@@ -15,10 +21,11 @@ describe('parseBody', () => {
     expect(result).toStrictEqual({ test: '1' });
   });
 
-  it('Should return error message', () => {
-    const initData: { type: 'json'; value: string } = { type: 'json', value: '{test}' };
-    const result = parseBody(initData);
+  test('Should call notFound when JSON parsing fails', () => {
+    const invalidData: { type: 'json'; value: string } = { type: 'json', value: '{"invalidJson": }' };
 
-    expect(result).toStrictEqual("Error JSON: Expected property name or '}' in JSON at position 1");
+    parseBody(invalidData);
+
+    expect(notFound).toHaveBeenCalled();
   });
 });
