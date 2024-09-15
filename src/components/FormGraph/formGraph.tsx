@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Chip, Input, Tab, Tabs } from '@nextui-org/react';
+import { Button, Chip, Input, Tab, Tabs } from '@nextui-org/react';
 import { graphql } from 'cm6-graphql';
 import type { GraphQLSchema } from 'graphql';
 import { useTranslations } from 'next-intl';
@@ -15,6 +15,7 @@ import type { FormGraphDataType, FormGraphType } from '@/types/types';
 import CodeMirrorComp from '@/ui/Code-mirror/CodeMirrorComp';
 import InputsArray from '@/ui/InputsArray/InputsArray';
 import SubmitButton from '@/ui/SubmitButton/SubmitButton';
+import { prettifyGraphQLQuery } from '@/utils/codePrettify';
 import { fieldsCounter } from '@/utils/fieldsCounter';
 import { InputsArrayToObject } from '@/utils/InputsArrayToObject';
 import { InputsObjectToArray } from '@/utils/InputsObjectToArray';
@@ -36,6 +37,7 @@ function FormGraph(props: {
     getValues,
     formState: { errors },
     setValue,
+    watch,
   } = useForm<FormGraphType>({
     mode: 'onChange',
     resolver: zodResolver(GraphSchema(t)),
@@ -87,12 +89,14 @@ function FormGraph(props: {
               className="w-full text-center"
               isInvalid={Boolean(errors.endpoint)}
               errorMessage={errors.endpoint?.message}
+              onChange={(event) => setValue('sdl', `${event.target.value}?sdl`)}
             />
           </div>
           <div className="w-full">
             <Input
               type="text"
               label={t('labels.sdl')}
+              value={watch('sdl')}
               {...register('sdl')}
               className="w-full text-center"
               isInvalid={Boolean(errors.sdl)}
@@ -172,7 +176,7 @@ function FormGraph(props: {
               <CodeMirrorComp
                 setResponse={setBodyData}
                 size={{ width: '100%', height: '300px' }}
-                initValue={queryData as string}
+                initValue={queryData}
                 t={t}
                 register={register}
                 errors={errors}
@@ -184,6 +188,9 @@ function FormGraph(props: {
                 }
               />
             </div>
+            <Button className="w-full" onClick={() => setBodyData(prettifyGraphQLQuery(queryData))}>
+              Prettify
+            </Button>
           </Tab>
         </Tabs>
       </form>

@@ -1,6 +1,9 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 
 import useHistoryService from '@/hooks/useHistoryService';
+import type { IHistoryRequest } from '@/types/historyServiceTypes';
+import type { IInitParams } from '@/types/restFullTypes';
+import { geHistoryInitParamsRest } from '@/utils/historyHelpers';
 
 const mockLocalStorage: Partial<Storage> = {
   getItem: jest.fn(),
@@ -12,6 +15,33 @@ jest.mock('../../navigation', () => ({
     path: '/en/client',
   }),
 }));
+
+jest.mock('../../utils/parseBody.ts', () => ({
+  __esModule: true,
+  default: jest.fn((): string => 'test'),
+}));
+
+jest.mock('../../utils/historyHelpers', () => {
+  const originalModule = jest.requireActual('../../utils/historyHelpers');
+
+  return {
+    ...originalModule,
+    getHistoryFromLS: jest.fn((): IHistoryRequest[] => [
+      {
+        id: '1',
+        method: 'GET',
+        headers: {},
+        variables: {},
+        endpoint: '/test',
+        href: 'test',
+        hrefHistory: 'test',
+        data: new Date(),
+        replacedEndpoint: 'test',
+        body: { type: 'string', value: '{"key":"value"}' },
+      },
+    ]),
+  };
+});
 
 global.localStorage = mockLocalStorage as Storage;
 
@@ -61,5 +91,19 @@ describe('useHistoryService', () => {
     waitFor(() => {
       expect(mockLocalStorage.setItem).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it('should get init requests params for rest', () => {
+    const historyID = { id: '1' };
+    const ititParams: IInitParams = {
+      endpoint: '/test',
+      headers: {},
+      variables: {},
+      method: 'GraphQL',
+      body: 'test',
+    };
+    const result = geHistoryInitParamsRest(historyID);
+
+    expect(result).toStrictEqual(ititParams);
   });
 });

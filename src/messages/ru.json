@@ -30,6 +30,10 @@
   "NotFound": {
     "message": "Запрошенная страница не найдена."
   },
+  "Error": {
+    "message": "Что-то пошло не так!",
+    "button": "На главную страницу"
+  },
   "Auth": {
     "signUpForm": {
       "heading": "Регистрация",
@@ -203,10 +207,13 @@
     }
   },
   "RestClient": {
-    "Title": "Rest клиент"
+    "Title": "Rest клиент",
+    "ResponseTitle": "Ответ"
   },
   "GraphClient": {
-    "Title": "GraphQL клиент"
+    "Title": "GraphQL клиент",
+    "RespBtn": "Ответ",
+    "DocBtn": "Документация"
   },
   "History": {
     "heading": "История запросов",

@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation';
+
 import type { IFormGraphEncrypt } from '@/types/graphTypes';
 import type { IEncryptParams } from '@/types/restFullTypes';
 
@@ -16,7 +18,11 @@ export const encryptHeadersToBase64 = (headers: { key: string; value: string }[]
 
   headers.forEach(({ key, value }) => {
     if (convertToBase64(key) || value) {
-      queryParams.append(key, encodeURIComponent(value));
+      try {
+        queryParams.append(key, encodeURIComponent(value));
+      } catch {
+        notFound();
+      }
     }
   });
 
