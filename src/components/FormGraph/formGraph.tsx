@@ -76,7 +76,10 @@ function FormGraph(props: {
   return (
     <div className="flex flex-col items-center py-10 px-2 gap-2 md:p-10">
       <form
-        onChange={() => encryptGraph(getValues())}
+        onChange={() => {
+          encryptGraph(getValues());
+          setValue('sdl', `${getValues('endpoint')}?sdl`);
+        }}
         onSubmit={handleSubmit(submit)}
         className="flex flex-col items-center gap-5 w-full sm:w-[70%]"
       >
@@ -89,7 +92,6 @@ function FormGraph(props: {
               className="w-full text-center"
               isInvalid={Boolean(errors.endpoint)}
               errorMessage={errors.endpoint?.message}
-              onChange={(event) => setValue('sdl', `${event.target.value}?sdl`)}
             />
           </div>
           <div className="w-full">

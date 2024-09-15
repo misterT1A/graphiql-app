@@ -51,3 +51,11 @@ export const buildURLGraph = (params: IFormGraphEncrypt): string => {
   const headers = params.headers && encryptHeadersToBase64(params.headers);
   return `${params.startUrl}${endopints}${bodyJSON}${headers}`;
 };
+
+export const checkEmptyGraphQuery = (value: string): string => {
+  try {
+    return JSON.stringify(JSON.parse(value)) === '{}' ? '' : value;
+  } catch {
+    return value;
+  }
+};

@@ -2,7 +2,7 @@ import { usePathname } from 'next/navigation';
 
 import type { IFormGraphEncrypt } from '@/types/graphTypes';
 import type { FormRestType } from '@/types/types';
-import { buildURLGraph, buildURLRest } from '@/utils/encryptHelpers';
+import { buildURLGraph, buildURLRest, checkEmptyGraphQuery } from '@/utils/encryptHelpers';
 import { replaceVariablesGraph, replaceVariablesRest } from '@/utils/replaceVariables';
 
 interface IReturnType {
@@ -32,6 +32,7 @@ const useEncryption = (): IReturnType => {
     const replacedForm = replaceVariablesGraph(form);
     const data = {
       ...replacedForm,
+      query: checkEmptyGraphQuery(replacedForm.query),
       startUrl: startUrlGraph,
     };
 

@@ -102,8 +102,10 @@ describe('useHistoryService', () => {
       method: 'GraphQL',
       body: 'test',
     };
-    const result = geHistoryInitParamsRest(historyID);
 
-    expect(result).toStrictEqual(ititParams);
+    const result = geHistoryInitParamsRest(historyID, 'test');
+    waitFor(() => {
+      expect(result).toStrictEqual(ititParams);
+    });
   });
 });
