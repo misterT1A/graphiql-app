@@ -207,10 +207,13 @@
     }
   },
   "RestClient": {
-    "Title": "Rest client"
+    "Title": "Rest client",
+    "ResponseTitle": "Response"
   },
   "GraphClient": {
-    "Title": "GraphQL client"
+    "Title": "GraphQL client",
+    "RespBtn": "Response",
+    "DocBtn": "Documentation"
   },
   "History": {
     "heading": "History requests",
