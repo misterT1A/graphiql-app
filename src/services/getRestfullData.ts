@@ -1,8 +1,11 @@
 'use server';
 
 import type { IErrorObj, IRequestParams } from '@/types/restFullTypes';
+import { redirectIfNotAuthenticated } from '@/utils/redirectIfNotAuthenticated';
 
 const getRestfullData = async (requestParams: IRequestParams): Promise<Response | IErrorObj> => {
+  await redirectIfNotAuthenticated();
+
   const payloadObj = { method: requestParams.method, headers: requestParams.headers };
   if (requestParams.method !== 'GET') Object.assign(payloadObj, { body: requestParams.body });
 

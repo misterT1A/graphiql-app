@@ -1,6 +1,11 @@
 'use client';
 
-import * as React from 'react';
+import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { toast } from 'react-toastify';
+
+import { useRouterIntl } from '@/navigation';
 
 import { AuthContext, type User } from './AuthContext';
 
@@ -10,5 +15,28 @@ export interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FunctionComponent<AuthProviderProps> = ({ user, children }) => {
-  return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>;
+  const t = useTranslations('Auth');
+  const [cookies] = useCookies(['AuthToken']);
+  const [authToken, setAuthToken] = useState<string | undefined>(cookies.AuthToken);
+  const [isSignOut, setIsSignOut] = useState<boolean>(false);
+  const router = useRouterIntl();
+
+  useEffect(() => {
+    if (cookies.AuthToken === authToken) {
+      return;
+    }
+
+    if (!cookies.AuthToken) {
+      if (isSignOut) {
+        setIsSignOut(false);
+      } else {
+        toast.error(t('sessionExpired'));
+      }
+    }
+
+    setAuthToken(cookies.AuthToken);
+    router.refresh();
+  }, [t, cookies, authToken, router, isSignOut]);
+
+  return <AuthContext.Provider value={{ user, isSignOut, setIsSignOut }}>{children}</AuthContext.Provider>;
 };

@@ -1,10 +1,10 @@
-import { type NextRequest, NextResponse } from 'next/server';
-import { authMiddleware } from 'next-firebase-auth-edge';
+import type { NextResponse, NextRequest } from 'next/server';
+import { authMiddleware, redirectToHome } from 'next-firebase-auth-edge';
 import createMiddleware from 'next-intl/middleware';
 
 import { defaultLocale, locales } from './i18n';
 
-const privatePages = ['/GET/.*', '/POST/.*', '/PATCH/.*', '/DELETE/.*', '/PUT/.*', '/GRAPHQL/.*', '/history'];
+const privatePages = ['/GET.*', '/POST.*', '/PATCH.*', '/DELETE.*', '/PUT.*', '/GRAPHQL.*', '/history'];
 const redirectPages = ['/sign-up', '/sign-in'];
 
 const intlMiddleware = createMiddleware({
@@ -28,7 +28,6 @@ export default async function middleware(request: NextRequest): Promise<NextResp
     cookieSignatureKeys: [process.env.COOKIE_SIGNATURE_KEYS || ''],
     cookieSerializeOptions: {
       path: '/',
-      httpOnly: true,
       secure: false,
       sameSite: 'lax' as const,
       maxAge: 60 * 60,
@@ -38,18 +37,17 @@ export default async function middleware(request: NextRequest): Promise<NextResp
       clientEmail: process.env.SERVICE_ACCOUNT_CLIENT_EMAIL || '',
       privateKey: (process.env.SERVICE_ACCOUNT_PRIVATE_KEY || '').replace(/\\n/g, '\n'),
     },
-    checkRevoked: true,
     cookieName: process.env.COOKIE_NAME || 'AuthToken',
     handleValidToken: async () => {
       if (isPagesMatch(request.nextUrl.pathname, redirectPages)) {
-        return NextResponse.redirect(new URL('/', request.url));
+        return redirectToHome(request);
       }
 
       return intlMiddleware(request);
     },
     handleInvalidToken: async () => {
       if (isPagesMatch(request.nextUrl.pathname, privatePages)) {
-        return NextResponse.redirect(new URL('/', request.url));
+        return redirectToHome(request);
       }
 
       return intlMiddleware(request);
@@ -61,5 +59,10 @@ export default async function middleware(request: NextRequest): Promise<NextResp
 }
 
 export const config = {
-  matcher: ['/((?!_next|images|icon.ico).*)'],
+  matcher: [
+    {
+      source: '/((?!_next|images|icon.ico).*)',
+      missing: [{ type: 'header', key: 'next-action' }],
+    },
+  ],
 };
