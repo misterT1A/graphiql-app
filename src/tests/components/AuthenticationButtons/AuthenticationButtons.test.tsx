@@ -27,11 +27,11 @@ describe('AuthenticationButtons', () => {
 
   const renderComponent = (user: Partial<User> | null = null) => {
     render(
-      <AuthProvider user={user as User}>
-        <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
+      <NextIntlClientProvider locale="en" messages={messages} timeZone="UTC">
+        <AuthProvider user={user as User}>
           <AuthenticationButtons />
-        </NextIntlClientProvider>
-      </AuthProvider>,
+        </AuthProvider>
+      </NextIntlClientProvider>,
     );
   };
 
