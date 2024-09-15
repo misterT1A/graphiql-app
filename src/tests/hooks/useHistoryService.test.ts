@@ -3,7 +3,7 @@ import { act, renderHook, waitFor } from '@testing-library/react';
 import useHistoryService from '@/hooks/useHistoryService';
 import type { IHistoryRequest } from '@/types/historyServiceTypes';
 import type { IInitParams } from '@/types/restFullTypes';
-import { geHistoryInitParamsRest } from '@/utils/historyHelpers';
+import { getHistoryInitParamsRest } from '@/utils/historyHelpers';
 
 const mockLocalStorage: Partial<Storage> = {
   getItem: jest.fn(),
@@ -103,7 +103,7 @@ describe('useHistoryService', () => {
       body: 'test',
     };
 
-    const result = geHistoryInitParamsRest(historyID, 'test');
+    const result = getHistoryInitParamsRest(historyID, 'test');
     waitFor(() => {
       expect(result).toStrictEqual(ititParams);
     });
