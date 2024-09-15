@@ -34,7 +34,7 @@ const decodingFromBase64Rest = (method: string, slug: string[], query: { [key: s
       : { type: 'string', value: '' };
 
   const requestParams: IDecodingParams = {
-    method: (method && ['GET', 'POST', 'PUT', 'DELETE'].includes(method) && method) || '',
+    method: (method && ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'].includes(method) && method) || '',
     endpoint: decodeBase64(endpoint),
     body: body,
     headers: Object.fromEntries(headers),
