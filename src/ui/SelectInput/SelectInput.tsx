@@ -23,7 +23,7 @@ function SelectInput(props: {
       onClose={() => {
         encryptRest(props.getValues());
       }}
-      className="w-[105px] text-center"
+      className="w-[115px] text-center"
       isInvalid={Boolean(props.errors.method)}
       errorMessage={props.errors.method?.message}
     >
