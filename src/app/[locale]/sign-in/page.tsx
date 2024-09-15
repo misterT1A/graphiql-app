@@ -46,7 +46,7 @@ const SignIn = (): ReactElement => {
   return (
     <div className="flex justify-center">
       <form onSubmit={handleSubmit(onSubmit)} className="w-80 p-4 flex flex-col" noValidate>
-        <h1 className="text-lg">{t('signInForm.heading')}</h1>
+        <h1 className="m-4 text-lg text-center">{t('signInForm.heading')}</h1>
         <Input
           className="h-24"
           type="email"

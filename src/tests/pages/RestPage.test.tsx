@@ -1,9 +1,10 @@
 import { render, screen } from '@testing-library/react';
+import { notFound } from 'next/navigation';
 import type { ReactElement } from 'react';
 
 import Page from '@/app/[locale]/[method]/[[...slug]]/page';
 
-jest.mock('../../components/RestFullClient/RestFullClient.tsx', () => {
+jest.mock('@/components/RestFullClient/RestFullClient', () => {
   const RestClient = (props: { initParams?: undefined | { method: string } }): ReactElement => (
     <>
       <h1>RestFull client</h1>
@@ -13,16 +14,20 @@ jest.mock('../../components/RestFullClient/RestFullClient.tsx', () => {
   return RestClient;
 });
 
+jest.mock('next/navigation', () => ({
+  notFound: jest.fn(),
+}));
+
 describe('Rest page', () => {
   it('Should render page', () => {
-    render(<Page params={{ slug: ['GET'] }} searchParams={{ Test: 'test' }} />);
+    render(<Page params={{ method: 'GET' }} searchParams={{ Test: 'test' }} />);
 
     expect(screen.getByText('RestFull client')).toBeInTheDocument();
   });
 
-  it('Should render page without init params', () => {
-    render(<Page params={{}} searchParams={{}} />);
+  it('Should redirect to not found page if method is invalid', () => {
+    render(<Page params={{ method: 'INVALID' }} searchParams={{}} />);
 
-    expect(screen.getByText('emtpty init params')).toBeInTheDocument();
+    expect(notFound).toHaveBeenCalled();
   });
 });

@@ -1,4 +1,10 @@
+import { notFound } from 'next/navigation';
+
 import { decodingFromBase64Graph, decodingFromBase64Rest } from '@/utils/decodingFromBase64';
+
+jest.mock('next/navigation', () => ({
+  notFound: jest.fn(),
+}));
 
 describe('DecodingFromBase64', () => {
   const bodyText = 'dGV4dF9ib2R5';
@@ -35,14 +41,9 @@ describe('DecodingFromBase64', () => {
   });
   it('Should return correct params with error text body, method, endpoint', () => {
     const initSlug = [errorEndpoint, errorBodyText];
-    const result = decodingFromBase64Rest(errorMethod, initSlug, initQueryParams);
-    expect(result).toStrictEqual({
-      method: '',
-      endpoint: '',
-      body: { type: 'string', value: '' },
-      headers: { TestHeader: 'testValue' },
-      variables: {},
-    });
+    decodingFromBase64Rest(errorMethod, initSlug, initQueryParams);
+
+    expect(notFound).toHaveBeenCalled();
   });
 
   it('Should return correct params with text body, method, endpoint for graph', () => {

@@ -1,9 +1,4 @@
 {
-  "Header": {
-    "menuItems": {
-      "home": "Главная"
-    }
-  },
   "Home": {
     "welcome": "Добро пожаловать!",
     "welcomeUsername": "С возвращением, {username}!",
@@ -27,13 +22,17 @@
     "buttons": {
       "signUp": "Регистрация",
       "signIn": "Войти",
-      "restFullClient": "RestFull-клиент",
-      "graphiQlClient": "GraphiQL-клиент",
+      "restFullClient": "Rest Клиент",
+      "graphiQlClient": "GraphiQL Клиент",
       "history": "История"
     }
   },
   "NotFound": {
     "message": "Запрошенная страница не найдена."
+  },
+  "Error": {
+    "message": "Что-то пошло не так!",
+    "button": "На главную страницу"
   },
   "Auth": {
     "signUpForm": {
@@ -208,7 +207,7 @@
     }
   },
   "RestClient": {
-    "Title": "RestFull клиент",
+    "Title": "Rest клиент",
     "ResponseTitle": "Ответ"
   },
   "GraphClient": {

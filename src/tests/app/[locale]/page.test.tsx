@@ -39,15 +39,14 @@ describe('Home', () => {
 
     const welcome = screen.getByText(/welcome back/i);
     const username = screen.getByText(new RegExp(user.displayName!));
-    const restfullLink = screen.getByRole('link', { name: /restfull/i });
+    const restfullLink = screen.getByRole('link', { name: /rest/i });
     const graphiqlLink = screen.getByRole('link', { name: /graphiql/i });
     const historyLink = screen.getByRole('link', { name: /history/i });
 
     expect(welcome).toBeInTheDocument();
     expect(username).toBeInTheDocument();
-    expect(restfullLink).toHaveAttribute('href', '/restfull-client');
-    expect(graphiqlLink).toHaveAttribute('href', '/graphiql-client');
+    expect(restfullLink).toHaveAttribute('href', '/GET');
+    expect(graphiqlLink).toHaveAttribute('href', '/GRAPHQL');
     expect(historyLink).toHaveAttribute('href', '/history');
   });
 });
-

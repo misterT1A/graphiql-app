@@ -1,5 +1,6 @@
 import type { IEncryptParams } from '@/types/restFullTypes';
 import { buildURLRest, convertToBase64, encryptHeadersToBase64 } from '@/utils/encryptHelpers';
+import { replaceVariablesGraph } from '@/utils/replaceVariables';
 
 describe('Utility functions', () => {
   describe('convertToBase64', () => {
@@ -43,5 +44,20 @@ describe('Utility functions', () => {
       const result = buildURLRest(params, true);
       expect(result).toBe('https://api.example.com/POST/dGVzdC1lbmRwb2ludA/dGV4dF9zb21lIHRleHQ');
     });
+  });
+});
+
+describe('replaceVariablesGraph', () => {
+  it('Should return correct params', () => {
+    const initParams = {
+      endpoint: 'test',
+      sdl: 'test',
+      headers: [],
+      variables: [{ key: 'test', value: 'testvalue' }],
+      query: "{$test: '1'}",
+    };
+
+    const result = replaceVariablesGraph(initParams);
+    expect(result).toStrictEqual({ ...initParams, query: "{testvalue: '1'}" });
   });
 });

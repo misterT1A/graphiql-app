@@ -1,9 +1,4 @@
 {
-  "Header": {
-    "menuItems": {
-      "home": "Home"
-    }
-  },
   "Home": {
     "welcome": "Welcome!",
     "welcomeUsername": "Welcome Back, {username}!",
@@ -27,13 +22,17 @@
     "buttons": {
       "signUp": "Sign Up",
       "signIn": "Sign In",
-      "restFullClient": "RestFull client",
-      "graphiQlClient": "GraphiQL client",
+      "restFullClient": "Rest Client",
+      "graphiQlClient": "GraphiQL Client",
       "history": "History"
     }
   },
   "NotFound": {
     "message": "The page you were looking for doesn't exist."
+  },
+  "Error": {
+    "message": "Something went wrong!",
+    "button": "To main page"
   },
   "Auth": {
     "signUpForm": {
@@ -208,7 +207,7 @@
     }
   },
   "RestClient": {
-    "Title": "RestFull client",
+    "Title": "Rest client",
     "ResponseTitle": "Response"
   },
   "GraphClient": {
