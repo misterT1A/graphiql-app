@@ -43,7 +43,7 @@ function FormGraph(props: {
     resolver: zodResolver(GraphSchema(t)),
     defaultValues: {
       endpoint: props.inputData?.endpoint || '',
-      sdl: props.inputData?.sdl || '',
+      sdl: props.inputData?.sdl || (props.inputData?.endpoint && `${props.inputData?.endpoint}?sdl`) || '',
       headers: InputsObjectToArray(props.inputData, 'headers'),
       variables: InputsObjectToArray(props.inputData, 'variables'),
     },
@@ -76,9 +76,11 @@ function FormGraph(props: {
   return (
     <div className="flex flex-col items-center py-10 px-2 gap-2 md:p-10">
       <form
-        onChange={() => {
+        onChange={(event) => {
+          const element = event.target as HTMLInputElement;
+
           encryptGraph(getValues());
-          setValue('sdl', `${getValues('endpoint')}?sdl`);
+          if (element.name === 'endpoint') setValue('sdl', `${element.value}?sdl`);
         }}
         onSubmit={handleSubmit(submit)}
         className="flex flex-col items-center gap-5 w-full sm:w-[70%]"
