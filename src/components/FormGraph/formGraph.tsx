@@ -42,8 +42,8 @@ function FormGraph(props: {
     mode: 'onChange',
     resolver: zodResolver(GraphSchema(t)),
     defaultValues: {
-      endpoint: props.inputData?.endpoint,
-      sdl: props.inputData?.sdl,
+      endpoint: props.inputData?.endpoint || '',
+      sdl: props.inputData?.sdl || '',
       headers: InputsObjectToArray(props.inputData, 'headers'),
       variables: InputsObjectToArray(props.inputData, 'variables'),
     },
@@ -133,6 +133,7 @@ function FormGraph(props: {
               errors={errors}
               control={control}
               name="headers"
+              encrypt={encryptGraph}
             />
           </Tab>
           <Tab
