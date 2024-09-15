@@ -2,6 +2,7 @@ import type { NextResponse, NextRequest } from 'next/server';
 import { authMiddleware, redirectToHome } from 'next-firebase-auth-edge';
 import createMiddleware from 'next-intl/middleware';
 
+import { AUTH_COOKIE_NAME } from './constants/constants';
 import { defaultLocale, locales } from './i18n';
 
 const privatePages = ['/GET.*', '/POST.*', '/PATCH.*', '/DELETE.*', '/PUT.*', '/GRAPHQL.*', '/history'];
@@ -37,7 +38,7 @@ export default async function middleware(request: NextRequest): Promise<NextResp
       clientEmail: process.env.SERVICE_ACCOUNT_CLIENT_EMAIL || '',
       privateKey: (process.env.SERVICE_ACCOUNT_PRIVATE_KEY || '').replace(/\\n/g, '\n'),
     },
-    cookieName: process.env.COOKIE_NAME || 'AuthToken',
+    cookieName: AUTH_COOKIE_NAME,
     handleValidToken: async () => {
       if (isPagesMatch(request.nextUrl.pathname, redirectPages)) {
         return redirectToHome(request);

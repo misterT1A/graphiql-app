@@ -6,3 +6,5 @@ export const TEXT_CONTENT = {
 export const EMPTY_ARRAY_INPUT = { key: '', value: '' };
 
 export const LSHistoryName = 'history_requests';
+
+export const AUTH_COOKIE_NAME = 'AuthToken';
