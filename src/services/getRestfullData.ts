@@ -7,8 +7,9 @@ const getRestfullData = async (requestParams: IRequestParams): Promise<Response 
   await redirectIfNotAuthenticated();
 
   const payloadObj = { method: requestParams.method, headers: requestParams.headers };
-  if (requestParams.method !== 'GET') Object.assign(payloadObj, { body: requestParams.body });
-
+  if (requestParams.method !== 'GET' && requestParams.method !== 'HEAD') {
+    Object.assign(payloadObj, { body: requestParams.body });
+  }
   try {
     const response = await fetch(requestParams.endpoint, payloadObj);
 
@@ -20,6 +21,15 @@ const getRestfullData = async (requestParams: IRequestParams): Promise<Response 
         headers: response.headers,
       };
       return errorObj;
+    }
+    if (requestParams.method === 'HEAD' || requestParams.method === 'OPTIONS') {
+      const headersObj: { [key: string]: string } = {
+        status: String(response.status),
+      };
+      response.headers.forEach((value, key) => {
+        headersObj[key] = value;
+      });
+      return headersObj;
     }
 
     const responseObj = {
