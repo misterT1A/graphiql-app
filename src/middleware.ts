@@ -5,7 +5,17 @@ import createMiddleware from 'next-intl/middleware';
 import { AUTH_COOKIE_NAME } from './constants/constants';
 import { defaultLocale, locales } from './i18n';
 
-const privatePages = ['/GET.*', '/POST.*', '/PATCH.*', '/DELETE.*', '/PUT.*', '/GRAPHQL.*', '/history'];
+const privatePages = [
+  '/GET.*',
+  '/POST.*',
+  '/PATCH.*',
+  '/DELETE.*',
+  '/PUT.*',
+  '/GRAPHQL.*',
+  '/HEAD.*',
+  '/OPTIONS.*',
+  '/history',
+];
 const redirectPages = ['/sign-up', '/sign-in'];
 
 const intlMiddleware = createMiddleware({
