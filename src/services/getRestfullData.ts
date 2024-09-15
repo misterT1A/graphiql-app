@@ -7,7 +7,7 @@ const getRestfullData = async (requestParams: IRequestParams): Promise<Response 
   await redirectIfNotAuthenticated();
 
   const payloadObj = { method: requestParams.method, headers: requestParams.headers };
-  if (requestParams.method !== 'GET' && requestParams.method !== 'HEAD') {
+  if (requestParams.method !== 'GET' && requestParams.method !== 'HEAD' && requestParams.method !== 'OPTIONS') {
     Object.assign(payloadObj, { body: requestParams.body });
   }
   try {
